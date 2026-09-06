@@ -1,0 +1,15 @@
+{
+  "constellation": "starlink_phase_2a",
+  "reward": "sigmoid",
+  "mode": "qmix",
+  "episodes": 2800,
+  "train_ues": 48,
+  "horizon": 420,
+  "n_max": 27,
+  "eps_anneal": 1700,
+  "learn_every": 3,
+  "batch": 12,
+  "seed": 0,
+  "out": "runs/su_ilcho_sigmoid",
+  "device": "cpu"
+}

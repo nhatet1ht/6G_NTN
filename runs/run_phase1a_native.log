@@ -1,0 +1,74 @@
+### waiting for v3 trainings to finish (frees CPU) ...
+### training ILCHO on Phase 1-a -- Fri, Sep  4, 2026  7:59:25 PM
+E:\learning\NTN-6G\ilcho_repro\src\ilcho\train.py:114: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return    48.30 | HO   4.25 | HOF  5.56 | SE  1.98 | loss nan |      1s
+ep    50 | eps 0.85 | return    52.32 | HO   3.90 | HOF  5.84 | SE  2.01 | loss 0.0997 |     84s
+ep   100 | eps 0.80 | return    53.39 | HO   3.88 | HOF  5.55 | SE  2.01 | loss 0.0532 |    217s
+ep   150 | eps 0.75 | return    54.21 | HO   3.83 | HOF  5.41 | SE  2.01 | loss 0.0451 |    347s
+ep   200 | eps 0.70 | return    54.57 | HO   3.82 | HOF  5.21 | SE  2.01 | loss 0.0405 |    478s
+ep   250 | eps 0.65 | return    55.95 | HO   3.89 | HOF  5.09 | SE  2.01 | loss 0.0345 |    608s
+ep   300 | eps 0.60 | return    57.15 | HO   3.85 | HOF  4.67 | SE  2.01 | loss 0.0298 |    737s
+ep   350 | eps 0.55 | return    57.85 | HO   3.99 | HOF  4.41 | SE  2.01 | loss 0.0268 |    865s
+ep   400 | eps 0.50 | return    59.83 | HO   4.04 | HOF  3.96 | SE  2.02 | loss 0.0250 |    998s
+ep   450 | eps 0.45 | return    60.48 | HO   4.04 | HOF  3.71 | SE  2.01 | loss 0.0235 |   1128s
+ep   500 | eps 0.40 | return    62.78 | HO   4.01 | HOF  3.31 | SE  2.02 | loss 0.0223 |   1260s
+ep   550 | eps 0.35 | return    63.26 | HO   4.08 | HOF  2.90 | SE  2.01 | loss 0.0213 |   1391s
+ep   600 | eps 0.30 | return    64.63 | HO   4.13 | HOF  2.60 | SE  2.01 | loss 0.0203 |   1523s
+ep   650 | eps 0.25 | return    65.44 | HO   4.06 | HOF  2.15 | SE  2.01 | loss 0.0196 |   1654s
+ep   700 | eps 0.20 | return    65.85 | HO   4.12 | HOF  1.65 | SE  2.00 | loss 0.0188 |   1789s
+ep   750 | eps 0.15 | return    65.24 | HO   4.18 | HOF  1.22 | SE  1.99 | loss 0.0180 |   1923s
+ep   800 | eps 0.10 | return    65.25 | HO   4.17 | HOF  0.87 | SE  1.98 | loss 0.0172 |   2056s
+ep   850 | eps 0.10 | return    64.16 | HO   4.21 | HOF  0.59 | SE  1.97 | loss 0.0169 |   2189s
+ep   900 | eps 0.10 | return    64.35 | HO   4.08 | HOF  0.57 | SE  1.97 | loss 0.0160 |   2323s
+ep   950 | eps 0.10 | return    66.08 | HO   4.01 | HOF  0.49 | SE  1.98 | loss 0.0157 |   2456s
+ep  1000 | eps 0.10 | return    66.40 | HO   3.91 | HOF  0.53 | SE  1.98 | loss 0.0151 |   2591s
+ep  1050 | eps 0.10 | return    64.83 | HO   3.98 | HOF  0.50 | SE  1.97 | loss 0.0146 |   2727s
+ep  1100 | eps 0.10 | return    67.40 | HO   3.99 | HOF  0.54 | SE  1.98 | loss 0.0145 |   2863s
+ep  1150 | eps 0.10 | return    67.54 | HO   3.84 | HOF  0.53 | SE  1.99 | loss 0.0139 |   2998s
+ep  1200 | eps 0.10 | return    67.50 | HO   3.92 | HOF  0.48 | SE  1.98 | loss 0.0134 |   3135s
+ep  1250 | eps 0.10 | return    66.83 | HO   3.88 | HOF  0.54 | SE  1.98 | loss 0.0133 |   3271s
+ep  1300 | eps 0.10 | return    66.89 | HO   3.88 | HOF  0.52 | SE  1.98 | loss 0.0130 |   3409s
+ep  1350 | eps 0.10 | return    67.49 | HO   3.85 | HOF  0.50 | SE  1.98 | loss 0.0132 |   3548s
+ep  1400 | eps 0.10 | return    66.97 | HO   3.90 | HOF  0.54 | SE  1.98 | loss 0.0129 |   3690s
+ep  1450 | eps 0.10 | return    68.73 | HO   3.84 | HOF  0.52 | SE  1.99 | loss 0.0124 |   3833s
+ep  1500 | eps 0.10 | return    69.55 | HO   3.84 | HOF  0.53 | SE  2.00 | loss 0.0122 |   3979s
+saved -> runs/ilcho_sigmoid_v3_p1a  (3980s)
+methods: ['ILCHO', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      starlink_phase_1a  UE=  5 | ho   6.556 | hof   0.022 | se   1.851 | jfi   0.997 | occ_var   0.016
+ILCHO      starlink_phase_1a  UE= 10 | ho   7.133 | hof   0.000 | se   1.876 | jfi   0.998 | occ_var   0.036
+ILCHO      starlink_phase_1a  UE= 20 | ho   7.494 | hof   0.122 | se   1.874 | jfi   0.997 | occ_var   0.094
+ILCHO      starlink_phase_1a  UE= 30 | ho   5.956 | hof   5.007 | se   1.856 | jfi   0.996 | occ_var   0.165
+ILCHO      starlink_phase_1a  UE= 50 | ho   0.338 | hof  74.816 | se   1.306 | jfi   0.993 | occ_var   0.203
+ILCHO      starlink_phase_1a  UE= 75 | ho   0.009 | hof 121.476 | se   1.038 | jfi   0.959 | occ_var   0.112
+ILCHO      starlink_phase_1a  UE=100 | ho   0.010 | hof 205.249 | se   0.839 | jfi   0.880 | occ_var   0.072
+MD-CHO     starlink_phase_1a  UE=  5 | ho  11.022 | hof   0.044 | se   2.219 | jfi   0.999 | occ_var   0.028
+MD-CHO     starlink_phase_1a  UE= 10 | ho   9.700 | hof  14.589 | se   2.071 | jfi   0.993 | occ_var   0.081
+MD-CHO     starlink_phase_1a  UE= 20 | ho   4.828 | hof  52.472 | se   1.673 | jfi   0.984 | occ_var   0.143
+MD-CHO     starlink_phase_1a  UE= 30 | ho   1.356 | hof  73.696 | se   1.429 | jfi   0.974 | occ_var   0.179
+MD-CHO     starlink_phase_1a  UE= 50 | ho   0.000 | hof  91.600 | se   1.217 | jfi   0.992 | occ_var   0.203
+MD-CHO     starlink_phase_1a  UE= 75 | ho   0.000 | hof 126.092 | se   1.024 | jfi   0.960 | occ_var   0.110
+MD-CHO     starlink_phase_1a  UE=100 | ho   0.000 | hof 207.411 | se   0.830 | jfi   0.867 | occ_var   0.066
+MVT-CHO    starlink_phase_1a  UE=  5 | ho   5.200 | hof   0.089 | se   1.970 | jfi   0.999 | occ_var   0.026
+MVT-CHO    starlink_phase_1a  UE= 10 | ho   4.867 | hof   2.533 | se   1.952 | jfi   0.998 | occ_var   0.072
+MVT-CHO    starlink_phase_1a  UE= 20 | ho   3.606 | hof  10.856 | se   1.863 | jfi   0.997 | occ_var   0.130
+MVT-CHO    starlink_phase_1a  UE= 30 | ho   2.811 | hof  18.052 | se   1.747 | jfi   0.995 | occ_var   0.177
+MVT-CHO    starlink_phase_1a  UE= 50 | ho   1.720 | hof  31.133 | se   1.541 | jfi   0.991 | occ_var   0.198
+MVT-CHO    starlink_phase_1a  UE= 75 | ho   1.173 | hof  71.856 | se   1.286 | jfi   0.965 | occ_var   0.110
+MVT-CHO    starlink_phase_1a  UE=100 | ho   0.961 | hof 163.631 | se   1.038 | jfi   0.877 | occ_var   0.072
+HSNF       starlink_phase_1a  UE=  5 | ho  11.044 | hof   0.000 | se   2.214 | jfi   0.999 | occ_var   0.031
+HSNF       starlink_phase_1a  UE= 10 | ho   9.544 | hof   0.011 | se   2.205 | jfi   0.999 | occ_var   0.079
+HSNF       starlink_phase_1a  UE= 20 | ho   7.256 | hof   0.022 | se   2.053 | jfi   0.998 | occ_var   0.141
+HSNF       starlink_phase_1a  UE= 30 | ho   7.141 | hof   0.011 | se   1.934 | jfi   0.997 | occ_var   0.176
+HSNF       starlink_phase_1a  UE= 50 | ho   5.429 | hof   0.093 | se   1.730 | jfi   0.995 | occ_var   0.193
+HSNF       starlink_phase_1a  UE= 75 | ho   2.493 | hof  30.830 | se   1.457 | jfi   0.981 | occ_var   0.110
+HSNF       starlink_phase_1a  UE=100 | ho   1.554 | hof 128.013 | se   1.173 | jfi   0.900 | occ_var   0.071
+LBSH       starlink_phase_1a  UE=  5 | ho   5.644 | hof   0.133 | se   1.630 | jfi   0.998 | occ_var   0.015
+LBSH       starlink_phase_1a  UE= 10 | ho   5.433 | hof   0.100 | se   1.600 | jfi   0.997 | occ_var   0.035
+LBSH       starlink_phase_1a  UE= 20 | ho   5.200 | hof   0.272 | se   1.594 | jfi   0.995 | occ_var   0.077
+LBSH       starlink_phase_1a  UE= 30 | ho   5.093 | hof   0.704 | se   1.614 | jfi   0.996 | occ_var   0.117
+LBSH       starlink_phase_1a  UE= 50 | ho   4.238 | hof   1.420 | se   1.605 | jfi   0.996 | occ_var   0.143
+LBSH       starlink_phase_1a  UE= 75 | ho   3.203 | hof  31.181 | se   1.453 | jfi   0.982 | occ_var   0.106
+LBSH       starlink_phase_1a  UE=100 | ho   3.268 | hof 129.520 | se   1.179 | jfi   0.900 | occ_var   0.074
+wrote report_assets/TABLES.md and figures
+### PHASE-1A NATIVE DONE -- Fri, Sep  4, 2026  9:31:14 PM

@@ -1,0 +1,40 @@
+### waiting for ilcho_sigmoid_v3 + ilcho_linear_v3 policies ...
+### both ready -- Fri, Sep  4, 2026  7:59:09 PM
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF']
+ILCHO      starlink_phase_2a  UE=  5 | ho  11.089 | hof   0.000 | se   3.116 | jfi   0.998 | occ_var   0.009
+ILCHO      starlink_phase_2a  UE= 10 | ho  12.533 | hof   0.000 | se   3.110 | jfi   0.997 | occ_var   0.028
+ILCHO      starlink_phase_2a  UE= 20 | ho  12.111 | hof   0.900 | se   3.050 | jfi   0.998 | occ_var   0.072
+ILCHO      starlink_phase_2a  UE= 30 | ho  10.407 | hof   2.856 | se   2.991 | jfi   0.998 | occ_var   0.118
+ILCHO      starlink_phase_2a  UE= 50 | ho   9.571 | hof  11.436 | se   2.707 | jfi   0.994 | occ_var   0.162
+ILCHO      starlink_phase_2a  UE= 75 | ho   5.699 | hof  30.415 | se   2.404 | jfi   0.984 | occ_var   0.167
+ILCHO      starlink_phase_2a  UE=100 | ho   2.696 | hof  47.449 | se   2.184 | jfi   0.981 | occ_var   0.143
+ILCHO-lin  starlink_phase_2a  UE=  5 | ho   9.200 | hof   0.022 | se   2.750 | jfi   0.995 | occ_var   0.007
+ILCHO-lin  starlink_phase_2a  UE= 10 | ho   8.400 | hof   0.056 | se   2.678 | jfi   0.996 | occ_var   0.017
+ILCHO-lin  starlink_phase_2a  UE= 20 | ho   7.861 | hof   0.056 | se   2.653 | jfi   0.996 | occ_var   0.039
+ILCHO-lin  starlink_phase_2a  UE= 30 | ho   7.704 | hof   0.270 | se   2.649 | jfi   0.996 | occ_var   0.062
+ILCHO-lin  starlink_phase_2a  UE= 50 | ho   7.891 | hof   0.662 | se   2.637 | jfi   0.996 | occ_var   0.116
+ILCHO-lin  starlink_phase_2a  UE= 75 | ho   6.707 | hof   3.727 | se   2.591 | jfi   0.995 | occ_var   0.162
+ILCHO-lin  starlink_phase_2a  UE=100 | ho   4.164 | hof   9.650 | se   2.466 | jfi   0.992 | occ_var   0.143
+MD-CHO     starlink_phase_2a  UE=  5 | ho  15.978 | hof   0.000 | se   3.467 | jfi   0.999 | occ_var   0.017
+MD-CHO     starlink_phase_2a  UE= 10 | ho  14.889 | hof   6.956 | se   3.357 | jfi   0.995 | occ_var   0.051
+MD-CHO     starlink_phase_2a  UE= 20 | ho  12.011 | hof  32.900 | se   2.936 | jfi   0.976 | occ_var   0.094
+MD-CHO     starlink_phase_2a  UE= 30 | ho   8.348 | hof  54.515 | se   2.577 | jfi   0.966 | occ_var   0.139
+MD-CHO     starlink_phase_2a  UE= 50 | ho   1.049 | hof  76.740 | se   2.208 | jfi   0.974 | occ_var   0.189
+MD-CHO     starlink_phase_2a  UE= 75 | ho   0.019 | hof  92.619 | se   1.933 | jfi   0.971 | occ_var   0.205
+MD-CHO     starlink_phase_2a  UE=100 | ho   0.000 | hof 100.297 | se   1.777 | jfi   0.975 | occ_var   0.149
+MVT-CHO    starlink_phase_2a  UE=  5 | ho   7.000 | hof   0.022 | se   3.040 | jfi   0.998 | occ_var   0.014
+MVT-CHO    starlink_phase_2a  UE= 10 | ho   6.867 | hof   0.378 | se   3.058 | jfi   0.997 | occ_var   0.030
+MVT-CHO    starlink_phase_2a  UE= 20 | ho   6.328 | hof   4.322 | se   2.977 | jfi   0.997 | occ_var   0.077
+MVT-CHO    starlink_phase_2a  UE= 30 | ho   5.830 | hof   6.489 | se   2.936 | jfi   0.997 | occ_var   0.114
+MVT-CHO    starlink_phase_2a  UE= 50 | ho   4.520 | hof  12.753 | se   2.781 | jfi   0.997 | occ_var   0.182
+MVT-CHO    starlink_phase_2a  UE= 75 | ho   3.299 | hof  22.081 | se   2.545 | jfi   0.992 | occ_var   0.195
+MVT-CHO    starlink_phase_2a  UE=100 | ho   2.391 | hof  30.211 | se   2.361 | jfi   0.980 | occ_var   0.148
+HSNF       starlink_phase_2a  UE=  5 | ho  15.644 | hof   0.000 | se   3.443 | jfi   0.999 | occ_var   0.017
+HSNF       starlink_phase_2a  UE= 10 | ho  15.511 | hof   0.056 | se   3.430 | jfi   0.999 | occ_var   0.047
+HSNF       starlink_phase_2a  UE= 20 | ho  12.817 | hof   0.017 | se   3.334 | jfi   0.998 | occ_var   0.095
+HSNF       starlink_phase_2a  UE= 30 | ho  12.270 | hof   0.004 | se   3.231 | jfi   0.998 | occ_var   0.136
+HSNF       starlink_phase_2a  UE= 50 | ho  10.651 | hof   0.016 | se   2.997 | jfi   0.996 | occ_var   0.185
+HSNF       starlink_phase_2a  UE= 75 | ho   9.461 | hof   0.083 | se   2.772 | jfi   0.993 | occ_var   0.182
+HSNF       starlink_phase_2a  UE=100 | ho   5.553 | hof   3.397 | se   2.557 | jfi   0.992 | occ_var   0.143
+wrote report_assets/TABLES.md and figures
+### ABLATION DONE -- Fri, Sep  4, 2026  9:27:33 PM

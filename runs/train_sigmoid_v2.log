@@ -1,0 +1,28 @@
+E:\learning\NTN-6G\ilcho_repro\src\ilcho\train.py:113: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return   101.72 | HO   6.83 | HOF  1.42 | SE  3.30 | loss nan |      2s
+ep    50 | eps 0.83 | return   103.39 | HO   7.08 | HOF  0.89 | SE  3.30 | loss 0.1047 |    126s
+ep   100 | eps 0.75 | return   102.91 | HO   7.08 | HOF  0.87 | SE  3.29 | loss 0.0387 |    257s
+ep   150 | eps 0.68 | return   101.89 | HO   7.03 | HOF  0.75 | SE  3.28 | loss 0.0287 |    396s
+ep   200 | eps 0.61 | return   101.39 | HO   7.07 | HOF  0.63 | SE  3.27 | loss 0.0235 |    527s
+ep   250 | eps 0.54 | return   100.50 | HO   6.91 | HOF  0.51 | SE  3.26 | loss 0.0203 |    657s
+ep   300 | eps 0.46 | return    98.36 | HO   6.87 | HOF  0.42 | SE  3.25 | loss 0.0179 |    788s
+ep   350 | eps 0.39 | return    93.09 | HO   6.86 | HOF  0.29 | SE  3.21 | loss 0.0163 |    921s
+ep   400 | eps 0.32 | return    88.21 | HO   6.80 | HOF  0.21 | SE  3.17 | loss 0.0148 |   1079s
+ep   450 | eps 0.25 | return    83.86 | HO   6.71 | HOF  0.14 | SE  3.14 | loss 0.0137 |   1216s
+ep   500 | eps 0.17 | return    75.13 | HO   6.51 | HOF  0.09 | SE  3.08 | loss 0.0126 |   1353s
+ep   550 | eps 0.10 | return    64.85 | HO   6.41 | HOF  0.05 | SE  3.02 | loss 0.0116 |   1494s
+ep   600 | eps 0.10 | return    61.67 | HO   6.34 | HOF  0.05 | SE  3.00 | loss 0.0111 |   1628s
+ep   650 | eps 0.10 | return    61.74 | HO   6.22 | HOF  0.06 | SE  3.00 | loss 0.0106 |   1760s
+ep   700 | eps 0.10 | return    58.64 | HO   6.20 | HOF  0.07 | SE  2.98 | loss 0.0101 |   1885s
+ep   750 | eps 0.10 | return    59.30 | HO   6.17 | HOF  0.06 | SE  2.99 | loss 0.0098 |   2010s
+ep   800 | eps 0.10 | return    60.83 | HO   6.07 | HOF  0.05 | SE  2.99 | loss 0.0093 |   2134s
+ep   850 | eps 0.10 | return    60.35 | HO   5.98 | HOF  0.07 | SE  2.99 | loss 0.0091 |   2259s
+ep   900 | eps 0.10 | return    58.19 | HO   6.04 | HOF  0.06 | SE  2.98 | loss 0.0088 |   2383s
+ep   950 | eps 0.10 | return    58.06 | HO   5.96 | HOF  0.05 | SE  2.98 | loss 0.0088 |   2507s
+ep  1000 | eps 0.10 | return    59.02 | HO   6.11 | HOF  0.06 | SE  2.99 | loss 0.0085 |   2633s
+ep  1050 | eps 0.10 | return    57.03 | HO   5.97 | HOF  0.05 | SE  2.97 | loss 0.0082 |   2757s
+ep  1100 | eps 0.10 | return    57.96 | HO   5.97 | HOF  0.04 | SE  2.98 | loss 0.0082 |   2882s
+ep  1150 | eps 0.10 | return    52.45 | HO   6.03 | HOF  0.07 | SE  2.95 | loss 0.0080 |   3007s
+ep  1200 | eps 0.10 | return    55.51 | HO   5.99 | HOF  0.06 | SE  2.97 | loss 0.0079 |   3132s
+saved -> runs/ilcho_sigmoid_v2  (3133s)

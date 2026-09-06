@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ILCHO — Nhật ký tái hiện & lý giải thiết kế</title>
+<style>
+  :root{
+    --bg:#fbfbfa; --fg:#1c1d1f; --muted:#5b5f66; --line:#e2e2df;
+    --accent:#2456a6; --accent2:#0a7d5a; --warn:#9a5b00; --code-bg:#f4f4f1;
+    --paper:#eef4fb; --assume:#fdf3e3; --derive:#e9f6ef; --scale:#fdeeee;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--fg);
+    font:16px/1.65 -apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+    -webkit-font-smoothing:antialiased}
+  .wrap{max-width:960px;margin:0 auto;padding:0 24px 120px}
+  header{padding:56px 0 28px;border-bottom:2px solid var(--fg)}
+  h1{font-size:30px;line-height:1.25;margin:0 0 10px}
+  header .sub{color:var(--muted);font-size:15px}
+  h2{font-size:23px;margin:52px 0 14px;padding-top:12px;border-top:1px solid var(--line)}
+  h3{font-size:18px;margin:30px 0 10px}
+  h4{font-size:15px;margin:20px 0 6px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+  p,li{color:var(--fg)}
+  code{background:var(--code-bg);padding:1px 5px;border-radius:4px;
+    font:13.5px/1.5 "SF Mono",ui-monospace,"Cascadia Code",Consolas,monospace}
+  pre{background:var(--code-bg);border:1px solid var(--line);border-radius:8px;
+    padding:14px 16px;overflow-x:auto;font:13px/1.55 "SF Mono",ui-monospace,Consolas,monospace}
+  pre code{background:none;padding:0}
+  table{border-collapse:collapse;width:100%;margin:16px 0;font-size:14px}
+  th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+  th{background:var(--code-bg);font-weight:600}
+  blockquote{margin:16px 0;padding:10px 18px;border-left:3px solid var(--accent);
+    background:#fff;color:var(--muted)}
+  .tag{display:inline-block;font-size:11px;font-weight:700;padding:2px 8px;border-radius:10px;
+    letter-spacing:.03em;vertical-align:middle}
+  .t-paper{background:var(--paper);color:var(--accent)}
+  .t-derive{background:var(--derive);color:var(--accent2)}
+  .t-assume{background:var(--assume);color:var(--warn)}
+  .t-scale{background:var(--scale);color:#b3261e}
+  .callout{border:1px solid var(--line);border-left:4px solid var(--warn);
+    background:#fffdf8;border-radius:6px;padding:12px 16px;margin:18px 0}
+  .callout.ok{border-left-color:var(--accent2);background:#f6fbf8}
+  .callout.info{border-left-color:var(--accent);background:#f7faff}
+  nav.toc{background:#fff;border:1px solid var(--line);border-radius:8px;padding:16px 20px;margin:26px 0}
+  nav.toc ol{margin:8px 0 0;padding-left:22px}
+  nav.toc a{color:var(--accent);text-decoration:none}
+  nav.toc a:hover{text-decoration:underline}
+  figure{margin:22px 0;text-align:center}
+  figcaption{font-size:13px;color:var(--muted);margin-top:8px}
+  svg{max-width:100%;height:auto}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.grid2{grid-template-columns:1fr}}
+  .small{font-size:13.5px;color:var(--muted)}
+  hr{border:none;border-top:1px solid var(--line);margin:34px 0}
+  .legend span{margin-right:14px;white-space:nowrap}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>ILCHO — Nhật ký tái hiện &amp; lý giải thiết kế</h1>
+  <div class="sub">
+    Tài liệu đồng hành với <code>REPORT.md</code>. Giải thích <strong>vì sao</strong> thử nghiệm
+    được thiết kế như vậy và <strong>vì sao</strong> code được dựng như hiện tại — chi tiết theo
+    từng module.<br>
+    Bài báo gốc: M. Choi, M. Park, J. Kim, J.-M. Chung, <em>“Intelligent Handover Scheme for
+    Improved 6G NTN LEO Satellite Network Performance,”</em> IEEE Trans. Mobile Computing,
+    vol. 25, no. 5, May 2026, pp. 6863–6880.
+  </div>
+</header>
+
+<nav class="toc">
+  <strong>Nội dung</strong>
+  <ol>
+    <li><a href="#muctieu">Mục tiêu &amp; định nghĩa “tái hiện” ở đây</a></li>
+    <li><a href="#thuatngu">Bảng thuật ngữ — đọc ở đâu để hiểu</a></li>
+    <li><a href="#dochieu">Đọc hiểu bài báo — hệ thống ILCHO</a></li>
+    <li><a href="#triethoc">Triết lý tái hiện: 4 nhóm quyết định</a></li>
+    <li><a href="#kientruc">Kiến trúc code &amp; sơ đồ phụ thuộc</a></li>
+    <li><a href="#module">Đi sâu từng module — quyết định &amp; lý do</a></li>
+    <li><a href="#kiemthu">Chiến lược kiểm thử &amp; các mốc kiểm chứng</a></li>
+    <li><a href="#gpu">Vì sao chạy CPU, không dùng GPU</a></li>
+    <li><a href="#pipeline">Pipeline thực nghiệm &amp; ánh xạ sang hình/bảng của bài báo</a></li>
+    <li><a href="#saikhac">Sai khác đã biết &amp; đánh giá ảnh hưởng</a></li>
+    <li><a href="#chaylai">Cách chạy lại toàn bộ</a></li>
+  </ol>
+</nav>
+
+<!-- ================================================================= -->
+<h2 id="muctieu">1. Mục tiêu &amp; định nghĩa “tái hiện” ở đây</h2>
+
+<p>
+Bài báo ILCHO là một <strong>nghiên cứu mô phỏng</strong>: không có dataset, mọi con số đến từ
+(a) mô hình quỹ đạo giải tích, (b) mô hình kênh 3GPP, và (c) quá trình học tăng cường tự sinh
+dữ liệu. Vì vậy “tái hiện” ở đây nghĩa là <strong>dựng lại chính bộ mô phỏng đó</strong> rồi kiểm
+tra xem các <strong>kết luận định tính</strong> của bài báo có đứng vững không:
+</p>
+<ol>
+  <li>ILCHO giữ số handover (HO) và HO thất bại (HOF) <strong>thấp và ổn định</strong> khi số UE tăng,
+      trong khi heuristic theo khoảng cách/thời gian nhìn thấy thì <strong>xấu đi nhanh</strong>.</li>
+  <li>ILCHO đạt throughput cao, chỉ số công bằng Jain ≈ 1, và cân bằng tải tốt (phương sai
+      chiếm dụng kênh thấp).</li>
+  <li>Hàm thưởng <strong>sigmoid</strong> (Eq. 27) hội tụ ổn định; hàm thưởng <strong>tuyến tính</strong>
+      (Eq. 30) thì không, vì quan hệ throughput–RVT là phi đơn điệu.</li>
+</ol>
+
+<div class="callout">
+  <strong>Không đặt mục tiêu trùng số tuyệt đối.</strong> Bài báo huấn luyện 3.000–30.000 episode
+  với tối đa 100 agent trên GPU; bản này chạy ~1–2k episode, 12–16 agent, trên 1 CPU trong vài giờ.
+  Ngoài ra bài báo <em>không công bố</em> một số tham số then chốt (tần số sóng mang, offset
+  <code>O_off</code>, hằng số hàm thưởng <code>c1,c2,c3</code>, hệ số phasing Walker <code>F</code>).
+  Do đó ta so <strong>xu hướng</strong>, không so từng chữ số.
+</div>
+
+<!-- ================================================================= -->
+<h2 id="thuatngu">2. Bảng thuật ngữ — đọc ở đâu để hiểu</h2>
+
+<p>
+Tài liệu này và <code>REPORT.md</code> dùng lẫn thuật ngữ mạng vệ tinh (NTN), thuật ngữ
+3GPP, và thuật ngữ học tăng cường. Bảng dưới giải thích từng nhóm bằng lời thường, kèm
+<strong>nguồn gốc</strong> — nơi bạn có thể đọc sâu hơn nếu cần trích dẫn hoặc giải trình với
+giảng viên.
+</p>
+
+<h3>2.1 Thuật ngữ mạng vệ tinh &amp; 3GPP</h3>
+<table>
+  <tr><th>Thuật ngữ</th><th>Nghĩa</th><th>Nguồn để đọc thêm</th></tr>
+  <tr><td>NTN</td><td>Non-Terrestrial Network — mạng dùng vệ tinh/UAV thay vì trạm gốc mặt đất</td>
+      <td>3GPP TR 38.821</td></tr>
+  <tr><td>LEO / MEO / GEO</td><td>quỹ đạo thấp (300–2000 km) / trung (2000–35786 km) / địa tĩnh (35786 km)</td>
+      <td>TR 38.811 §5</td></tr>
+  <tr><td>UE</td><td>User Equipment — thiết bị đầu cuối người dùng</td><td>thuật ngữ 3GPP chuẩn</td></tr>
+  <tr><td>VSAT</td><td>Very Small Aperture Terminal — trạm mặt đất ăng-ten nhỏ, ở đây giả định <em>đứng yên</em></td>
+      <td>bài báo, Sec. III-B</td></tr>
+  <tr><td>Handover (HO)</td><td>chuyển giao kết nối của UE từ vệ tinh này sang vệ tinh khác</td>
+      <td>khái niệm mạng di động cơ bản (2G–5G đều có)</td></tr>
+  <tr><td>HOF (Handover Failure)</td><td>một lần chuyển giao <em>thất bại</em> (đích hết kênh / hết thời gian nhìn thấy / mất truy cập)</td>
+      <td>bài báo Sec. V-B; 3GPP TS 38.300</td></tr>
+  <tr><td>BHO (Baseline HO)</td><td>quy trình handover “cổ điển”: đo tín hiệu rồi mới quyết định (phản ứng, dễ trễ)</td>
+      <td>3GPP TS 38.300</td></tr>
+  <tr><td>CHO (Conditional HO)</td><td>quy trình mới của 3GPP Release 16: <em>chuẩn bị</em> điều kiện chuyển giao sớm,
+      tách pha “chuẩn bị” khỏi pha “thực thi” để giảm HOF</td>
+      <td>3GPP TS 38.300 (Rel-16), TR 38.821 — đây là nền của toàn bộ ILCHO</td></tr>
+  <tr><td>S-LEO / T-LEO</td><td>vệ tinh đang phục vụ (Source) / vệ tinh đích được chọn (Target)</td>
+      <td>bài báo Sec. IV-A</td></tr>
+  <tr><td>RSRP / RSSI</td><td>chỉ số cường độ tín hiệu đo được — cơ sở của handover kiểu mặt đất (bài báo chỉ ra
+      không đáng tin cho NTN vì tín hiệu vệ tinh dao động)</td><td>3GPP TS 38.331</td></tr>
+  <tr><td>Event A2 / A3</td><td>quy tắc kích hoạt đo tín hiệu để handover ở mạng mặt đất (A2: tín hiệu phục vụ tụt dưới
+      ngưỡng; A3: tín hiệu hàng xóm vượt tín hiệu đang phục vụ)</td><td>3GPP TS 38.331</td></tr>
+  <tr><td>RVT (Remaining Visible Time)</td><td>thời gian còn lại UE còn <em>nhìn thấy</em> (truy cập được) một vệ tinh cụ thể</td>
+      <td>định nghĩa riêng của bài báo, dùng trong state Eq. 26</td></tr>
+  <tr><td>Elevation angle (góc ngẩng)</td><td>góc giữa đường chân trời và đường ngắm UE→vệ tinh; UE chỉ “thấy” vệ tinh nếu góc
+      này ≥ ψ<sub>min</sub></td><td>TR 38.811 §6.6</td></tr>
+  <tr><td>Walker-Delta constellation</td><td>cách sắp xếp một chòm vệ tinh: N<sub>p</sub> mặt phẳng quỹ đạo, mỗi mặt phẳng
+      N<sub>L</sub> vệ tinh, RAAN trải đều 360°</td><td>giáo trình cơ học quỹ đạo; ký hiệu α:N/P/F chuẩn Walker</td></tr>
+  <tr><td>RAAN</td><td>Right Ascension of Ascending Node — kinh độ điểm mặt phẳng quỹ đạo cắt xích đạo, xác định
+      hướng “xoay” của mặt phẳng quỹ đạo trong không gian</td><td>giáo trình cơ học quỹ đạo (orbital mechanics)</td></tr>
+  <tr><td>Inclination (góc nghiêng)</td><td>góc giữa mặt phẳng quỹ đạo và mặt phẳng xích đạo</td>
+      <td>giáo trình cơ học quỹ đạo</td></tr>
+  <tr><td>Ephemeris</td><td>dữ liệu mô tả quỹ đạo/vị trí vệ tinh theo thời gian (ở đây: tất định, tính trước được)</td>
+      <td>TS 38.331 (tham số <code>ntn-Config</code>)</td></tr>
+  <tr><td>FSPL</td><td>Free-Space Path Loss — suy hao tín hiệu do truyền trong không gian tự do, tăng theo khoảng
+      cách và tần số</td><td>TR 38.811 Eq. 6.6.2</td></tr>
+  <tr><td>LoS / NLoS</td><td>Line-of-Sight / Non-LoS — có/không có đường truyền thẳng giữa UE và vệ tinh</td>
+      <td>TR 38.811 §6.6</td></tr>
+  <tr><td>Shadow fading, Clutter loss</td><td>suy hao ngẫu nhiên do che khuất địa hình/nhà cửa (mô hình thống kê, không phải
+      tất định)</td><td>TR 38.811 Table 6.6.2-1</td></tr>
+  <tr><td>SNR, Spectral Efficiency (SE)</td><td>tỉ số tín hiệu/nhiễu; SE = log₂(1+SNR) [bps/Hz] theo định lý Shannon —
+      “tốc độ truyền được trên mỗi Hz băng thông”</td><td>lý thuyết thông tin Shannon (giáo trình viễn thông cơ bản)</td></tr>
+  <tr><td>EIRP, G/T</td><td>công suất phát hiệu dụng đẳng hướng / tỉ số khuếch đại-trên-nhiễu của máy thu — hai đại
+      lượng cấu thành công suất thu được</td><td>giáo trình link-budget vệ tinh; TR 38.811</td></tr>
+</table>
+
+<h3>2.2 Thuật ngữ học tăng cường / học đa tác tử (RL / MARL)</h3>
+<table>
+  <tr><th>Thuật ngữ</th><th>Nghĩa</th><th>Nguồn để đọc thêm</th></tr>
+  <tr><td>MDP</td><td>Markov Decision Process — khung mô tả bài toán ra quyết định tuần tự (trạng thái, hành
+      động, phần thưởng, xác suất chuyển trạng thái)</td>
+      <td>Sutton &amp; Barto, <em>Reinforcement Learning: An Introduction</em> (2nd ed., 2018) — sách nhập môn kinh
+      điển, miễn phí online</td></tr>
+  <tr><td>RL / MARL</td><td>Reinforcement Learning (một tác tử) / Multi-Agent RL (nhiều tác tử cùng học, mỗi UE
+      là một tác tử ở đây)</td><td>Sutton &amp; Barto (RL); Rashid et al. (MARL, xem QMIX)</td></tr>
+  <tr><td>Agent, Action, Observation, Reward</td><td>tác tử ra quyết định / hành động nó chọn / thông tin nó quan sát
+      được / tín hiệu phản hồi nó nhận</td><td>Sutton &amp; Barto chương 1–3</td></tr>
+  <tr><td>Policy (chính sách)</td><td>hàm ánh xạ quan sát → hành động mà agent học được</td><td>Sutton &amp; Barto</td></tr>
+  <tr><td>Q-learning, DQN</td><td>học hàm giá trị Q(s,a) = lợi ích kỳ vọng khi chọn hành động a ở trạng thái s; DQN
+      = Q-learning + mạng neural sâu để xấp xỉ Q</td><td>Mnih et al., “Human-level control through deep RL,” Nature 2015
+      (bài báo gốc DQN, cũng là ref. [40] của bài ILCHO)</td></tr>
+  <tr><td>DRQN</td><td>DQN + mạng hồi quy (GRU/LSTM) để xử lý quan sát cục bộ/không đầy đủ theo chuỗi thời gian</td>
+      <td>Hausknecht &amp; Stone, “Deep Recurrent Q-Learning for POMDPs,” 2015</td></tr>
+  <tr><td>IQL (Independent Q-Learning)</td><td>mỗi agent học Q-function riêng, coi các agent khác là một phần môi
+      trường — đơn giản nhưng không ổn định khi nhiều agent cùng học (non-stationarity)</td>
+      <td>Tan, “Independent vs. cooperative agents,” 1993; dùng làm nền cho LBSH trong bài báo</td></tr>
+  <tr><td>QMIX</td><td>thuật toán MARL: mỗi agent có Q<sub>k</sub> riêng, một <em>mixing network đơn điệu</em> gộp
+      thành Q<sub>tot</sub> toàn cục để huấn luyện tập trung nhưng vẫn thực thi phân tán được (CTDE)</td>
+      <td>Rashid, Samvelyan, Schröder de Witt, Farquhar, Foerster, Whiteson, “QMIX: Monotonic Value
+      Function Factorisation for Deep Multi-Agent RL,” ICML 2018 (ref. [32] trong bài ILCHO) — bài
+      gốc định nghĩa chính xác thuật toán mà <code>qmix.py</code> cài đặt lại</td></tr>
+  <tr><td>CTDE</td><td>Centralized Training, Decentralized Execution — huấn luyện dùng thông tin toàn cục (mixer),
+      nhưng lúc chạy thật mỗi agent chỉ dùng quan sát của chính nó</td><td>bài báo QMIX (trên); cũng là mô hình
+      near-RT RIC (huấn luyện) vs onboard inference (thực thi) trong bài ILCHO</td></tr>
+  <tr><td>Hypernetwork</td><td>một mạng neural sinh ra <em>trọng số</em> cho một mạng neural khác (ở đây: sinh trọng
+      số của mixing network từ state toàn cục)</td><td>Ha, Dai, Le, “HyperNetworks,” ICLR 2017</td></tr>
+  <tr><td>Epsilon-greedy</td><td>chiến lược khám phá: với xác suất ε chọn hành động ngẫu nhiên, còn lại chọn hành
+      động tốt nhất theo Q hiện tại — ε giảm dần trong lúc train</td><td>Sutton &amp; Barto §2.2</td></tr>
+  <tr><td>Replay buffer</td><td>bộ nhớ lưu lại các trải nghiệm (quan sát, hành động, thưởng...) để lấy mẫu ngẫu
+      nhiên khi huấn luyện, giúp phá tương quan giữa các bước liên tiếp</td><td>Mnih et al. 2015 (DQN)</td></tr>
+  <tr><td>Reward shaping</td><td>thiết kế hàm thưởng sao cho tối đa hoá nó cũng đồng nghĩa đạt mục tiêu thật</td>
+      <td>Ng, Harada, Russell, “Policy invariance under reward transformations,” ICML 1999</td></tr>
+  <tr><td>NP-hard, Generalized Assignment Problem</td><td>lớp bài toán tối ưu tổ hợp không có thuật toán giải
+      đúng trong thời gian đa thức (khi số biến lớn); generalized assignment = gán K đối tượng vào M “thùng” có
+      sức chứa giới hạn sao cho tối ưu — chính là bài toán chọn vệ tinh cho nhiều UE cùng lúc</td>
+      <td>Garey &amp; Johnson, <em>Computers and Intractability</em>, 1979 (giáo trình lý thuyết độ phức tạp)</td></tr>
+</table>
+
+<h3>2.3 Thuật ngữ thống kê / chỉ số đánh giá</h3>
+<table>
+  <tr><th>Thuật ngữ</th><th>Nghĩa</th><th>Nguồn để đọc thêm</th></tr>
+  <tr><td>Jain's Fairness Index (JFI)</td><td>J = (Σx)² / (n·Σx²) ∈ (0,1]; càng gần 1 thì tài nguyên (ở đây: throughput)
+      càng được chia đều giữa các UE</td><td>Jain, Chiu, Hawe, “A Quantitative Measure of Fairness,” DEC-TR-301, 1984</td></tr>
+  <tr><td>CDF</td><td>Cumulative Distribution Function — hàm phân phối tích luỹ; đọc trên đồ thị: trục ngang là giá
+      trị, trục dọc là “tỉ lệ mẫu ≤ giá trị đó”</td><td>giáo trình xác suất thống kê nhập môn</td></tr>
+  <tr><td>OFAT (one-factor-at-a-time)</td><td>kiểu khảo sát độ nhạy: cố định mọi tham số, chỉ đổi một tham số mỗi
+      lần, xem kết quả thay đổi ra sao</td><td>giáo trình thiết kế thí nghiệm (DOE) nhập môn</td></tr>
+  <tr><td>Seed (hạt giống ngẫu nhiên)</td><td>số khởi tạo bộ sinh số ngẫu nhiên; chạy nhiều seed khác nhau rồi lấy
+      trung bình/độ lệch chuẩn để biết kết quả có ổn định hay chỉ là may rủi</td><td>thực hành chuẩn trong thực nghiệm ML</td></tr>
+</table>
+
+<div class="callout info">
+  <strong>Muốn tra nhanh một thuật ngữ chỉ xuất hiện ở đây, không có trong bảng?</strong>
+  Gần như chắc chắn nó được <strong>định nghĩa ngay tại chỗ dùng đầu tiên</strong> trong
+  <code>REPORT.md</code> hoặc tài liệu này (ví dụ “outage”, “guard time”, “occupancy variance” —
+  đều là khái niệm tự đặt cho bản tái hiện này, có giải thích ngay cạnh, không phải thuật ngữ chuẩn
+  ngành). Nếu vẫn không thấy, đó là sơ suất — cứ hỏi lại trực tiếp.
+</div>
+
+<!-- ================================================================= -->
+<h2 id="dochieu">3. Đọc hiểu bài báo — hệ thống ILCHO</h2>
+
+<p>
+ILCHO = <strong>3GPP Conditional Handover (CHO)</strong> + <strong>Multi-Agent RL (QMIX)</strong>
+để chọn vệ tinh đích. Ba trụ cột giải tích của bài báo:
+</p>
+<ul>
+  <li><strong>Lemma 1</strong> — toạ độ Cartesian của vệ tinh LEO tại thời điểm <code>t</code> từ tham số
+      Walker-Delta (RAAN, phasing, độ nghiêng, bán trục lớn). Hoàn toàn tất định (ephemeris).</li>
+  <li><strong>Lemma 2</strong> — điều kiện “truy cập được”: góc ngẩng ψ ≥ ψ<sub>min</sub> = 30°.
+      Suy ra <code>N_max</code> = số vệ tinh khả kiến tối đa → <em>chặn không gian hành động</em>.</li>
+  <li><strong>Lemma 3</strong> — bài toán chọn vệ tinh đích tối ưu là <strong>NP-hard</strong>
+      (generalized assignment theo thời gian) → cần học, không giải chính xác.</li>
+</ul>
+
+<figure>
+<!-- CHO 3-phase timeline -->
+<svg viewBox="0 0 900 250" role="img" aria-label="Sơ đồ 3 pha CHO của ILCHO">
+  <defs>
+    <marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto">
+      <path d="M0,0 L7,3 L0,6 z" fill="#1c1d1f"/>
+    </marker>
+  </defs>
+  <line x1="40" y1="60" x2="860" y2="60" stroke="#1c1d1f" stroke-width="1.5" marker-end="url(#ar)"/>
+  <text x="40" y="30" font-size="13" font-weight="700">Preparation</text>
+  <text x="360" y="30" font-size="13" font-weight="700">Execution</text>
+  <text x="660" y="30" font-size="13" font-weight="700">Completion</text>
+
+  <rect x="40" y="45" width="300" height="30" fill="#eef4fb" stroke="#2456a6"/>
+  <rect x="345" y="45" width="290" height="30" fill="#fdf3e3" stroke="#9a5b00"/>
+  <rect x="640" y="45" width="215" height="30" fill="#e9f6ef" stroke="#0a7d5a"/>
+
+  <text x="50" y="110" font-size="12">UE gửi Measurement Report</text>
+  <text x="50" y="130" font-size="12" fill="#2456a6" font-weight="700">
+    ILCHO/QMIX chọn T‑LEO tối ưu</text>
+  <text x="50" y="148" font-size="12">dựa trên state o_k = {idx, dist, load, RVT}</text>
+  <text x="50" y="166" font-size="12">S‑LEO cấu hình ứng viên + CHO Request → ACK</text>
+
+  <text x="350" y="110" font-size="12" fill="#9a5b00" font-weight="700">
+    Sự kiện execution (Eq. 28):</text>
+  <text x="350" y="128" font-size="12">d(UE, T‑LEO) &lt; d(UE, S‑LEO) − O_off</text>
+  <text x="350" y="150" font-size="12">→ đồng bộ, RA, chuyển sang T‑LEO</text>
+  <text x="350" y="172" font-size="12">HOF nếu T‑LEO hết kênh / hết RVT / mất truy cập</text>
+
+  <text x="650" y="110" font-size="12">Path switch ở lõi mạng</text>
+  <text x="650" y="128" font-size="12">Giải phóng context ở S‑LEO</text>
+  <text x="650" y="146" font-size="12">(giống BHO chuẩn)</text>
+
+  <text x="40" y="215" font-size="12" fill="#5b5f66">
+    Điểm mấu chốt: “trí tuệ” nằm ở <tspan font-weight="700">quyết định chọn đích</tspan> (RL),
+    không phải ở dự đoán đại lượng bất định — vị trí vệ tinh là tất định từ ephemeris.</text>
+</svg>
+<figcaption>Ba pha CHO và vị trí quyết định RL của ILCHO (tái dựng từ Fig. 3–4 của bài báo).</figcaption>
+</figure>
+
+<h3>Vì sao hàm thưởng phải là sigmoid</h3>
+<p>
+Khi một vệ tinh vừa nổi lên (trở nên truy cập được), nó có <strong>RVT dài nhưng throughput thấp</strong>
+(ở xa, góc ngẩng nhỏ). Khi nó lên đỉnh: throughput cao nhưng RVT đang giảm. Throughput là hàm
+<strong>không đơn điệu</strong> theo thời gian (tăng rồi giảm), còn RVT <strong>giảm đơn điệu</strong>.
+Hàm thưởng tuyến tính <code>w1·R + w2·RVT</code> không thể diễn tả “điểm ngọt” này nên dao động;
+hàm sigmoid <code>U(x)=c3/(1+e^{c1(x−c2)})</code> tạo vùng thưởng cao khi <em>cả hai</em> đều tốt và
+phạt ở hai cực. Bài báo chứng minh bằng ablation (Fig. 6 vs Fig. 7); ta tái hiện lại ablation này.
+</p>
+
+<h3>QMIX / CTDE</h3>
+<p>
+Mỗi UE là một agent quan sát cục bộ. Huấn luyện <strong>tập trung</strong> (near-RT RIC thấy toàn cục):
+mạng agent DRQN cho ra Q<sub>k</sub>, một <strong>mixing network đơn điệu</strong> (trọng số sinh bởi
+hyper-network trên state toàn cục) gộp thành Q<sub>tot</sub>. Ràng buộc ∂Q<sub>tot</sub>/∂Q<sub>k</sub> ≥ 0
+đảm bảo argmax cục bộ = argmax toàn cục → <strong>thực thi phân tán</strong> chỉ dùng mạng agent.
+</p>
+
+<h3>Baseline &amp; metric</h3>
+<table>
+  <tr><th>Baseline</th><th>Quy tắc</th></tr>
+  <tr><td>MD-CHO</td><td>chọn vệ tinh truy cập được <em>gần nhất</em></td></tr>
+  <tr><td>MVT-CHO</td><td>chọn vệ tinh có <em>RVT dài nhất</em></td></tr>
+  <tr><td>HSNF</td><td>gán tập trung theo luồng mạng, tối đa tổng throughput dưới ràng buộc kênh [22]</td></tr>
+  <tr><td>LBSH</td><td>multi-agent Q-learning (IQL) với thưởng cân bằng tải + phạt HO nặng [26]</td></tr>
+</table>
+<p class="small">
+Metric: số HO, số HOF, spectral efficiency trung bình/UE, chỉ số công bằng Jain, phương sai chiếm
+dụng kênh O<sub>m</sub>=L<sub>m</sub>/J (Bảng IV).
+</p>
+
+<!-- ================================================================= -->
+<h2 id="triethoc">4. Triết lý tái hiện: 4 nhóm quyết định</h2>
+
+<p>Mọi tham số/công thức trong code được phân vào đúng một nhóm:</p>
+
+<p class="legend">
+  <span><span class="tag t-paper">CHÉP</span> từ bài báo / chuẩn 3GPP</span>
+  <span><span class="tag t-derive">SUY RA</span> bằng giải tích, không cần dữ liệu</span>
+  <span><span class="tag t-assume">GIẢ ĐỊNH</span> bài báo không nói — tự chọn &amp; ghi lại</span>
+  <span><span class="tag t-scale">THU NHỎ</span> để chạy được trên 1 CPU</span>
+</p>
+
+<table>
+  <tr><th>Hạng mục</th><th>Nhóm</th><th>Giá trị / cách xử lý</th></tr>
+  <tr><td>Độ cao, độ nghiêng, số mặt phẳng, sat/mặt phẳng (Starlink P1a/P2a, OneWeb)</td>
+      <td><span class="tag t-paper">CHÉP</span></td><td>Bảng I của bài báo (nguồn: hồ sơ FCC)</td></tr>
+  <tr><td>Vị trí vệ tinh s<sub>m</sub>(t)</td>
+      <td><span class="tag t-derive">SUY RA</span></td><td>Lemma 1 (Walker-Delta / Kepler tròn)</td></tr>
+  <tr><td>Điều kiện truy cập, RVT</td>
+      <td><span class="tag t-derive">SUY RA</span></td><td>Lemma 2 + duyệt ngược chuỗi truy cập tất định</td></tr>
+  <tr><td>E_EIRP=−4 dBW/MHz, G/T=15.9, K_B=−228.6, B=250 MHz, ψ_min=30°, J=8, T_s=600 s</td>
+      <td><span class="tag t-paper">CHÉP</span></td><td>Bảng II</td></tr>
+  <tr><td>FSPL, LoS prob (rural), shadow fading, clutter loss</td>
+      <td><span class="tag t-paper">CHÉP</span></td><td>3GPP TR 38.811 §6.6 (Eq. 8–11)</td></tr>
+  <tr><td>Siêu tham số QMIX: lr=1e−4, γ=0.99, batch=32, ε 0.9→0.1, target update 10, τ=1e−3</td>
+      <td><span class="tag t-paper">CHÉP</span></td><td>Bảng II (“Hyper-Parameters of ILCHO”)</td></tr>
+  <tr><td>Tần số sóng mang</td>
+      <td><span class="tag t-assume">GIẢ ĐỊNH</span></td><td>20 GHz (Ka-band downlink); hiệu chỉnh theo mốc ~3,8 bps/Hz ở thiên đỉnh</td></tr>
+  <tr><td>Offset execution <code>O_off</code> (Eq. 28)</td>
+      <td><span class="tag t-assume">GIẢ ĐỊNH</span></td><td>50 km (có khảo sát nhạy 10–100 km)</td></tr>
+  <tr><td>Thời gian guard sau HO (time-to-trigger + độ trễ execution)</td>
+      <td><span class="tag t-assume">GIẢ ĐỊNH</span></td><td>5 s — chống re-trigger mỗi 1 s (bài báo nói có độ trễ trước pha execution)</td></tr>
+  <tr><td>Hằng số hàm thưởng <code>c1,c2,c3</code>, <code>p1,p2</code></td>
+      <td><span class="tag t-assume">GIẢ ĐỊNH</span></td><td>tự chọn để tạo đúng dạng “điểm ngọt” bài báo mô tả (xem §5.3)</td></tr>
+  <tr><td>Hệ số phasing Walker <code>F</code></td>
+      <td><span class="tag t-assume">GIẢ ĐỊNH</span></td><td><code>F=1</code> (Walker-Delta chuẩn)</td></tr>
+  <tr><td>Xoay Trái Đất, Doppler</td>
+      <td><span class="tag t-paper">CHÉP</span></td><td>bỏ qua — <em>đúng như bài báo</em></td></tr>
+  <tr><td>Số episode / số agent train / độ dài episode</td>
+      <td><span class="tag t-scale">THU NHỎ</span></td><td>~1–1.8k / 12–16 / 300 s (bài báo 3–30k / ≤100 / 600 s)</td></tr>
+  <tr><td><code>N_max</code></td>
+      <td><span class="tag t-scale">THU NHỎ</span></td><td>16 (đỉnh khả kiến trong vùng [39–41° N]; đỉnh toàn cầu là 17/27)</td></tr>
+  <tr><td>HSNF, LBSH</td>
+      <td><span class="tag t-scale">THU NHỎ</span></td><td>bản xấp xỉ gọn (greedy assignment / IQL) thay vì cài đặt đầy đủ [22]/[26]</td></tr>
+</table>
+
+<figure>
+<svg viewBox="0 0 820 250" role="img" aria-label="Cây quyết định tái hiện tham số">
+  <rect x="300" y="10" width="220" height="34" rx="6" fill="#fff" stroke="#1c1d1f"/>
+  <text x="410" y="32" text-anchor="middle" font-size="13">Tham số X cần cho mô phỏng</text>
+
+  <line x1="410" y1="44" x2="410" y2="70" stroke="#1c1d1f" marker-end="url(#ar)"/>
+  <rect x="300" y="70" width="220" height="34" rx="6" fill="#fff" stroke="#1c1d1f"/>
+  <text x="410" y="92" text-anchor="middle" font-size="12.5">Bài báo/3GPP có công bố?</text>
+
+  <line x1="300" y1="87" x2="150" y2="120" stroke="#1c1d1f" marker-end="url(#ar)"/>
+  <text x="210" y="104" font-size="11" fill="#0a7d5a">có</text>
+  <rect x="40" y="120" width="220" height="34" rx="6" fill="#eef4fb" stroke="#2456a6"/>
+  <text x="150" y="142" text-anchor="middle" font-size="12.5">CHÉP nguyên văn</text>
+
+  <line x1="520" y1="87" x2="660" y2="120" stroke="#1c1d1f" marker-end="url(#ar)"/>
+  <text x="600" y="104" font-size="11" fill="#b3261e">không</text>
+  <rect x="560" y="120" width="230" height="34" rx="6" fill="#fff" stroke="#1c1d1f"/>
+  <text x="675" y="142" text-anchor="middle" font-size="12.5">Suy ra được bằng công thức?</text>
+
+  <line x1="620" y1="154" x2="470" y2="188" stroke="#1c1d1f" marker-end="url(#ar)"/>
+  <text x="540" y="172" font-size="11" fill="#0a7d5a">có</text>
+  <rect x="330" y="188" width="220" height="34" rx="6" fill="#e9f6ef" stroke="#0a7d5a"/>
+  <text x="440" y="210" text-anchor="middle" font-size="12.5">SUY RA giải tích (Lemma 1/2)</text>
+
+  <line x1="730" y1="154" x2="730" y2="188" stroke="#1c1d1f" marker-end="url(#ar)"/>
+  <text x="740" y="174" font-size="11" fill="#b3261e">không</text>
+  <rect x="600" y="188" width="210" height="34" rx="6" fill="#fdf3e3" stroke="#9a5b00"/>
+  <text x="705" y="210" text-anchor="middle" font-size="12.5">GIẢ ĐỊNH + ghi vào config.py</text>
+</svg>
+<figcaption>Quy tắc phân loại mọi tham số. Riêng chi phí tính toán quá lớn → nhánh THU NHỎ,
+luôn kèm bảng ảnh hưởng (§9).</figcaption>
+</figure>
+
+<!-- ================================================================= -->
+<h2 id="kientruc">5. Kiến trúc code &amp; sơ đồ phụ thuộc</h2>
+
+<pre><code>src/ilcho/
+  config.py         # dataclass tham số; mọi GIẢ ĐỊNH có chú thích nguồn
+  constellation.py  # Lemma 1 (vị trí), Lemma 2 (truy cập), RVT; đa chòm sao
+  channel.py        # link budget 3GPP Eq. 8–13
+  environment.py    # môi trường CHO đa agent; sự kiện execution; hàm thưởng; metric
+  qmix.py           # DRQN agent + mixing net đơn điệu + hypernet; replay; learner (qmix|iql)
+  baselines.py      # MD-CHO, MVT-CHO, HSNF
+  rollout.py        # chạy 1 episode (khám phá / greedy / baseline)
+  train.py          # vòng huấn luyện + đường cong training
+  evaluate.py       # quét số UE, đa seed, sinh hình như Fig. 8–11
+  sensitivity.py    # khảo sát nhạy OFAT các tham số GIẢ ĐỊNH
+  analysis.py       # Fig. 5, phân bố khoảng cách HO, link budget vs góc ngẩng
+  sanity.py         # kiểm chứng nhanh với con số bài báo</code></pre>
+
+<figure>
+<svg viewBox="0 0 820 300" role="img" aria-label="Đồ thị phụ thuộc module">
+  <g font-size="12.5" text-anchor="middle">
+    <rect x="340" y="10" width="140" height="30" rx="6" fill="#f4f4f1" stroke="#1c1d1f"/><text x="410" y="30">config.py</text>
+    <rect x="120" y="80" width="170" height="30" rx="6" fill="#eef4fb" stroke="#2456a6"/><text x="205" y="100">constellation.py</text>
+    <rect x="330" y="80" width="150" height="30" rx="6" fill="#eef4fb" stroke="#2456a6"/><text x="405" y="100">channel.py</text>
+    <rect x="540" y="80" width="150" height="30" rx="6" fill="#f4f4f1" stroke="#1c1d1f"/><text x="615" y="100">qmix.py</text>
+    <rect x="250" y="150" width="200" height="30" rx="6" fill="#e9f6ef" stroke="#0a7d5a"/><text x="350" y="170">environment.py</text>
+    <rect x="500" y="150" width="150" height="30" rx="6" fill="#fff" stroke="#1c1d1f"/><text x="575" y="170">baselines.py</text>
+    <rect x="330" y="215" width="150" height="30" rx="6" fill="#fff" stroke="#1c1d1f"/><text x="405" y="235">rollout.py</text>
+    <rect x="120" y="270" width="130" height="26" rx="6" fill="#fdf3e3" stroke="#9a5b00"/><text x="185" y="288">train.py</text>
+    <rect x="300" y="270" width="140" height="26" rx="6" fill="#fdf3e3" stroke="#9a5b00"/><text x="370" y="288">evaluate.py</text>
+    <rect x="490" y="270" width="220" height="26" rx="6" fill="#fdf3e3" stroke="#9a5b00"/><text x="600" y="288">sensitivity / analysis / sanity</text>
+  </g>
+  <g stroke="#9aa0a6" fill="none" marker-end="url(#ar)">
+    <path d="M380,40 L230,80"/><path d="M410,40 L405,80"/><path d="M450,40 L590,80"/>
+    <path d="M250,110 L320,150"/><path d="M405,110 L370,150"/>
+    <path d="M300,110 L560,150"/><path d="M405,110 L560,150"/>
+    <path d="M350,180 L390,215"/><path d="M575,180 L455,218"/><path d="M615,110 L470,215"/>
+    <path d="M390,245 L360,270"/><path d="M380,245 L200,270"/><path d="M405,245 L590,270"/>
+  </g>
+</svg>
+<figcaption>Mũi tên = “import / phụ thuộc”. Không có vòng lặp phụ thuộc; <code>environment.py</code>
+là trung tâm, mọi thứ khác dùng lại nó qua <code>rollout.py</code>.</figcaption>
+</figure>
+
+<!-- ================================================================= -->
+<h2 id="module">6. Đi sâu từng module — quyết định &amp; lý do</h2>
+
+<h3>5.1 <code>constellation.py</code> — Lemma 1 &amp; 2</h3>
+
+<h4>Công thức vị trí (Eq. 1)</h4>
+<pre><code>ψ  = Φ_m + ω·t + f₀            # Φ_m = 2π·h/N_L (pha trong mặt phẳng)
+Ω  = 2π·(v−1)/N_p              # RAAN — trải đều 2π vì Walker-DELTA (không phải Star)
+ω  = √(μ / a_s³)               # mean motion; a_s = R_E + H_L
+x = a_s·(cosψ·cosΩ − sinψ·sinΩ·cosα)
+y = a_s·(cosψ·sinΩ + sinψ·cosΩ·cosα)
+z = a_s·(sinψ·sinα)</code></pre>
+<ul>
+  <li><span class="tag t-derive">SUY RA</span> Vector hoá toàn bộ: tính <code>(T, M, 3)</code> một lần
+      bằng NumPy. Với M=5284, T=600 → mảng float32 ~38 MB, chấp nhận được.</li>
+  <li><span class="tag t-assume">GIẢ ĐỊNH</span> <strong>Bỏ qua xoay Trái Đất</strong>: cả UE và vệ tinh
+      đặt trong cùng một hệ quy chiếu quán tính. Bài báo cũng làm vậy (UE là VSAT cố định, và
+      tốc độ vệ tinh 7,59 km/s ≫ mọi thứ khác). Trong 600 s Trái Đất xoay 2,5° — sai số bậc nhỏ.</li>
+  <li><span class="tag t-paper">CHÉP</span> Độ lệch tâm ≈ 0 (bài báo: e = 1,379·10⁻⁴).</li>
+</ul>
+
+<h4>Thuật toán RVT — vì sao dùng “duyệt ngược”</h4>
+<p>
+RVT (remaining visible time) của cặp (UE k, sat m) tại thời điểm t = số bước liên tiếp còn nhìn thấy.
+Cách ngây thơ: lưu mảng truy cập <code>(T, K, M)</code> rồi <code>cumprod</code> — với K=100 là
+<strong>317 MB bool</strong>, còn phiên bản float thì tới GB. Không khả thi.
+</p>
+<p>Giải pháp 2 lượt, chỉ giữ mảng nén <code>(T, K, N_max)</code>:</p>
+<pre><code># Lượt xuôi: mỗi t, lấy N_max sat truy cập được GẦN nhất → sat_id/dist/SE/mask
+# Lượt ngược: rle_next(K,M); for t = T-1..0:
+#     rle_t = where(access[t], rle_next + 1, 0)
+#     rvt[t, k, :] = rle_t[ k, sat_id[t,k,:] ] · dt
+#     rle_next = rle_t</code></pre>
+<p>
+Bộ nhớ tụt về vài chục MB. Đây là hiện thực cụ thể của ý “near-RT RIC tính trước accessibility
+từ ephemeris” mà bài báo dựa vào — vì hình học tất định nên look-ahead là <em>chính xác</em>,
+không phải dự đoán.
+</p>
+
+<h4>Vì sao <code>N_max = 16</code></h4>
+<p>
+Bài báo dùng <code>N_max</code> = 27 (P2a) làm kích thước không gian hành động (đỉnh khả kiến
+<em>trên mọi vĩ độ</em>, Fig. 5). Nhưng vùng mô phỏng cố định ở [39–41° N], nơi đỉnh khả kiến chỉ
+~11 (P1a) / ~15 (P2a) — kiểm chứng bằng <code>ilcho-sanity</code>. Chọn 16 → mạng nhỏ hơn, nhanh hơn,
+vẫn phủ hết. Ô hành động thừa được <strong>mask</strong>. <code>sensitivity.py</code> quét
+N_max ∈ {8,12,16,20} để xác nhận kết luận không phụ thuộc lựa chọn này.
+</p>
+
+<h3>5.2 <code>channel.py</code> — link budget 3GPP (Eq. 8–13)</h3>
+<pre><code>FSPL  = 32.45 + 20·log10(f_GHz) + 20·log10(d_m)          # Eq. 10 (hằng 32.45 ⇒ d[m], f[GHz])
+P_b   = FSPL + S_F + C_L                                  # S_F ~ N(0,σ²) shadow fading
+P_g   = L_zenith / sin(elevation)                         # suy hao khí quyển
+P_loss = p_LoS·P_b + (1−p_LoS)·(P_b + C_L,NLoS)           # Eq. 11 (trộn tuyến tính trong dB)
+γ_dB  = EIRP_total + G/T − (K_B + 10log10 B) − P_loss     # Eq. 12
+SE    = log2(1 + 10^(γ_dB/10))                            # Eq. 13</code></pre>
+<ul>
+  <li><span class="tag t-assume">GIẢ ĐỊNH</span> <strong>E_EIRP là mật độ</strong> (dBW/MHz) nên EIRP tổng
+      = −4 + 10·log10(B<sub>MHz</sub>). Bài báo viết Eq. 12 gọn, ta diễn giải theo đơn vị.</li>
+  <li><span class="tag t-assume">GIẢ ĐỊNH</span> f = 20 GHz. <strong>Hiệu chỉnh:</strong> ở thiên đỉnh/340 km
+      cho SE = 3,78 bps/Hz, khớp mốc bài báo ~3,76–3,85. Ở góc ngẩng 30° tụt còn ~1,7 → SE trung bình
+      phụ thuộc mạnh vào việc <em>chọn được vệ tinh tốt</em>, đúng thứ mà controller tối ưu.</li>
+  <li><span class="tag t-paper">CHÉP</span> Bảng LoS-prob rural + σ<sub>SF</sub> từ TR 38.811 Table 6.6.x.</li>
+  <li><span class="tag t-assume">GIẢ ĐỊNH</span> Shadow fading rút ngẫu nhiên mỗi lần build episode
+      (có <code>rng</code>); các sanity check hình học thì đóng băng ở 0 dB cho tất định.</li>
+</ul>
+
+<h3>5.3 <code>environment.py</code> — môi trường CHO đa agent</h3>
+
+<h4>Vector quan sát o_k (Eq. 26)</h4>
+<p>
+Mỗi trong <code>N_max</code> vệ tinh truy cập được (sắp theo khoảng cách tăng dần) đóng góp 5 số:
+<code>[idx chuẩn hoá, dist chuẩn hoá, load L/J, RVT chuẩn hoá, cờ đang phục vụ]</code>.
+Bài báo dùng 4 số đầu; <strong>cờ “đang phục vụ” là bổ sung</strong> của bản này — cần thiết để agent
+tự đánh giá được sự kiện execution của chính nó. Ô không hợp lệ = 0 + mask.
+</p>
+
+<h4>Vòng lặp một bước (1 s)</h4>
+<pre><code>1. đọc hình học đã tính trước tại t: sat_id/dist/SE/RVT/mask cho mỗi UE
+2. mỗi agent chọn action a_k ∈ {0..N_max−1} → đặt "target" T-LEO (quyết định pha Preparation)
+3. duyệt UE theo thứ tự ngẫu nhiên (tranh chấp kênh công bằng):
+   - nếu link đang phục vụ mất mà chưa có target khả dụng → forced recovery, tính là HOF
+   - sự kiện execution: d_target < d_serving − O_off  (và hết guard time)  → thử HO
+   - HOF nếu target: mất truy cập | RVT ≤ 1 bước | hết kênh (load ≥ J)
+   - HO thành công: nhả kênh cũ, chiếm kênh mới, đặt guard = 5 s, đếm 1 HO
+4. throughput = SE của vệ tinh phục vụ (0 nếu mất kết nối). Load chỉ giới hạn admission,
+   KHÔNG chia sẻ băng thông (mỗi UE 1 kênh riêng B) → khớp SE cao của bài báo.
+5. reward theo Eq. 27 (sigmoid) hoặc Eq. 30 (linear)</code></pre>
+
+<h4>Bổ sung “guard time” — vì sao</h4>
+<p>
+Mô phỏng rời rạc 1 s: nếu không chặn, một target thoả điều kiện execution sẽ bị thử HO
+<em>mỗi giây</em>; khi tranh chấp kênh, một UE có thể sinh hàng chục HOF/phút — phi vật lý.
+Guard 5 s mô hình hoá time-to-trigger + độ trễ execution (bài báo có nhắc “có độ trễ trước pha
+execution để T-LEO đặt trước tài nguyên”). Có khảo sát nhạy guard ∈ {0,2,5,10,20} s.
+</p>
+
+<h4>Bổ sung “outage sau HOF” — để throughput phản ánh đúng HOF</h4>
+<p>
+Trong mô hình ban đầu, khi một baseline (MD/MVT) bị HOF thì UE vẫn bám vệ tinh cũ nên
+<em>throughput không đổi</em> — chỉ đếm thêm 1 HOF. Nhưng một HO thất bại thực tế = radio link
+failure + tái thiết lập kết nối ≈ vài giây mất dịch vụ. Bản này thêm <strong>cửa sổ outage 2 s</strong>
+(SE = 0) sau mỗi HOF. Nhờ đó throughput <em>được giao</em> của các phương pháp hay HOF (MD ở
+40+ UE có tới 21% thời gian mất dịch vụ) tụt xuống đúng như Fig. 8c của bài báo — ILCHO thắng về
+throughput <strong>không phải vì được ưu ái</strong> mà vì nó gần như không HOF.
+Huấn luyện đã phạt HOF trực tiếp qua −p2 = 5 (áp đảo reward mỗi bước ~0,5–1,0) nên không cần
+train lại; outage chỉ thêm vào lúc đánh giá cho hiện thực hơn. Tham số <code>hof_outage_s</code>.
+</p>
+
+<div class="callout">
+  <h4 style="margin-top:0">Mâu thuẫn dấu trong Eq. 27 — cách xử lý</h4>
+  <p>
+  Bản thảo bài báo viết reward bước ổn định = <code>−U_{k,R} + U_{k,RVT}</code>, nhưng cũng nói rõ
+  “<em>throughput cao hơn → reward cao hơn</em>” và với U tăng theo throughput thì <code>−U_{k,R}</code>
+  lại <em>giảm</em> — mâu thuẫn nội tại trong cách trình bày. Bản này bám theo <strong>ý định trong
+  phần lời văn</strong>: <code>reward = U_R(SE) + U_RVT(RVT)</code> với
+  </p>
+  <ul style="margin:6px 0">
+    <li>U_R: c1&lt;0, c2&gt;0, c3&gt;0 → tăng theo SE, miền (0, c3)</li>
+    <li>U_RVT: c1&gt;0, c2&gt;0, c3&lt;0 → tiến về 0 khi RVT lớn; phạt mạnh khi RVT nhỏ</li>
+  </ul>
+  <p>Diễn giải này được ghi rõ trong docstring của <code>_reward()</code> và trong REPORT.</p>
+</div>
+
+<h4>Câu chuyện tinh chỉnh hàm thưởng v1 → v2 → v3</h4>
+<table>
+  <tr><th>Bản</th><th>Hằng số chính</th><th>Quan sát</th><th>Kết luận</th></tr>
+  <tr><td>v1</td><td>se_c2=2.5, rvt_c2=60, p1=1</td>
+      <td>reward tụt mạnh (RVT-penalty áp đảo vì pass ở 340 km ngắn, RVT hầu như luôn &lt; 60 s)</td>
+      <td>rvt_c2 quá lớn → gần như mọi bước bị phạt</td></tr>
+  <tr><td>v2</td><td>se_c2=3.3, se_c1=−1.75, rvt_c2=18, p1=1</td>
+      <td>HOF → ~0.1 rất tốt, nhưng SE tụt 3.30→3.08 (đổi throughput lấy ổn định)</td>
+      <td>gradient SE quá yếu so với phạt HO/HOF</td></tr>
+  <tr><td>v3</td><td>se_c3=2.0, se_c2=3.0, se_c1=−2.0, p1=0.5</td>
+      <td>HOF: 2.30→0.19, SE: 3.26→3.13 (giữ SE tốt hơn hẳn v2, không còn tụt về 2.97)</td>
+      <td>đạt mục tiêu ở quy mô train (16 agent); nhưng khi eval tới 75–100 UE, HOF vẫn tăng nhanh
+      hơn HSNF/LBSH — xem REPORT.md §4.1 (giới hạn do chỉ train ở 16 agent, bài báo train tới 100)</td></tr>
+</table>
+<p class="small">
+Cả ba bản được giữ lại để so sánh — chính đây là một “ablation hàm thưởng” mở rộng ngoài bài báo.
+Kết quả cuối cùng (v3 sigmoid so với v3 linear, cùng cấu hình 16 agent/1800 episode) nằm ở
+REPORT.md §5 — và cho ra một <strong>phát hiện trái với bài báo</strong>: cả hai hàm thưởng đều
+hội tụ ổn định, và ở quy mô UE lớn (75–100), <em>linear lại có HOF thấp hơn sigmoid</em>.
+</p>
+
+<h3>5.4 <code>qmix.py</code> — learner</h3>
+<ul>
+  <li><span class="tag t-paper">CHÉP</span> Kiến trúc: FC→GRUCell→FC (DRQN) cho agent;
+      mixing net với trọng số <code>|W|</code> sinh bởi hyper-network trên state, kích hoạt ELU;
+      double-DQN target; soft update τ=1e−3; γ=0.99; lr=1e−4; batch 32 episode.</li>
+  <li><span class="tag t-derive">SUY RA</span> <strong>CTDE</strong>: mixer chỉ dùng lúc train (state =
+      nối các quan sát, phụ thuộc số agent train). Lúc <strong>eval chỉ dùng mạng agent</strong> nên
+      số UE khi eval (5–100) <em>khác</em> số agent khi train (12–16) hoàn toàn hợp lệ — đây là
+      điểm mấu chốt của thiết kế QMIX.</li>
+  <li><span class="tag t-derive">SUY RA</span> Cùng bộ mã dùng lại cho <strong>IQL</strong>
+      (<code>mode="iql"</code>): bỏ mixer, mỗi agent học TD trên reward riêng → chính là LBSH.</li>
+  <li><span class="tag t-derive">SUY RA</span> Replay theo <em>episode</em> (không phải transition)
+      vì agent hồi quy (GRU) cần chuỗi thời gian liên tục.</li>
+</ul>
+
+<figure>
+<svg viewBox="0 0 820 240" role="img" aria-label="CTDE: train vs eval">
+  <text x="20" y="20" font-size="13" font-weight="700">Huấn luyện (tập trung)</text>
+  <g font-size="11" text-anchor="middle">
+    <rect x="20" y="35" width="90" height="26" rx="5" fill="#eef4fb" stroke="#2456a6"/><text x="65" y="52">Agent 1 · Q₁</text>
+    <rect x="20" y="70" width="90" height="26" rx="5" fill="#eef4fb" stroke="#2456a6"/><text x="65" y="87">Agent k · Q_k</text>
+    <rect x="20" y="105" width="90" height="26" rx="5" fill="#eef4fb" stroke="#2456a6"/><text x="65" y="122">Agent K · Q_K</text>
+    <rect x="200" y="55" width="150" height="56" rx="6" fill="#f4f4f1" stroke="#1c1d1f"/>
+    <text x="275" y="78">Mixing Network</text><text x="275" y="95">(đơn điệu, |W| từ hypernet)</text>
+    <rect x="200" y="130" width="150" height="24" rx="5" fill="#fff" stroke="#1c1d1f"/><text x="275" y="147">state toàn cục</text>
+    <rect x="410" y="70" width="90" height="26" rx="5" fill="#e9f6ef" stroke="#0a7d5a"/><text x="455" y="87">Q_tot</text>
+  </g>
+  <g stroke="#9aa0a6" fill="none" marker-end="url(#ar)">
+    <path d="M110,48 L200,70"/><path d="M110,83 L200,83"/><path d="M110,118 L200,96"/>
+    <path d="M275,130 L275,111"/><path d="M350,83 L410,83"/>
+  </g>
+  <line x1="540" y1="20" x2="540" y2="200" stroke="#e2e2df"/>
+  <text x="560" y="20" font-size="13" font-weight="700">Thực thi (phân tán)</text>
+  <g font-size="11" text-anchor="middle">
+    <rect x="560" y="60" width="110" height="26" rx="5" fill="#eef4fb" stroke="#2456a6"/><text x="615" y="77">Agent k · Q_k</text>
+    <rect x="560" y="100" width="110" height="26" rx="5" fill="#fdf3e3" stroke="#9a5b00"/><text x="615" y="117">argmax_a Q_k</text>
+    <rect x="700" y="100" width="100" height="26" rx="5" fill="#e9f6ef" stroke="#0a7d5a"/><text x="750" y="117">chọn T-LEO</text>
+  </g>
+  <g stroke="#9aa0a6" fill="none" marker-end="url(#ar)">
+    <path d="M615,86 L615,100"/><path d="M670,113 L700,113"/>
+  </g>
+  <text x="560" y="165" font-size="11" fill="#5b5f66">Không cần mixer → số UE tuỳ ý.</text>
+</svg>
+<figcaption>CTDE cho phép train ở 12–16 agent rồi eval ở 5–100 UE mà không train lại.</figcaption>
+</figure>
+
+<h3>5.5 <code>baselines.py</code></h3>
+<ul>
+  <li><span class="tag t-paper">CHÉP</span> MD-CHO / MVT-CHO: đúng định nghĩa bài báo, đọc thẳng
+      từ vector quan sát (min dist / max RVT trong các ô hợp lệ).</li>
+  <li><span class="tag t-scale">THU NHỎ</span> <strong>HSNF</strong>: bài báo dùng mô hình luồng mạng
+      trên đồ thị. Bản này xấp xỉ bằng <strong>gán greedy theo capacity</strong>: xếp mọi cặp
+      (UE, ứng viên) theo SE giảm dần, gán nếu UE chưa gán và sat còn kênh. Đủ để tái hiện xu hướng
+      “HSNF ổn định, HOF thấp nhờ biết capacity, nhưng throughput hơi thấp hơn và tốn tính toán”.</li>
+  <li><span class="tag t-scale">THU NHỎ</span> <strong>LBSH</strong>: IQL (dùng lại <code>qmix.py</code>
+      mode iql) + reward = cân bằng tải + RVT − phạt HO nặng. Không cài đặt đầy đủ [26].</li>
+</ul>
+
+<!-- ================================================================= -->
+<h2 id="kiemthu">7. Chiến lược kiểm thử &amp; các mốc kiểm chứng</h2>
+
+<p>Ba tầng, từ rẻ đến đắt — mỗi tầng phải qua mới sang tầng sau:</p>
+<ol>
+  <li><strong>Sanity</strong> (<code>ilcho-sanity</code>, &lt;10 s): hình học + link budget so với con số
+      bài báo <em>trước khi</em> viết môi trường.</li>
+  <li><strong>Smoke</strong> (~1 phút): 1 episode ngắn cho từng baseline + ~40 episode QMIX để bắt
+      lỗi shape tensor / logic.</li>
+  <li><strong>Full</strong>: train đầy đủ + quét đa seed + sensitivity + analysis.</li>
+</ol>
+
+<h3>Các mốc kiểm chứng định lượng</h3>
+<table>
+  <tr><th>Đại lượng</th><th>Bài báo</th><th>Bản này</th><th>Nguồn kiểm</th></tr>
+  <tr><td>Đỉnh vệ tinh khả kiến, P1a</td><td>17</td><td><strong>17</strong> (khớp)</td><td>Fig. 5 / <code>analysis.py</code></td></tr>
+  <tr><td>Đỉnh vệ tinh khả kiến, P2a</td><td>27</td><td>29 (~7% lệch, do <code>F</code>)</td><td>Fig. 5</td></tr>
+  <tr><td>SE ở thiên đỉnh, 340 km</td><td>~3,76–3,85 bps/Hz</td><td><strong>3,78</strong></td><td>link budget</td></tr>
+  <tr><td>Khoảng thời gian giữa 2 HO</td><td>6,61–132,28 s</td><td>~11–104 s (nằm trong khoảng)</td><td><code>analysis.py</code></td></tr>
+  <tr><td>Jain Fairness Index (ILCHO, 100 UE)</td><td>0,9798</td><td><strong>0,981</strong></td><td><code>evaluate.py</code> CDF</td></tr>
+  <tr><td>Thứ tự HOF ở tải vừa (≤50 UE): ILCHO≈HSNF ≪ MVT ≪ MD</td><td>Fig. 8b</td>
+      <td>tái hiện được — ILCHO thấp hơn MD 19 lần ở 30 UE</td><td>quét số UE §4</td></tr>
+  <tr><td>Thứ tự HOF ở tải cao (75–100 UE)</td><td>ILCHO thấp nhất</td>
+      <td>lệch: ILCHO nằm giữa MVT và MD, thua HSNF/LBSH</td><td>REPORT.md §4.1 — do train chỉ 16 agent</td></tr>
+  <tr><td>ILCHO có throughput cao nhất</td><td>đúng (Fig. 8c)</td>
+      <td>không tái hiện — HSNF cao nhất trong bản này</td><td>REPORT.md §4.1, §9</td></tr>
+  <tr><td>Linear reward hội tụ bất ổn (Fig. 7)</td><td>đúng</td>
+      <td>không tái hiện — cả hai hội tụ ổn định</td><td>REPORT.md §5.3</td></tr>
+</table>
+
+<h3>Vì sao đa seed + sensitivity</h3>
+<p>
+Vị trí UE và epoch chòm sao ngẫu nhiên mỗi episode → mỗi điểm trên đường cong là trung bình
+<code>episodes × seeds</code> lần chạy, có vẽ dải ±1σ. Sensitivity OFAT (one-factor-at-a-time)
+trên các tham số GIẢ ĐỊNH để chứng minh kết luận định tính <strong>không phải là artefact</strong>
+của một lựa chọn tham số cụ thể.
+</p>
+
+<!-- ================================================================= -->
+<h2 id="gpu">8. Vì sao chạy CPU, không dùng GPU</h2>
+<p>Máy có GTX 1650 Ti nhưng bản này cố ý dùng PyTorch CPU:</p>
+<ol>
+  <li><strong>Mạng quá nhỏ.</strong> Agent = FC(80→64)→GRUCell(64)→FC(64→16), 12–16 agent.
+      Chi phí copy CPU↔GPU + launch kernel lớn hơn phép tính.</li>
+  <li><strong>Vòng GRU tuần tự 300 bước.</strong> Bước <code>t</code> phụ thuộc <code>t−1</code>,
+      không song song hoá — bài toán latency-bound, GPU không giúp.</li>
+  <li><strong>Nút thắt là NumPy, không phải torch.</strong> Phần tốn nhất mỗi episode là
+      <code>build_episode_geometry</code> (vị trí ~5284 vệ tinh × 300 mốc, ma trận truy cập, RVT).
+      Chạy CPU dù có GPU hay không.</li>
+  <li><strong>Đơn giản môi trường.</strong> Wheel CUDA cần khớp runtime; muốn <code>uv sync</code>
+      chạy được ngay ở mọi máy.</li>
+</ol>
+<p class="small">
+Cờ <code>--device cuda</code> vẫn có sẵn. Hướng tăng tốc đúng là vector hoá phần geometry hoặc chạy
+song song nhiều episode, không phải GPU.
+</p>
+
+<!-- ================================================================= -->
+<h2 id="pipeline">9. Pipeline thực nghiệm &amp; ánh xạ sang bài báo</h2>
+
+<figure>
+<svg viewBox="0 0 840 210" role="img" aria-label="Pipeline 3 giai đoạn">
+  <g font-size="11.5" text-anchor="middle">
+    <rect x="20" y="30" width="240" height="150" rx="8" fill="#fdf3e3" stroke="#9a5b00"/>
+    <text x="140" y="50" font-weight="700">run_rest.sh</text>
+    <text x="140" y="72">train ILCHO-linear (Eq. 30)</text>
+    <text x="140" y="90">train LBSH (IQL)</text>
+    <text x="140" y="108">eval nền: P2a, P1a</text>
+    <text x="140" y="132" fill="#5b5f66">→ đường cong training</text>
+    <text x="140" y="148" fill="#5b5f66">→ Fig. 6/7 (ablation reward)</text>
+
+    <rect x="300" y="30" width="250" height="150" rx="8" fill="#eef4fb" stroke="#2456a6"/>
+    <text x="425" y="50" font-weight="700">run_extended.sh</text>
+    <text x="425" y="72">retrain ILCHO v3 (reward cân bằng)</text>
+    <text x="425" y="90">quét đa seed 5–100 UE:</text>
+    <text x="425" y="106">P2a · P1a · hybrid · OneWeb</text>
+    <text x="425" y="124">sensitivity OFAT</text>
+    <text x="425" y="142" fill="#5b5f66">→ Fig. 8/9/10, Fig. 11, Bảng IV</text>
+
+    <rect x="590" y="30" width="230" height="150" rx="8" fill="#e9f6ef" stroke="#0a7d5a"/>
+    <text x="705" y="50" font-weight="700">analysis.py</text>
+    <text x="705" y="72">accessible vs vĩ độ</text>
+    <text x="705" y="90">phân bố khoảng cách HO</text>
+    <text x="705" y="108">link budget vs góc ngẩng</text>
+    <text x="705" y="132" fill="#5b5f66">→ Fig. 5 + kiểm chứng</text>
+  </g>
+  <g stroke="#1c1d1f" fill="none" marker-end="url(#ar)">
+    <path d="M260,105 L300,105"/><path d="M550,105 L590,105"/>
+  </g>
+</svg>
+<figcaption>Ba script nối tiếp (mỗi script chờ tiền đề của mình). Kết quả từng phần được ghi ngay
+ra <code>runs/…/results.json</code> nên dừng giữa chừng vẫn có dữ liệu.</figcaption>
+</figure>
+
+<table>
+  <tr><th>Hình/Bảng bài báo</th><th>Tái hiện bằng</th><th>File kết quả</th></tr>
+  <tr><td>Fig. 5 — accessible vs vĩ độ</td><td><code>analysis.py</code></td><td><code>runs/analysis/fig5_*.png</code></td></tr>
+  <tr><td>Fig. 6 — training reward sigmoid</td><td><code>train.py --reward sigmoid</code></td><td><code>runs/ilcho_sigmoid_v3/training_curves.png</code></td></tr>
+  <tr><td>Fig. 7 — training reward linear</td><td><code>train.py --reward linear</code></td><td><code>runs/ilcho_linear/training_curves.png</code></td></tr>
+  <tr><td>Fig. 8/9/10 — HO/HOF/throughput vs #UE (P2a/P1a/hybrid)</td><td><code>evaluate.py</code></td><td><code>runs/xeval_*/fig_*_vs_ue.png</code></td></tr>
+  <tr><td>Fig. 11 — CDF throughput + JFI</td><td><code>evaluate.py</code></td><td><code>runs/xeval_*/fig_fairness_cdf.png</code></td></tr>
+  <tr><td>Bảng III — hybrid vs P1a vs P2a</td><td>3 lần <code>evaluate.py</code></td><td><code>runs/xeval_{starlink_phase_1a,2a,hybrid}/results.json</code></td></tr>
+  <tr><td>Bảng IV — phương sai chiếm dụng kênh</td><td><code>evaluate.py</code> (occ_var)</td><td><code>fig_load_balance.png</code></td></tr>
+</table>
+
+<!-- ================================================================= -->
+<h2 id="saikhac">10. Sai khác đã biết &amp; đánh giá ảnh hưởng</h2>
+<table>
+  <tr><th>#</th><th>Bài báo</th><th>Bản này</th><th>Ảnh hưởng dự kiến tới kết luận</th></tr>
+  <tr><td>1</td><td>3–30k episode, ≤100 agent, episode 600 s</td><td>~1–1.8k episode, 12–16 agent, 300 s</td>
+      <td>ILCHO hội tụ “đủ tốt” chứ chưa tối ưu; có thể đánh đổi ít throughput lấy ổn định (xem v2→v3)</td></tr>
+  <tr><td>2</td><td>N_max = 27</td><td>16 (đỉnh vùng)</td><td>không đổi xu hướng; đã kiểm bằng sensitivity</td></tr>
+  <tr><td>3</td><td>tần số không công bố</td><td>20 GHz, hiệu chỉnh theo 3,8 bps/Hz</td><td>ảnh hưởng SE tuyệt đối, không ảnh hưởng so sánh tương đối giữa các phương pháp</td></tr>
+  <tr><td>4</td><td>O_off không công bố</td><td>50 km (+ sensitivity 10–100)</td><td>O_off nhỏ → nhiều HO hơn cho mọi phương pháp; thứ hạng giữ nguyên</td></tr>
+  <tr><td>5</td><td>hằng số reward không công bố</td><td>tự chọn, 3 phiên bản</td><td>là biến nghiên cứu riêng (ablation mở rộng)</td></tr>
+  <tr><td>6</td><td>phasing F không công bố</td><td>F = 1</td><td>lệch nhẹ số vệ tinh khả kiến P2a (29 vs 27)</td></tr>
+  <tr><td>7</td><td>HSNF/LBSH cài đặt đầy đủ [22]/[26]</td><td>bản xấp xỉ</td><td>đủ tái hiện xu hướng; con số tuyệt đối của 2 baseline này kém tin cậy hơn</td></tr>
+  <tr><td>8</td><td>bỏ qua xoay Trái Đất, Doppler</td><td>bỏ qua</td><td>giống bài báo — không phải sai khác</td></tr>
+  <tr><td>9</td><td>guard time không nêu rõ</td><td>5 s (+ sensitivity)</td><td>chặn HOF phi vật lý do rời rạc hoá 1 s; ảnh hưởng đồng đều mọi phương pháp</td></tr>
+  <tr><td>10</td><td>forced-drop khi mất link</td><td>tính là 1 HOF</td><td>tạo áp lực để agent chuẩn bị target sớm — đúng tinh thần CHO</td></tr>
+  <tr><td>11</td><td>hệ quả throughput của HOF không nêu chi tiết</td><td>outage 2 s (SE=0) sau mỗi HOF, thêm ở bước đánh giá</td><td>làm throughput được-giao phản ánh đúng HOF (Fig. 8c); ILCHO hưởng lợi vì gần như không HOF</td></tr>
+</table>
+
+<!-- ================================================================= -->
+<h2 id="chaylai">11. Cách chạy lại toàn bộ</h2>
+<pre><code># 0. môi trường
+uv sync
+
+# 1. kiểm chứng nhanh hình học + link budget
+uv run ilcho-sanity
+
+# 2. pipeline nền: ablation reward + LBSH + eval nền
+bash scripts/run_rest.sh            # (hoặc scripts/run_all.sh nếu chạy từ đầu)
+
+# 3. suite mở rộng: retrain v3 + quét lớn + sensitivity + analysis
+bash scripts/run_extended.sh
+
+# 4. gom bảng + hình cho báo cáo
+uv run python scripts/make_report_tables.py
+#   → report_assets/TABLES.md  + report_assets/*.png
+
+# Chạy lẻ:
+uv run ilcho-train --reward sigmoid --episodes 1800 --train-ues 16 --out runs/x
+uv run ilcho-eval  --constellation hybrid --ues 5,10,30,60,100 \
+                   --ilcho runs/x/policy.pt --seeds 3 --out runs/eval_x
+uv run python -m ilcho.analysis --out runs/analysis
+uv run python -m ilcho.sensitivity --ilcho runs/x/policy.pt --out runs/sensitivity</code></pre>
+
+<div class="callout ok">
+  <h4 style="margin-top:0">Toàn bộ suite đã chạy xong — tóm tắt 1 phút</h4>
+  <ul style="margin:6px 0">
+    <li>✅ Hình học + link budget khớp bài báo (đỉnh 17/29 vệ tinh, 3,78 bps/Hz, khoảng HO 8–557 s
+        chứa trong khoảng bài báo).</li>
+    <li>✅ ILCHO giữ HOF thấp hơn MD-CHO <strong>19 lần</strong> ở 30 UE, thấp hơn MVT-CHO
+        <strong>2,3 lần</strong> — đứng vững qua mọi tham số giả định (§6 khảo sát nhạy).</li>
+    <li>⚠️ Ở tải rất cao (75–100 UE), HOF của ILCHO tăng nhanh hơn HSNF/LBSH — hệ quả của việc chỉ
+        train với 16 agent thay vì 100 như bài báo.</li>
+    <li>❌ Hai kết luận <strong>không tái hiện được</strong>: “ILCHO throughput cao nhất” (HSNF cao
+        nhất trong bản này) và “linear reward bất ổn” (cả hai hàm thưởng đều hội tụ ổn định) —
+        báo cáo như phát hiện trung thực, không chỉnh cho khớp bài báo.</li>
+  </ul>
+  <p class="small" style="margin-bottom:0">Chi tiết đầy đủ, mọi bảng số và hình: <code>REPORT.md</code>.</p>
+</div>
+
+<hr>
+<p class="small">
+Tài liệu này mô tả <em>quyết định thiết kế</em>. Kết quả số &amp; phân tích so với bài báo nằm ở
+<code>REPORT.md</code> (được điền từ <code>report_assets/TABLES.md</code> sau khi suite chạy xong).
+</p>
+
+</div>
+</body>
+</html>

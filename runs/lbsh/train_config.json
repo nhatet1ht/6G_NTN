@@ -1,0 +1,14 @@
+{
+  "constellation": "starlink_phase_2a",
+  "reward": "sigmoid",
+  "mode": "iql",
+  "episodes": 800,
+  "train_ues": 12,
+  "horizon": 300,
+  "n_max": 16,
+  "eps_anneal": 450,
+  "learn_every": 1,
+  "seed": 0,
+  "out": "runs/lbsh",
+  "device": "cpu"
+}

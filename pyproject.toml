@@ -1,0 +1,36 @@
+[project]
+name = "ilcho-repro"
+version = "0.1.0"
+description = "Reproduction of 'Intelligent Handover Scheme for Improved 6G NTN LEO Satellite Network Performance' (ILCHO, Choi et al., IEEE TMC 2026)"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "matplotlib>=3.11.1",
+    "numpy>=2.5.2",
+    "pyyaml>=6.0.3",
+    "tqdm>=4.70.0",
+    "torch>=2.4",
+]
+
+[project.scripts]
+ilcho-sanity = "ilcho.sanity:main"
+ilcho-train = "ilcho.train:main"
+ilcho-eval = "ilcho.evaluate:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ilcho"]
+
+[tool.uv]
+package = true
+
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

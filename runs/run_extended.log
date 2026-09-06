@@ -1,0 +1,236 @@
+### waiting for base pipeline (runs/lbsh/policy.pt) ...
+### base pipeline done -- Fri, Sep  4, 2026  5:32:27 PM
+############ retrain ILCHO -- rebalanced sigmoid reward (v3) ############
+E:\learning\NTN-6G\ilcho_repro\src\ilcho\train.py:114: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return   299.78 | HO   7.00 | HOF  2.06 | SE  3.25 | loss nan |      3s
+ep    50 | eps 0.86 | return   302.52 | HO   6.67 | HOF  2.46 | SE  3.27 | loss 0.4725 |    146s
+ep   100 | eps 0.81 | return   302.23 | HO   6.62 | HOF  2.40 | SE  3.27 | loss 0.0716 |    331s
+ep   150 | eps 0.77 | return   300.86 | HO   6.69 | HOF  2.21 | SE  3.26 | loss 0.0506 |    517s
+ep   200 | eps 0.72 | return   301.35 | HO   6.64 | HOF  1.98 | SE  3.25 | loss 0.0447 |    702s
+ep   250 | eps 0.68 | return   300.76 | HO   6.68 | HOF  1.89 | SE  3.25 | loss 0.0409 |    887s
+ep   300 | eps 0.63 | return   297.78 | HO   6.68 | HOF  1.83 | SE  3.24 | loss 0.0385 |   1075s
+ep   350 | eps 0.59 | return   298.96 | HO   6.62 | HOF  1.69 | SE  3.24 | loss 0.0360 |   1266s
+ep   400 | eps 0.54 | return   298.18 | HO   6.62 | HOF  1.48 | SE  3.23 | loss 0.0343 |   1474s
+ep   450 | eps 0.50 | return   295.54 | HO   6.66 | HOF  1.35 | SE  3.22 | loss 0.0334 |   1722s
+ep   500 | eps 0.46 | return   288.82 | HO   6.69 | HOF  1.24 | SE  3.19 | loss 0.0322 |   1949s
+ep   550 | eps 0.41 | return   287.57 | HO   6.70 | HOF  0.99 | SE  3.19 | loss 0.0308 |   2156s
+ep   600 | eps 0.37 | return   283.06 | HO   6.71 | HOF  0.97 | SE  3.17 | loss 0.0298 |   2364s
+ep   650 | eps 0.32 | return   283.43 | HO   6.73 | HOF  0.76 | SE  3.16 | loss 0.0289 |   2570s
+ep   700 | eps 0.28 | return   277.35 | HO   6.58 | HOF  0.69 | SE  3.14 | loss 0.0278 |   2773s
+ep   750 | eps 0.23 | return   274.26 | HO   6.57 | HOF  0.42 | SE  3.13 | loss 0.0269 |   2990s
+ep   800 | eps 0.19 | return   268.35 | HO   6.45 | HOF  0.40 | SE  3.10 | loss 0.0262 |   3202s
+ep   850 | eps 0.14 | return   261.65 | HO   6.43 | HOF  0.24 | SE  3.07 | loss 0.0257 |   3413s
+ep   900 | eps 0.10 | return   255.30 | HO   6.45 | HOF  0.17 | SE  3.05 | loss 0.0251 |   3619s
+ep   950 | eps 0.10 | return   247.65 | HO   6.32 | HOF  0.17 | SE  3.02 | loss 0.0247 |   3826s
+ep  1000 | eps 0.10 | return   236.20 | HO   6.37 | HOF  0.12 | SE  2.98 | loss 0.0241 |   4034s
+ep  1050 | eps 0.10 | return   243.89 | HO   6.24 | HOF  0.15 | SE  3.01 | loss 0.0234 |   4240s
+ep  1100 | eps 0.10 | return   252.28 | HO   6.44 | HOF  0.21 | SE  3.04 | loss 0.0234 |   4444s
+ep  1150 | eps 0.10 | return   255.83 | HO   6.37 | HOF  0.17 | SE  3.05 | loss 0.0228 |   4646s
+ep  1200 | eps 0.10 | return   258.67 | HO   6.50 | HOF  0.18 | SE  3.06 | loss 0.0226 |   4851s
+ep  1250 | eps 0.10 | return   258.87 | HO   6.39 | HOF  0.16 | SE  3.06 | loss 0.0221 |   5057s
+ep  1300 | eps 0.10 | return   257.29 | HO   6.61 | HOF  0.20 | SE  3.06 | loss 0.0219 |   5265s
+ep  1350 | eps 0.10 | return   259.35 | HO   6.52 | HOF  0.18 | SE  3.06 | loss 0.0220 |   5473s
+ep  1400 | eps 0.10 | return   260.90 | HO   6.39 | HOF  0.20 | SE  3.07 | loss 0.0218 |   5680s
+ep  1450 | eps 0.10 | return   263.75 | HO   6.26 | HOF  0.17 | SE  3.08 | loss 0.0214 |   5893s
+ep  1500 | eps 0.10 | return   265.55 | HO   6.29 | HOF  0.22 | SE  3.09 | loss 0.0213 |   6098s
+ep  1550 | eps 0.10 | return   266.61 | HO   6.29 | HOF  0.20 | SE  3.09 | loss 0.0214 |   6304s
+ep  1600 | eps 0.10 | return   276.48 | HO   6.21 | HOF  0.20 | SE  3.12 | loss 0.0214 |   6512s
+ep  1650 | eps 0.10 | return   279.04 | HO   6.20 | HOF  0.21 | SE  3.13 | loss 0.0213 |   6722s
+ep  1700 | eps 0.10 | return   278.34 | HO   6.19 | HOF  0.16 | SE  3.12 | loss 0.0209 |   6931s
+ep  1750 | eps 0.10 | return   281.06 | HO   6.17 | HOF  0.20 | SE  3.13 | loss 0.0209 |   7141s
+ep  1800 | eps 0.10 | return   281.66 | HO   6.22 | HOF  0.18 | SE  3.14 | loss 0.0210 |   7348s
+saved -> runs/ilcho_sigmoid_v3  (7349s)
+############ diagnostics (Fig. 5 / HO interval / link budget) ############
+{
+  "ho_interval": {
+    "constellation": "starlink_phase_2a",
+    "n_samples": 1372,
+    "min": 8.0,
+    "max": 557.0,
+    "mean": 58.01749271137026,
+    "median": 50.0,
+    "paper_range_s": [
+      6.61,
+      132.28
+    ]
+  },
+  "link_budget": {
+    "340km": "see figure",
+    "550km": "see figure",
+    "1200km": "see figure"
+  }
+}
+global peaks: {'starlink_phase_1a': 17.0, 'starlink_phase_2a': 29.0}
+############ big sweep: starlink_phase_2a ############
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      starlink_phase_2a  UE=  5 | ho  11.089 | hof   0.000 | se   3.116 | jfi   0.998 | occ_var   0.009
+ILCHO      starlink_phase_2a  UE= 10 | ho  12.533 | hof   0.000 | se   3.110 | jfi   0.997 | occ_var   0.028
+ILCHO      starlink_phase_2a  UE= 20 | ho  12.111 | hof   0.900 | se   3.050 | jfi   0.998 | occ_var   0.072
+ILCHO      starlink_phase_2a  UE= 30 | ho  10.407 | hof   2.856 | se   2.991 | jfi   0.998 | occ_var   0.118
+ILCHO      starlink_phase_2a  UE= 50 | ho   9.571 | hof  11.436 | se   2.707 | jfi   0.994 | occ_var   0.162
+ILCHO      starlink_phase_2a  UE= 75 | ho   5.699 | hof  30.415 | se   2.404 | jfi   0.984 | occ_var   0.167
+ILCHO      starlink_phase_2a  UE=100 | ho   2.696 | hof  47.449 | se   2.184 | jfi   0.981 | occ_var   0.143
+ILCHO-lin  starlink_phase_2a  UE=  5 | ho  10.933 | hof   0.000 | se   2.763 | jfi   0.993 | occ_var   0.007
+ILCHO-lin  starlink_phase_2a  UE= 10 | ho  10.456 | hof   0.011 | se   2.768 | jfi   0.996 | occ_var   0.017
+ILCHO-lin  starlink_phase_2a  UE= 20 | ho   9.844 | hof   0.072 | se   2.745 | jfi   0.996 | occ_var   0.044
+ILCHO-lin  starlink_phase_2a  UE= 30 | ho   9.674 | hof   0.393 | se   2.755 | jfi   0.996 | occ_var   0.075
+ILCHO-lin  starlink_phase_2a  UE= 50 | ho   8.656 | hof   3.264 | se   2.688 | jfi   0.996 | occ_var   0.135
+ILCHO-lin  starlink_phase_2a  UE= 75 | ho   6.462 | hof   8.471 | se   2.593 | jfi   0.995 | occ_var   0.167
+ILCHO-lin  starlink_phase_2a  UE=100 | ho   3.757 | hof  15.902 | se   2.427 | jfi   0.990 | occ_var   0.141
+MD-CHO     starlink_phase_2a  UE=  5 | ho  15.978 | hof   0.000 | se   3.467 | jfi   0.999 | occ_var   0.017
+MD-CHO     starlink_phase_2a  UE= 10 | ho  14.889 | hof   6.956 | se   3.357 | jfi   0.995 | occ_var   0.051
+MD-CHO     starlink_phase_2a  UE= 20 | ho  12.011 | hof  32.900 | se   2.936 | jfi   0.976 | occ_var   0.094
+MD-CHO     starlink_phase_2a  UE= 30 | ho   8.348 | hof  54.515 | se   2.577 | jfi   0.966 | occ_var   0.139
+MD-CHO     starlink_phase_2a  UE= 50 | ho   1.049 | hof  76.740 | se   2.208 | jfi   0.974 | occ_var   0.189
+MD-CHO     starlink_phase_2a  UE= 75 | ho   0.019 | hof  92.619 | se   1.933 | jfi   0.971 | occ_var   0.205
+MD-CHO     starlink_phase_2a  UE=100 | ho   0.000 | hof 100.297 | se   1.777 | jfi   0.975 | occ_var   0.149
+MVT-CHO    starlink_phase_2a  UE=  5 | ho   7.000 | hof   0.022 | se   3.040 | jfi   0.998 | occ_var   0.014
+MVT-CHO    starlink_phase_2a  UE= 10 | ho   6.867 | hof   0.378 | se   3.058 | jfi   0.997 | occ_var   0.030
+MVT-CHO    starlink_phase_2a  UE= 20 | ho   6.328 | hof   4.322 | se   2.977 | jfi   0.997 | occ_var   0.077
+MVT-CHO    starlink_phase_2a  UE= 30 | ho   5.830 | hof   6.489 | se   2.936 | jfi   0.997 | occ_var   0.114
+MVT-CHO    starlink_phase_2a  UE= 50 | ho   4.520 | hof  12.753 | se   2.781 | jfi   0.997 | occ_var   0.182
+MVT-CHO    starlink_phase_2a  UE= 75 | ho   3.299 | hof  22.081 | se   2.545 | jfi   0.992 | occ_var   0.195
+MVT-CHO    starlink_phase_2a  UE=100 | ho   2.391 | hof  30.211 | se   2.361 | jfi   0.980 | occ_var   0.148
+HSNF       starlink_phase_2a  UE=  5 | ho  15.644 | hof   0.000 | se   3.443 | jfi   0.999 | occ_var   0.017
+HSNF       starlink_phase_2a  UE= 10 | ho  15.511 | hof   0.056 | se   3.430 | jfi   0.999 | occ_var   0.047
+HSNF       starlink_phase_2a  UE= 20 | ho  12.817 | hof   0.017 | se   3.334 | jfi   0.998 | occ_var   0.095
+HSNF       starlink_phase_2a  UE= 30 | ho  12.270 | hof   0.004 | se   3.231 | jfi   0.998 | occ_var   0.136
+HSNF       starlink_phase_2a  UE= 50 | ho  10.651 | hof   0.016 | se   2.997 | jfi   0.996 | occ_var   0.185
+HSNF       starlink_phase_2a  UE= 75 | ho   9.461 | hof   0.083 | se   2.772 | jfi   0.993 | occ_var   0.182
+HSNF       starlink_phase_2a  UE=100 | ho   5.553 | hof   3.397 | se   2.557 | jfi   0.992 | occ_var   0.143
+LBSH       starlink_phase_2a  UE=  5 | ho   7.067 | hof   0.000 | se   2.550 | jfi   0.996 | occ_var   0.009
+LBSH       starlink_phase_2a  UE= 10 | ho   6.800 | hof   0.022 | se   2.608 | jfi   0.995 | occ_var   0.019
+LBSH       starlink_phase_2a  UE= 20 | ho   7.139 | hof   0.044 | se   2.572 | jfi   0.995 | occ_var   0.040
+LBSH       starlink_phase_2a  UE= 30 | ho   7.167 | hof   0.122 | se   2.558 | jfi   0.995 | occ_var   0.070
+LBSH       starlink_phase_2a  UE= 50 | ho   7.011 | hof   0.433 | se   2.576 | jfi   0.995 | occ_var   0.113
+LBSH       starlink_phase_2a  UE= 75 | ho   6.296 | hof   1.981 | se   2.583 | jfi   0.996 | occ_var   0.158
+LBSH       starlink_phase_2a  UE=100 | ho   4.290 | hof   7.963 | se   2.498 | jfi   0.992 | occ_var   0.145
+############ big sweep: starlink_phase_1a ############
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      starlink_phase_1a  UE=  5 | ho   5.978 | hof   0.022 | se   1.714 | jfi   0.998 | occ_var   0.019
+ILCHO      starlink_phase_1a  UE= 10 | ho   5.911 | hof   0.056 | se   1.711 | jfi   0.996 | occ_var   0.049
+ILCHO      starlink_phase_1a  UE= 20 | ho   5.928 | hof   1.667 | se   1.700 | jfi   0.995 | occ_var   0.100
+ILCHO      starlink_phase_1a  UE= 30 | ho   5.693 | hof   3.196 | se   1.709 | jfi   0.995 | occ_var   0.145
+ILCHO      starlink_phase_1a  UE= 50 | ho   3.313 | hof  11.929 | se   1.642 | jfi   0.996 | occ_var   0.199
+ILCHO      starlink_phase_1a  UE= 75 | ho   0.784 | hof  66.138 | se   1.313 | jfi   0.974 | occ_var   0.111
+ILCHO      starlink_phase_1a  UE=100 | ho   1.232 | hof 162.659 | se   1.048 | jfi   0.884 | occ_var   0.072
+ILCHO-lin  starlink_phase_1a  UE=  5 | ho   6.978 | hof   0.111 | se   1.713 | jfi   0.996 | occ_var   0.017
+ILCHO-lin  starlink_phase_1a  UE= 10 | ho   7.133 | hof   0.133 | se   1.694 | jfi   0.997 | occ_var   0.048
+ILCHO-lin  starlink_phase_1a  UE= 20 | ho   6.811 | hof   2.044 | se   1.672 | jfi   0.994 | occ_var   0.098
+ILCHO-lin  starlink_phase_1a  UE= 30 | ho   5.837 | hof   4.230 | se   1.653 | jfi   0.994 | occ_var   0.137
+ILCHO-lin  starlink_phase_1a  UE= 50 | ho   3.469 | hof   7.802 | se   1.650 | jfi   0.996 | occ_var   0.180
+ILCHO-lin  starlink_phase_1a  UE= 75 | ho   1.514 | hof  46.043 | se   1.401 | jfi   0.978 | occ_var   0.108
+ILCHO-lin  starlink_phase_1a  UE=100 | ho   1.601 | hof 141.851 | se   1.136 | jfi   0.893 | occ_var   0.067
+MD-CHO     starlink_phase_1a  UE=  5 | ho  11.289 | hof   0.089 | se   2.232 | jfi   0.999 | occ_var   0.029
+MD-CHO     starlink_phase_1a  UE= 10 | ho   9.778 | hof  14.700 | se   2.077 | jfi   0.992 | occ_var   0.081
+MD-CHO     starlink_phase_1a  UE= 20 | ho   4.928 | hof  52.656 | se   1.673 | jfi   0.980 | occ_var   0.144
+MD-CHO     starlink_phase_1a  UE= 30 | ho   1.515 | hof  73.385 | se   1.432 | jfi   0.972 | occ_var   0.179
+MD-CHO     starlink_phase_1a  UE= 50 | ho   0.000 | hof  91.224 | se   1.221 | jfi   0.991 | occ_var   0.203
+MD-CHO     starlink_phase_1a  UE= 75 | ho   0.000 | hof 125.923 | se   1.017 | jfi   0.962 | occ_var   0.107
+MD-CHO     starlink_phase_1a  UE=100 | ho   0.000 | hof 206.853 | se   0.825 | jfi   0.875 | occ_var   0.070
+MVT-CHO    starlink_phase_1a  UE=  5 | ho   4.933 | hof   0.000 | se   1.946 | jfi   0.999 | occ_var   0.025
+MVT-CHO    starlink_phase_1a  UE= 10 | ho   4.856 | hof   2.567 | se   1.951 | jfi   0.998 | occ_var   0.065
+MVT-CHO    starlink_phase_1a  UE= 20 | ho   3.633 | hof  11.478 | se   1.850 | jfi   0.997 | occ_var   0.130
+MVT-CHO    starlink_phase_1a  UE= 30 | ho   2.811 | hof  19.007 | se   1.749 | jfi   0.995 | occ_var   0.176
+MVT-CHO    starlink_phase_1a  UE= 50 | ho   1.771 | hof  31.878 | se   1.538 | jfi   0.990 | occ_var   0.198
+MVT-CHO    starlink_phase_1a  UE= 75 | ho   1.191 | hof  71.156 | se   1.285 | jfi   0.967 | occ_var   0.114
+MVT-CHO    starlink_phase_1a  UE=100 | ho   0.994 | hof 162.082 | se   1.036 | jfi   0.879 | occ_var   0.072
+HSNF       starlink_phase_1a  UE=  5 | ho  11.133 | hof   0.022 | se   2.212 | jfi   0.999 | occ_var   0.030
+HSNF       starlink_phase_1a  UE= 10 | ho   9.600 | hof   0.011 | se   2.204 | jfi   0.999 | occ_var   0.078
+HSNF       starlink_phase_1a  UE= 20 | ho   7.283 | hof   0.006 | se   2.051 | jfi   0.998 | occ_var   0.143
+HSNF       starlink_phase_1a  UE= 30 | ho   6.933 | hof   0.015 | se   1.933 | jfi   0.997 | occ_var   0.178
+HSNF       starlink_phase_1a  UE= 50 | ho   5.660 | hof   0.138 | se   1.728 | jfi   0.994 | occ_var   0.194
+HSNF       starlink_phase_1a  UE= 75 | ho   2.526 | hof  31.978 | se   1.459 | jfi   0.980 | occ_var   0.106
+HSNF       starlink_phase_1a  UE=100 | ho   1.577 | hof 130.140 | se   1.179 | jfi   0.898 | occ_var   0.073
+LBSH       starlink_phase_1a  UE=  5 | ho   5.200 | hof   0.200 | se   1.615 | jfi   0.997 | occ_var   0.014
+LBSH       starlink_phase_1a  UE= 10 | ho   5.067 | hof   0.122 | se   1.617 | jfi   0.998 | occ_var   0.040
+LBSH       starlink_phase_1a  UE= 20 | ho   5.139 | hof   0.261 | se   1.599 | jfi   0.996 | occ_var   0.080
+LBSH       starlink_phase_1a  UE= 30 | ho   4.985 | hof   0.537 | se   1.603 | jfi   0.995 | occ_var   0.113
+LBSH       starlink_phase_1a  UE= 50 | ho   4.216 | hof   1.276 | se   1.600 | jfi   0.996 | occ_var   0.146
+LBSH       starlink_phase_1a  UE= 75 | ho   3.090 | hof  32.370 | se   1.446 | jfi   0.981 | occ_var   0.108
+LBSH       starlink_phase_1a  UE=100 | ho   3.249 | hof 128.241 | se   1.174 | jfi   0.901 | occ_var   0.078
+############ big sweep: hybrid ############
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      hybrid             UE=  5 | ho  11.733 | hof   0.044 | se   2.958 | jfi   0.997 | occ_var   0.006
+ILCHO      hybrid             UE= 10 | ho  11.656 | hof   0.022 | se   2.971 | jfi   0.997 | occ_var   0.019
+ILCHO      hybrid             UE= 20 | ho  11.500 | hof   0.756 | se   2.933 | jfi   0.998 | occ_var   0.052
+ILCHO      hybrid             UE= 30 | ho  11.004 | hof   2.652 | se   2.865 | jfi   0.997 | occ_var   0.086
+ILCHO      hybrid             UE= 50 | ho  13.136 | hof   4.233 | se   2.608 | jfi   0.995 | occ_var   0.111
+ILCHO      hybrid             UE= 75 | ho  11.320 | hof   7.855 | se   2.444 | jfi   0.994 | occ_var   0.136
+ILCHO      hybrid             UE=100 | ho   7.341 | hof  20.564 | se   2.324 | jfi   0.994 | occ_var   0.171
+ILCHO-lin  hybrid             UE=  5 | ho  10.489 | hof   0.044 | se   2.643 | jfi   0.998 | occ_var   0.005
+ILCHO-lin  hybrid             UE= 10 | ho  10.611 | hof   0.044 | se   2.637 | jfi   0.997 | occ_var   0.014
+ILCHO-lin  hybrid             UE= 20 | ho  10.833 | hof   0.089 | se   2.645 | jfi   0.996 | occ_var   0.031
+ILCHO-lin  hybrid             UE= 30 | ho  11.048 | hof   0.315 | se   2.620 | jfi   0.997 | occ_var   0.055
+ILCHO-lin  hybrid             UE= 50 | ho  11.491 | hof   1.238 | se   2.557 | jfi   0.997 | occ_var   0.096
+ILCHO-lin  hybrid             UE= 75 | ho  10.450 | hof   3.834 | se   2.494 | jfi   0.997 | occ_var   0.143
+ILCHO-lin  hybrid             UE=100 | ho   8.591 | hof   5.509 | se   2.455 | jfi   0.996 | occ_var   0.174
+MD-CHO     hybrid             UE=  5 | ho  15.978 | hof   0.000 | se   3.467 | jfi   0.999 | occ_var   0.013
+MD-CHO     hybrid             UE= 10 | ho  14.889 | hof   6.956 | se   3.357 | jfi   0.995 | occ_var   0.039
+MD-CHO     hybrid             UE= 20 | ho  12.011 | hof  32.894 | se   2.936 | jfi   0.976 | occ_var   0.073
+MD-CHO     hybrid             UE= 30 | ho   8.378 | hof  54.507 | se   2.577 | jfi   0.965 | occ_var   0.111
+MD-CHO     hybrid             UE= 50 | ho   1.027 | hof  76.713 | se   2.209 | jfi   0.975 | occ_var   0.164
+MD-CHO     hybrid             UE= 75 | ho   0.024 | hof  92.616 | se   1.933 | jfi   0.971 | occ_var   0.206
+MD-CHO     hybrid             UE=100 | ho   0.000 | hof  98.763 | se   1.803 | jfi   0.980 | occ_var   0.206
+MVT-CHO    hybrid             UE=  5 | ho   7.622 | hof   0.022 | se   2.701 | jfi   0.997 | occ_var   0.010
+MVT-CHO    hybrid             UE= 10 | ho   7.522 | hof   0.389 | se   2.757 | jfi   0.997 | occ_var   0.022
+MVT-CHO    hybrid             UE= 20 | ho   6.522 | hof   5.467 | se   2.650 | jfi   0.997 | occ_var   0.056
+MVT-CHO    hybrid             UE= 30 | ho   6.037 | hof   8.678 | se   2.602 | jfi   0.996 | occ_var   0.089
+MVT-CHO    hybrid             UE= 50 | ho   4.696 | hof  14.458 | se   2.530 | jfi   0.996 | occ_var   0.147
+MVT-CHO    hybrid             UE= 75 | ho   3.575 | hof  18.127 | se   2.468 | jfi   0.994 | occ_var   0.192
+MVT-CHO    hybrid             UE=100 | ho   3.053 | hof  20.722 | se   2.389 | jfi   0.994 | occ_var   0.200
+HSNF       hybrid             UE=  5 | ho  15.667 | hof   0.000 | se   3.442 | jfi   0.999 | occ_var   0.013
+HSNF       hybrid             UE= 10 | ho  15.500 | hof   0.044 | se   3.431 | jfi   0.999 | occ_var   0.035
+HSNF       hybrid             UE= 20 | ho  12.850 | hof   0.017 | se   3.333 | jfi   0.998 | occ_var   0.074
+HSNF       hybrid             UE= 30 | ho  12.248 | hof   0.000 | se   3.230 | jfi   0.998 | occ_var   0.109
+HSNF       hybrid             UE= 50 | ho  10.678 | hof   0.018 | se   2.996 | jfi   0.997 | occ_var   0.160
+HSNF       hybrid             UE= 75 | ho   9.929 | hof   0.031 | se   2.781 | jfi   0.994 | occ_var   0.190
+HSNF       hybrid             UE=100 | ho  11.024 | hof   0.183 | se   2.602 | jfi   0.992 | occ_var   0.184
+LBSH       hybrid             UE=  5 | ho   7.467 | hof   0.000 | se   2.561 | jfi   0.998 | occ_var   0.006
+LBSH       hybrid             UE= 10 | ho   7.511 | hof   0.022 | se   2.632 | jfi   0.997 | occ_var   0.014
+LBSH       hybrid             UE= 20 | ho   7.783 | hof   0.072 | se   2.577 | jfi   0.997 | occ_var   0.034
+LBSH       hybrid             UE= 30 | ho   7.678 | hof   0.267 | se   2.571 | jfi   0.996 | occ_var   0.059
+LBSH       hybrid             UE= 50 | ho   7.320 | hof   1.033 | se   2.579 | jfi   0.997 | occ_var   0.111
+LBSH       hybrid             UE= 75 | ho   6.573 | hof   2.670 | se   2.578 | jfi   0.997 | occ_var   0.171
+LBSH       hybrid             UE=100 | ho   4.710 | hof   7.879 | se   2.512 | jfi   0.995 | occ_var   0.203
+############ OneWeb spot check ############
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      oneweb_phase_1     UE=  5 | ho   3.000 | hof   0.000 | se   0.725 | jfi   0.998 | occ_var   0.036
+ILCHO      oneweb_phase_1     UE= 20 | ho   2.750 | hof   4.458 | se   0.747 | jfi   0.993 | occ_var   0.149
+ILCHO      oneweb_phase_1     UE= 50 | ho   0.017 | hof  47.503 | se   0.621 | jfi   0.990 | occ_var   0.106
+ILCHO-lin  oneweb_phase_1     UE=  5 | ho   2.333 | hof   0.000 | se   0.700 | jfi   0.996 | occ_var   0.029
+ILCHO-lin  oneweb_phase_1     UE= 20 | ho   1.933 | hof   0.142 | se   0.729 | jfi   0.996 | occ_var   0.120
+ILCHO-lin  oneweb_phase_1     UE= 50 | ho   0.017 | hof  44.477 | se   0.630 | jfi   0.988 | occ_var   0.104
+MD-CHO     oneweb_phase_1     UE=  5 | ho   7.133 | hof   0.000 | se   0.976 | jfi   1.000 | occ_var   0.044
+MD-CHO     oneweb_phase_1     UE= 20 | ho   2.242 | hof  53.158 | se   0.732 | jfi   0.986 | occ_var   0.176
+MD-CHO     oneweb_phase_1     UE= 50 | ho   0.000 | hof 111.313 | se   0.483 | jfi   0.983 | occ_var   0.105
+MVT-CHO    oneweb_phase_1     UE=  5 | ho   3.500 | hof   0.000 | se   0.861 | jfi   0.999 | occ_var   0.042
+MVT-CHO    oneweb_phase_1     UE= 20 | ho   1.642 | hof  27.667 | se   0.737 | jfi   0.995 | occ_var   0.172
+MVT-CHO    oneweb_phase_1     UE= 50 | ho   0.417 | hof  76.507 | se   0.561 | jfi   0.990 | occ_var   0.111
+HSNF       oneweb_phase_1     UE=  5 | ho   7.100 | hof   0.000 | se   0.982 | jfi   1.000 | occ_var   0.045
+HSNF       oneweb_phase_1     UE= 20 | ho   3.317 | hof   0.017 | se   0.908 | jfi   0.999 | occ_var   0.188
+HSNF       oneweb_phase_1     UE= 50 | ho   1.117 | hof  29.863 | se   0.650 | jfi   0.993 | occ_var   0.109
+LBSH       oneweb_phase_1     UE=  5 | ho   1.600 | hof   0.000 | se   0.721 | jfi   1.000 | occ_var   0.034
+LBSH       oneweb_phase_1     UE= 20 | ho   1.375 | hof   0.267 | se   0.713 | jfi   0.996 | occ_var   0.137
+LBSH       oneweb_phase_1     UE= 50 | ho   1.230 | hof  30.810 | se   0.648 | jfi   0.994 | occ_var   0.115
+############ sensitivity study ############
+handover_offset_km=10.0: ILCHO ho=12.82 hof=2.42 se=3.04 | MD hof=67.19 | MVT hof=9.59
+handover_offset_km=25.0: ILCHO ho=11.83 hof=3.18 se=3.01 | MD hof=62.42 | MVT hof=8.67
+handover_offset_km=50.0: ILCHO ho=11.03 hof=3.38 se=2.98 | MD hof=51.32 | MVT hof=7.13
+handover_offset_km=75.0: ILCHO ho=9.99 hof=3.22 se=2.95 | MD hof=41.96 | MVT hof=5.81
+handover_offset_km=100.0: ILCHO ho=9.45 hof=2.69 se=2.95 | MD hof=31.12 | MVT hof=4.53
+ho_cooldown_s=0.0: ILCHO ho=10.92 hof=9.95 se=2.97 | MD hof=237.19 | MVT hof=32.47
+ho_cooldown_s=2.0: ILCHO ho=10.87 hof=5.70 se=2.97 | MD hof=121.33 | MVT hof=16.69
+ho_cooldown_s=5.0: ILCHO ho=11.03 hof=3.38 se=2.98 | MD hof=51.32 | MVT hof=7.13
+ho_cooldown_s=10.0: ILCHO ho=10.67 hof=3.07 se=2.96 | MD hof=28.26 | MVT hof=3.98
+ho_cooldown_s=20.0: ILCHO ho=10.38 hof=1.94 se=2.95 | MD hof=16.42 | MVT hof=2.37
+max_channels=4: ILCHO ho=7.34 hof=19.02 se=2.57 | MD hof=83.56 | MVT hof=16.99
+max_channels=6: ILCHO ho=9.54 hof=6.58 se=2.87 | MD hof=65.17 | MVT hof=10.09
+max_channels=8: ILCHO ho=11.03 hof=3.38 se=2.98 | MD hof=51.32 | MVT hof=7.13
+max_channels=12: ILCHO ho=12.02 hof=0.74 se=3.06 | MD hof=31.08 | MVT hof=4.05
+max_channels=16: ILCHO ho=12.53 hof=0.05 se=3.07 | MD hof=20.42 | MVT hof=2.39
+saved runs/sensitivity
+############ report tables ############
+wrote report_assets/TABLES.md and figures
+### EXTENDED SUITE DONE -- Fri, Sep  4, 2026 11:39:14 PM

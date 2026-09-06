@@ -1,0 +1,40 @@
+E:\learning\NTN-6G\ilcho_repro\src\ilcho\train.py:114: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return   320.28 | HO   7.00 | HOF  2.06 | SE  3.25 | loss nan |      3s
+ep    50 | eps 0.86 | return   323.68 | HO   6.67 | HOF  2.46 | SE  3.27 | loss 0.5131 |    197s
+ep   100 | eps 0.81 | return   324.23 | HO   6.61 | HOF  2.38 | SE  3.27 | loss 0.0586 |    435s
+ep   150 | eps 0.77 | return   323.45 | HO   6.69 | HOF  2.21 | SE  3.26 | loss 0.0375 |    646s
+ep   200 | eps 0.72 | return   324.36 | HO   6.65 | HOF  1.99 | SE  3.25 | loss 0.0322 |    855s
+ep   250 | eps 0.68 | return   324.00 | HO   6.70 | HOF  1.89 | SE  3.25 | loss 0.0289 |   1063s
+ep   300 | eps 0.63 | return   323.28 | HO   6.67 | HOF  1.82 | SE  3.24 | loss 0.0271 |   1264s
+ep   350 | eps 0.59 | return   323.43 | HO   6.62 | HOF  1.76 | SE  3.23 | loss 0.0254 |   1466s
+ep   400 | eps 0.54 | return   324.19 | HO   6.62 | HOF  1.48 | SE  3.22 | loss 0.0246 |   1690s
+ep   450 | eps 0.50 | return   322.89 | HO   6.69 | HOF  1.35 | SE  3.21 | loss 0.0244 |   1899s
+ep   500 | eps 0.46 | return   319.58 | HO   6.76 | HOF  1.22 | SE  3.19 | loss 0.0235 |   2103s
+ep   550 | eps 0.41 | return   320.13 | HO   6.71 | HOF  0.99 | SE  3.18 | loss 0.0229 |   2308s
+ep   600 | eps 0.37 | return   318.73 | HO   6.76 | HOF  0.92 | SE  3.16 | loss 0.0222 |   2512s
+ep   650 | eps 0.32 | return   317.95 | HO   6.79 | HOF  0.73 | SE  3.15 | loss 0.0216 |   2717s
+ep   700 | eps 0.28 | return   316.61 | HO   6.58 | HOF  0.67 | SE  3.12 | loss 0.0206 |   2927s
+ep   750 | eps 0.23 | return   314.64 | HO   6.61 | HOF  0.41 | SE  3.10 | loss 0.0195 |   3130s
+ep   800 | eps 0.19 | return   311.85 | HO   6.49 | HOF  0.35 | SE  3.07 | loss 0.0187 |   3334s
+ep   850 | eps 0.14 | return   308.57 | HO   6.42 | HOF  0.20 | SE  3.02 | loss 0.0183 |   3538s
+ep   900 | eps 0.10 | return   304.11 | HO   6.20 | HOF  0.13 | SE  2.96 | loss 0.0176 |   3745s
+ep   950 | eps 0.10 | return   301.45 | HO   6.00 | HOF  0.12 | SE  2.93 | loss 0.0170 |   3954s
+ep  1000 | eps 0.10 | return   299.38 | HO   6.00 | HOF  0.09 | SE  2.91 | loss 0.0164 |   4161s
+ep  1050 | eps 0.10 | return   300.54 | HO   5.83 | HOF  0.12 | SE  2.92 | loss 0.0158 |   4370s
+ep  1100 | eps 0.10 | return   298.99 | HO   5.99 | HOF  0.11 | SE  2.91 | loss 0.0156 |   4583s
+ep  1150 | eps 0.10 | return   300.68 | HO   5.71 | HOF  0.11 | SE  2.92 | loss 0.0150 |   4790s
+ep  1200 | eps 0.10 | return   298.11 | HO   5.93 | HOF  0.10 | SE  2.91 | loss 0.0148 |   4997s
+ep  1250 | eps 0.10 | return   299.08 | HO   5.80 | HOF  0.08 | SE  2.91 | loss 0.0144 |   5206s
+ep  1300 | eps 0.10 | return   297.48 | HO   5.88 | HOF  0.10 | SE  2.90 | loss 0.0141 |   5416s
+ep  1350 | eps 0.10 | return   297.49 | HO   5.90 | HOF  0.09 | SE  2.90 | loss 0.0144 |   5625s
+ep  1400 | eps 0.10 | return   298.60 | HO   5.76 | HOF  0.10 | SE  2.91 | loss 0.0141 |   5834s
+ep  1450 | eps 0.10 | return   300.90 | HO   5.67 | HOF  0.12 | SE  2.92 | loss 0.0137 |   6029s
+ep  1500 | eps 0.10 | return   297.28 | HO   5.87 | HOF  0.12 | SE  2.90 | loss 0.0136 |   6222s
+ep  1550 | eps 0.10 | return   299.06 | HO   5.79 | HOF  0.10 | SE  2.91 | loss 0.0138 |   6418s
+ep  1600 | eps 0.10 | return   298.27 | HO   5.84 | HOF  0.12 | SE  2.90 | loss 0.0138 |   6611s
+ep  1650 | eps 0.10 | return   299.31 | HO   5.84 | HOF  0.12 | SE  2.92 | loss 0.0138 |   6803s
+ep  1700 | eps 0.10 | return   299.46 | HO   5.80 | HOF  0.12 | SE  2.91 | loss 0.0136 |   6994s
+ep  1750 | eps 0.10 | return   299.36 | HO   5.79 | HOF  0.11 | SE  2.91 | loss 0.0136 |   7185s
+ep  1800 | eps 0.10 | return   299.41 | HO   5.83 | HOF  0.12 | SE  2.92 | loss 0.0139 |   7377s
+saved -> runs/ilcho_linear_v3  (7378s)
