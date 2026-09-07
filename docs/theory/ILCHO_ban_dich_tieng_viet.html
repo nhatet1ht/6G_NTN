@@ -1,0 +1,634 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sổ Tay ILCHO — Bản dịch tiếng Việt</title>
+<style>
+:root{
+  --bg:#EEF2F6;
+  --surface:#FFFFFF;
+  --surface-2:#E3E9EF;
+  --text:#121826;
+  --text-dim:#4E5B6E;
+  --border:#CCD6E0;
+  --accent:#C85A1B;
+  --accent-ink:#7A3410;
+  --accent-soft:#F5E1CE;
+  --mono: ui-monospace, "Cascadia Mono", "Segoe UI Mono", Consolas, "Liberation Mono", Menlo, monospace;
+  --serif: Cambria, Georgia, "Noto Serif", "Times New Roman", serif;
+  --display: "Segoe UI Semibold", "Segoe UI", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0A0F17;
+    --surface:#121A26;
+    --surface-2:#1A2431;
+    --text:#E8EDF3;
+    --text-dim:#9FACC0;
+    --border:#26313F;
+    --accent:#FF8A4A;
+    --accent-ink:#FFB884;
+    --accent-soft:#33231A;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0A0F17;
+  --surface:#121A26;
+  --surface-2:#1A2431;
+  --text:#E8EDF3;
+  --text-dim:#9FACC0;
+  --border:#26313F;
+  --accent:#FF8A4A;
+  --accent-ink:#FFB884;
+  --accent-soft:#33231A;
+}
+
+*{box-sizing:border-box;}
+html{background:var(--bg);}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:var(--serif);
+  font-size:17px;
+  line-height:1.65;
+  margin:0;
+  padding:0;
+}
+::selection{background:var(--accent-soft);color:var(--text);}
+
+a{color:var(--accent-ink);text-decoration-thickness:1px;text-underline-offset:2px;}
+a:focus-visible, button:focus-visible{outline:2px solid var(--accent);outline-offset:2px;}
+
+.wrap{
+  max-width:1180px;
+  margin:0 auto;
+  padding:0 24px 96px;
+  display:grid;
+  grid-template-columns:220px minmax(0,72ch);
+  gap:56px;
+  justify-content:center;
+}
+@media (max-width:880px){
+  .wrap{grid-template-columns:1fr;}
+}
+
+/* ---------- Masthead ---------- */
+.masthead{
+  grid-column:1/-1;
+  max-width:920px;
+  margin:0 auto;
+  padding:64px 24px 40px;
+  text-align:left;
+}
+.eyebrow{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  display:flex;
+  align-items:center;
+  gap:10px;
+  margin-bottom:18px;
+}
+.eyebrow::before{
+  content:"";
+  width:22px;height:1px;
+  background:var(--accent);
+  display:inline-block;
+}
+h1.title{
+  font-family:var(--display);
+  font-weight:700;
+  letter-spacing:-0.01em;
+  font-size:clamp(28px,4.2vw,42px);
+  line-height:1.22;
+  margin:0 0 14px;
+  text-wrap:balance;
+  color:var(--text);
+}
+.title-en{
+  font-family:var(--mono);
+  font-size:13px;
+  color:var(--text-dim);
+  margin:0 0 22px;
+  line-height:1.5;
+}
+.byline{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px 18px;
+  font-size:14px;
+  color:var(--text-dim);
+  border-top:1px solid var(--border);
+  padding-top:16px;
+}
+.byline b{color:var(--text);font-weight:600;}
+
+/* stat strip */
+.stats{
+  grid-column:1/-1;
+  max-width:920px;
+  margin:8px auto 8px;
+  padding:0 24px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:1px;
+  background:var(--border);
+  border:1px solid var(--border);
+  border-radius:2px;
+  overflow:hidden;
+}
+@media (max-width:640px){ .stats{grid-template-columns:repeat(2,1fr);} }
+.stat{
+  background:var(--surface);
+  padding:18px 16px;
+}
+.stat .num{
+  font-family:var(--mono);
+  font-variant-numeric:tabular-nums;
+  font-size:22px;
+  color:var(--accent-ink);
+  font-weight:600;
+}
+.stat .lbl{
+  font-size:12.5px;
+  color:var(--text-dim);
+  margin-top:4px;
+  line-height:1.4;
+}
+
+/* ---------- Nav rail ---------- */
+nav.rail{
+  position:sticky;
+  top:28px;
+  align-self:start;
+  font-family:var(--display);
+  font-weight:600;
+  font-size:13px;
+}
+@media (max-width:880px){
+  nav.rail{
+    position:static;
+    display:flex;
+    overflow-x:auto;
+    gap:4px;
+    padding-bottom:10px;
+    margin-top:8px;
+    border-bottom:1px solid var(--border);
+    top:auto;
+  }
+}
+nav.rail a{
+  display:block;
+  padding:7px 0;
+  color:var(--text-dim);
+  text-decoration:none;
+  border-left:2px solid transparent;
+  padding-left:12px;
+  white-space:nowrap;
+}
+nav.rail a:hover{color:var(--text);border-left-color:var(--border);}
+nav.rail .num{font-family:var(--mono);color:var(--accent-ink);margin-right:8px;}
+@media (max-width:880px){
+  nav.rail a{border-left:none;border-bottom:2px solid transparent;padding:6px 10px;}
+  nav.rail a:hover{border-bottom-color:var(--border);}
+}
+
+/* ---------- Article ---------- */
+article{min-width:0;}
+section.sec{padding-top:8px;margin-bottom:52px;scroll-margin-top:24px;}
+h2{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:13.5px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  margin:0 0 20px;
+  padding-bottom:10px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  gap:10px;
+  align-items:baseline;
+}
+h2 .rn{font-family:var(--serif);font-style:italic;font-size:16px;color:var(--text-dim);font-weight:700;}
+h3{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:700;
+  font-size:19px;
+  margin:32px 0 12px;
+  color:var(--text);
+}
+p{margin:0 0 16px;}
+p.lead{font-size:18.5px;color:var(--text-dim);}
+strong{color:var(--text);font-weight:700;}
+.tv{color:var(--accent-ink);font-style:normal;}
+
+blockquote.lemma{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent);
+  border-radius:2px;
+  padding:16px 20px;
+  margin:20px 0;
+  font-size:15.5px;
+}
+blockquote.lemma .tag{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  display:block;
+  margin-bottom:8px;
+}
+
+code.f, span.f{
+  font-family:var(--mono);
+  font-size:.92em;
+  background:var(--surface-2);
+  padding:1px 5px;
+  border-radius:3px;
+  color:var(--text);
+  white-space:nowrap;
+}
+
+.callout{
+  background:var(--accent-soft);
+  border-radius:2px;
+  padding:16px 20px;
+  margin:20px 0;
+  font-size:15px;
+}
+.callout .tag{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:11.5px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  display:block;
+  margin-bottom:6px;
+}
+
+ul, ol{margin:0 0 16px;padding-left:22px;}
+li{margin-bottom:8px;}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:14.5px;
+  margin:8px 0 4px;
+}
+th,td{
+  padding:9px 12px;
+  border-bottom:1px solid var(--border);
+  text-align:left;
+  font-variant-numeric:tabular-nums;
+}
+th{
+  font-family:var(--display);
+  font-size:12px;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  font-weight:600;
+  border-bottom:1px solid var(--text-dim);
+}
+tr:nth-child(even) td{background:var(--surface-2);}
+.tbl-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:2px;margin:22px 0;}
+.tbl-wrap table{margin:0;}
+.tbl-wrap .cap{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:12px;
+  letter-spacing:.02em;
+  color:var(--text-dim);
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  background:var(--surface);
+}
+
+.algo{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:2px;
+  padding:18px 20px;
+  margin:22px 0;
+  font-family:var(--serif);
+  font-size:15px;
+  line-height:1.8;
+}
+.algo .cap{
+  font-family:var(--display);
+  font-weight:600;
+  font-size:11px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--accent-ink);
+  margin-bottom:10px;
+}
+.algo ol{counter-reset:step;list-style:none;padding-left:0;margin:0;}
+.algo li{counter-increment:step;margin-bottom:6px;padding-left:26px;position:relative;}
+.algo li::before{
+  content:counter(step)".";
+  position:absolute;left:0;color:var(--text-dim);
+}
+.algo li.indent{padding-left:46px;}
+.algo li.indent2{padding-left:66px;}
+
+hr.div{border:none;border-top:1px solid var(--border);margin:44px 0;}
+
+footer{
+  grid-column:1/-1;
+  max-width:920px;
+  margin:24px auto 0;
+  padding:24px;
+  color:var(--text-dim);
+  font-size:13px;
+  border-top:1px solid var(--border);
+}
+</style>
+</head>
+<body>
+
+<div class="masthead">
+  <div class="eyebrow">Bản dịch kỹ thuật · IEEE Trans. Mobile Computing</div>
+  <h1 class="title">Sơ đồ chuyển giao thông minh cho mạng vệ tinh LEO 6G NTN</h1>
+  <p class="title-en">"Intelligent Handover Scheme for Improved 6G NTN LEO Satellite Network Performance" — IEEE Transactions on Mobile Computing, Vol. 25, No. 5, May 2026, tr. 6863–6878</p>
+  <div class="byline">
+    <span><b>Tác giả</b> Minsu Choi, Minseung Park, Junwon Kim, Jong-Moon Chung (Fellow, IEEE)</span>
+    <span><b>Đơn vị</b> Yonsei University, Hàn Quốc</span>
+    <span><b>Nhận</b> 23/3/2025 · <b>Chấp nhận</b> 1/12/2025</span>
+  </div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="num">10,8 → 12,95</div><div class="lbl">lần HO / UE mỗi 10 phút, khi số UE tăng 5→100 (Starlink Phase 2-a)</div></div>
+  <div class="stat"><div class="num">0,9798</div><div class="lbl">chỉ số công bằng Jain (JFI) trên throughput, 100 UE</div></div>
+  <div class="stat"><div class="num">3,76–3,85</div><div class="lbl">bps/Hz throughput trung bình, cao nhất trong 5 phương pháp so sánh</div></div>
+  <div class="stat"><div class="num">0,072</div><div class="lbl">phương sai chiếm dụng kênh — thấp nhất, tức cân bằng tải tốt nhất</div></div>
+</div>
+
+<div class="wrap">
+<nav class="rail">
+  <a href="#tomtat"><span class="num">·</span>Tóm tắt</a>
+  <a href="#s1"><span class="num">I</span>Giới thiệu</a>
+  <a href="#s2"><span class="num">II</span>Công trình liên quan</a>
+  <a href="#s3"><span class="num">III</span>Mô hình chòm vệ tinh</a>
+  <a href="#s4"><span class="num">IV</span>Kiến thức nền tảng</a>
+  <a href="#s5"><span class="num">V</span>Khung MARL của ILCHO</a>
+  <a href="#s6"><span class="num">VI</span>Phân tích hiệu năng</a>
+  <a href="#s7"><span class="num">VII</span>Kết luận</a>
+</nav>
+
+<article>
+
+<section class="sec" id="tomtat">
+  <h2><span class="rn">—</span>Tóm tắt</h2>
+  <p class="lead">Mạng 6G phi mặt đất (NTN) sẽ dùng vệ tinh để phủ sóng Internet toàn cầu, trong đó vệ tinh quỹ đạo thấp (LEO) được ưu tiên vì độ trễ thấp và ngân sách liên kết (link budget) tốt hơn so với vệ tinh ở quỹ đạo cao. Nhưng vì bay rất nhanh và vùng phủ hẹp, vệ tinh LEO đòi hỏi số lượng lớn và kéo theo chuyển giao (handover — HO) diễn ra liên tục.</p>
+  <p>Bài báo đề xuất sơ đồ <strong>chuyển giao có điều kiện thông minh cho vệ tinh LEO — ILCHO</strong> (Intelligent LEO satellite Conditional Handover), nhằm cải thiện hiệu năng NTN bằng cách xử lý hai vấn đề gốc rễ: cường độ tín hiệu dao động mạnh giữa các cell, và giá trị đo đạc nhanh chóng lỗi thời do vệ tinh di chuyển liên tục. ILCHO suy ra thông tin trạng thái của vệ tinh LEO (dựa trên vị trí và quỹ đạo bay), từ đó xác định điều kiện để một vệ tinh LEO "có thể truy cập" (accessible) đối với một UE, phục vụ việc chọn vệ tinh đích tối ưu — vừa tối đa hoá hiệu năng dịch vụ tổng thể, vừa giảm số lần HO.</p>
+  <p>ILCHO dùng <strong>học tăng cường đa tác tử (MARL)</strong> để duy trì hiệu năng tối ưu, đồng thời chuẩn bị sớm cho pha thực thi thông qua một sự kiện kích hoạt dựa trên khoảng cách. Kết quả mô phỏng cho thấy ILCHO cải thiện throughput và tỉ số tín hiệu trên nhiễu (SNR) so với các thuật toán HO khác, mang lại điều kiện liên lạc ổn định và tốt hơn.</p>
+  <p><em>Từ khóa:</em> 6G, NTN, handover (chuyển giao), LEO, MARL.</p>
+</section>
+
+<section class="sec" id="s1">
+  <h2><span class="rn">I</span>Giới thiệu</h2>
+  <p>6G được kỳ vọng hỗ trợ các ứng dụng thời gian thực hiệu năng cao (xe tự hành, robot, thực tế mở rộng XR) cùng khả năng phủ sóng toàn cầu. Trong khi 5G tập trung vào small-cell ở khu vực đông dân, mạng phi mặt đất (NTN) được thiết kế để phủ sóng cả những vùng ít dân cư hoặc gặp thiên tai — nơi mạng mặt đất 3G/4G/5G (TN) dễ bị tổn thương.</p>
+  <p>NTN bao gồm vệ tinh ở quỹ đạo thấp (<span class="tv">LEO</span>, 300–2.000 km), quỹ đạo trung (<span class="tv">MEO</span>, trên 2.000 km, dưới GEO), quỹ đạo địa tĩnh (<span class="tv">GEO</span>, 35.786 km), quỹ đạo elip cao (<span class="tv">HEO</span>) và mạng bay không người lái. LEO có độ trễ truyền tối đa 12,89 ms so với 270,73 ms của GEO, và link budget cao hơn — nhưng đổi lại vùng phủ nhỏ hơn nhiều và thời gian phủ sóng rất ngắn, nên cần chòm sao "siêu dày đặc" (ultra-dense) để bù lại.</p>
+  <p>Starlink của SpaceX là ví dụ điển hình: khởi động 2015, đến tháng 2/2025 đã phóng ~8.000 vệ tinh (~6.100 đang hoạt động), chia làm 3 lớp — Phase 1, Phase 1 VLEO (rất thấp) và Phase 2. Theo hồ sơ FCC, SpaceX dự kiến 4.408 vệ tinh ở độ cao 540–570 km cho Phase 1 (đã vận hành), 7.518 vệ tinh VLEO ở 330–340 km, và 29.998 vệ tinh Phase 2 ở 340–614 km (đang trong giai đoạn quy hoạch). OneWeb và Amazon cũng đang triển khai các dự án tương tự.</p>
+  <p>Theo mục 7.3.2.1 của báo cáo kỹ thuật 3GPP TR 38.821, thách thức về di động do chuyển động của vệ tinh là vấn đề lớn hơn hẳn so với mạng mặt đất: HO của vệ tinh LEO cần được thực hiện <strong>mỗi 6,61–132,28 giây</strong> tùy vị trí tương đối của UE so với cell — khiến UE gặp nhiều vấn đề HO. Vì vậy 3GPP xác định rằng không nên áp dụng trực tiếp các thuật toán HO truyền thống của TN cho NTN, và đề xuất <strong>chuyển giao có điều kiện (CHO)</strong> làm giải pháp thay thế. Việc kích hoạt báo cáo đo (measurement report — MR) có thể dựa trên vị trí UE theo bốn tiêu chí: kích hoạt theo đo đạc, theo vị trí, theo giá trị timing-advance, hoặc theo góc ngẩng (elevation angle) giữa cell nguồn và cell đích.</p>
+  <p>Trong Release 16, 3GPP đề xuất CHO để giảm lỗi chuyển giao (<span class="tv">HOF</span> — handover failure). HOF chủ yếu xảy ra ở pha chuẩn bị HO, và CHO giảm HOF bằng cách ra quyết định chuẩn bị sớm hơn so với các sơ đồ HO nền (baseline handover — BHO). CHO cũng được chọn làm chủ đề nghiên cứu của NTN trong 3GPP TR 38.821.</p>
+  <h3>Đóng góp của bài báo</h3>
+  <ul>
+    <li><strong>Nền tảng phân tích của ILCHO:</strong> ba <em>Lemma</em> (bổ đề) làm nòng cốt — Lemma 1 cho thông tin trạng thái (vị trí, quỹ đạo) của vệ tinh LEO; dựa vào đó, Lemma 2 xác định điều kiện để một vệ tinh LEO "có thể truy cập" với một UE cho trước, giúp ILCHO chọn vệ tinh đích tối đa hoá hiệu năng dịch vụ trong khi giảm thiểu số lần HO; Lemma 3 hỗ trợ ước lượng độ phức tạp và khả năng mở rộng.</li>
+    <li><strong>Môi trường chòm sao thực tế:</strong> dùng mô hình Starlink Phase 1-a và Phase 2-a — các chòm sao đã hoặc sắp được triển khai thương mại — làm mô hình hệ thống, giúp kết quả phân tích sát thực tế hơn.</li>
+    <li><strong>Công thức MARL có khả năng mở rộng:</strong> vì không gian hành động tăng theo cấp số nhân với siêu chòm sao LEO, nhiều nghiên cứu trước dùng mô hình dưới 100 vệ tinh và lấy hành động là chỉ số vệ tinh — dễ gặp vấn đề hội tụ khi số vệ tinh tăng. ILCHO đặt không gian hành động bằng <em>số vệ tinh khả kiến tối đa</em> (qua Lemma 2), giúp điều kiện hội tụ ổn định.</li>
+    <li><strong>Kiểm chứng CHO dựa trên RL:</strong> theo hiểu biết của nhóm tác giả, đây là nghiên cứu đầu tiên kiểm chứng CHO dựa trên RL trong một siêu chòm sao LEO NTN thực thụ, cho số lần HO trung bình ổn định bất kể số UE phục vụ.</li>
+  </ul>
+</section>
+
+<section class="sec" id="s2">
+  <h2><span class="rn">II</span>Công trình liên quan</h2>
+  <p>Các nghiên cứu HO trong NTN tập trung vào bốn tiêu chí: thời gian khả kiến (visible time), cường độ tín hiệu nhận được, vị trí, và cân bằng tải. Một số hướng tiếp cận: game theory để tối đa hoá lợi ích UE; mô hình luồng mạng (network-flow) để cải thiện chất lượng trải nghiệm (QoE) đa UE; sơ đồ đường hầm bền vững theo cụm (cluster-based persistent tunnel) để rút ngắn thời gian thủ tục HO.</p>
+  <p>Về hướng AI/RL: một số công trình dùng RL không kèm mạng nơ-ron sâu; một số khác dùng Q-learning đa tác tử để giảm số lần HO trong khi không vượt ngân sách kênh của mỗi vệ tinh — nhưng chưa phân tích sâu QoE theo UE. Một nghiên cứu mô phỏng trên chòm sao OneWeb nhưng tập trung tối đa hoá throughput, bỏ qua overhead báo hiệu do HO quá mức. Một hướng khác để chính vệ tinh nguồn (thay vì UE) ra quyết định HO dựa trên DRL, nhưng chỉ kiểm chứng trên mô hình 3 mặt phẳng quỹ đạo và tối đa 3 vệ tinh đích — hiệu quả có thể giảm khi áp dụng vào chòm sao thực tế (Starlink/OneWeb) do "lời nguyền chiều" (curse of dimensionality).</p>
+  <p>Các bài dùng RL đa phần dựa trên <span class="tv">DQN</span> (Deep Q-Network), mở rộng sang đa tác tử bằng thuật toán <span class="tv">IQL</span> (independent Q-learning) — mỗi tác tử học độc lập, coi các tác tử khác là một phần môi trường. Nhược điểm của IQL là hiện tượng <em>non-stationarity</em> (môi trường "không đứng yên" do các tác tử khác cùng học và thay đổi hành vi), khiến hội tụ không đảm bảo.</p>
+  <div class="callout">
+    <span class="tag">Khoảng trống nghiên cứu</span>
+    Theo nhóm tác giả, đây là công trình <strong>đầu tiên</strong> áp dụng RL-based CHO trong một siêu chòm sao LEO NTN mang tính thương mại thực thụ (chứ không phải mô hình rút gọn vài chục vệ tinh).
+  </div>
+</section>
+
+<section class="sec" id="s3">
+  <h2><span class="rn">III</span>Mô hình chòm vệ tinh LEO siêu dày đặc</h2>
+  <p>Vùng phủ của các vệ tinh LEO phụ thuộc vào góc ngẩng tối thiểu <span class="f">ψ<sub>min</sub></span>, độ cao <span class="f">H<sub>L</sub></span> và các tham số chòm sao. Vì các yếu tố này, kích thước vùng chồng lấn giữa các cell thay đổi liên tục — ảnh hưởng trực tiếp đến hiệu năng HO. Mục tiêu của bài báo là tối đa hoá hiệu năng dịch vụ NTN qua sơ đồ ILCHO.</p>
+
+  <h3>A. Mô hình chòm sao (Walker-Delta)</h3>
+  <p>Chòm sao dựa trên mô hình <strong>Walker-Delta</strong>: mọi quỹ đạo có cùng góc nghiêng <span class="f">α</span>; có <span class="f">N<sub>p</sub></span> mặt phẳng quỹ đạo, mỗi mặt phẳng có <span class="f">N<sub>L</sub></span> vệ tinh LEO cách đều nhau góc pha <span class="f">ΔΦ = 2π/N<sub>L</sub></span>. Tổng số vệ tinh là <span class="f">N<sub>total</sub> = N<sub>p</sub>·N<sub>L</sub></span>. Kinh độ điểm mọc (RAAN) giữa các mặt phẳng liền kề cách đều <span class="f">ΔΩ = 2π/N<sub>p</sub></span>, còn pha giữa các vệ tinh ở hai mặt phẳng liền kề lệch <span class="f">Δf = 2πF/N<sub>total</sub></span> với <span class="f">F</span> là hệ số pha. Ký hiệu chòm sao Walker-Delta là <span class="f">α : N<sub>total</sub>/N<sub>p</sub>/F</span>.</p>
+  <p>Mỗi vệ tinh có 7 tham số ephemeris để xác định vị trí chính xác: góc nghiêng <span class="f">α</span>, RAAN, độ lệch tâm <span class="f">ε</span>, bán trục lớn <span class="f">a<sub>s</sub></span>, góc cận điểm quỹ đạo (argument of perigee) <span class="f">w<sub>perigee</sub></span>, dị thường trung bình <span class="f">A</span>, và thời điểm tham chiếu ephemeris <span class="f">t<sub>0e</sub></span>. Bán trục lớn <span class="f">a<sub>s</sub> = R<sub>E</sub> + H<sub>L</sub></span> (bán kính Trái Đất cộng độ cao). Với chòm sao Starlink, độ lệch tâm rất nhỏ (0,0001379) nên được xấp xỉ về 0 — nghĩa là dị thường thật và dị thường trung bình được coi là như nhau.</p>
+
+  <blockquote class="lemma">
+    <span class="tag">Lemma 1 — Trạng thái vị trí vệ tinh</span>
+    Toạ độ Descartes của vệ tinh LEO thứ <span class="f">m</span> tại thời điểm <span class="f">t</span> được xác định hoàn toàn từ góc pha ban đầu, tốc độ góc quỹ đạo <span class="f">ω = √(GM<sub>E</sub>/a<sub>s</sub><sup>3</sup>)</span>, RAAN <span class="f">Ω<sub>m</sub></span> và góc nghiêng <span class="f">α</span> — tức vị trí vệ tinh là một hàm <em>tường minh, xác định trước</em> theo thời gian, không cần đo đạc. Đây chính là nền tảng để ILCHO "biết trước" trạng thái vệ tinh thay vì phải đo tín hiệu thời gian thực.
+  </blockquote>
+  <p>Vì chuyển động của vệ tinh tuân theo quỹ đạo Kepler (elip, không phải tròn), vị trí được bám theo giá trị <em>dị thường thật</em> (true anomaly) chứ không phải góc quay đều. Khoảng cách từ vệ tinh đến tâm Trái Đất tại thời điểm <span class="f">t</span> được tính từ bán trục lớn, độ lệch tâm và dị thường thật tương ứng.</p>
+
+  <h3>B. Mô hình mạng và kênh LEO</h3>
+  <p>Vị trí UE <span class="f">k</span> (kinh độ <span class="f">δ<sub>k</sub></span>, vĩ độ <span class="f">φ<sub>k</sub></span>) được coi là cố định — vì tốc độ vệ tinh LEO (7,59 km/s ở 550 km) vượt trội hoàn toàn so với độ di động của UE (thiết bị đầu cuối khẩu độ rất nhỏ — VSAT), nên tính di động của UE được bỏ qua, theo giả định phổ biến trong các nghiên cứu trước.</p>
+  <p>Khoảng cách giữa UE <span class="f">k</span> và vệ tinh <span class="f">m</span> được tính từ bán kính Trái Đất, độ cao vệ tinh và góc ngẩng <span class="f">ψ<sub>m,k</sub></span> — góc này lại được tính từ tích vô hướng giữa vector vị trí UE và vector hiệu (vị trí vệ tinh − vị trí UE).</p>
+  <blockquote class="lemma">
+    <span class="tag">Lemma 2 — Điều kiện "khả kiến" (accessible)</span>
+    Một UE <span class="f">k</span> được coi là trong vùng phủ (accessible) của vệ tinh LEO <span class="f">m</span> khi và chỉ khi một bất đẳng thức lượng giác giữa dị thường thật <span class="f">μ<sub>m</sub></span> và các hệ số hình học <span class="f">c<sub>1</sub>, c<sub>2</sub></span> (phụ thuộc vĩ độ/kinh độ UE và góc nghiêng quỹ đạo) được thoả mãn — tương đương với điều kiện góc ngẩng <span class="f">ψ<sub>m,k</sub> ≥ ψ<sub>min</sub></span>.<br><br>
+    Vì chuyển động vệ tinh là xác định trước (Lemma 1), tập vệ tinh khả kiến của mỗi UE có thể <strong>tính trước toàn bộ</strong> chỉ từ dữ liệu ephemeris — không cần "dò" từng cặp UE–vệ tinh theo thời gian thực. Đây là điểm mấu chốt giúp ILCHO giảm chi phí tính toán so với các sơ đồ dựa trên đo đạc.
+  </blockquote>
+  <p>Tổn hao đường truyền tổng cộng (theo 3GPP TR 38.811/38.821) gồm 4 thành phần: tổn hao cơ bản <span class="f">P<sub>loss,b</sub></span>, tổn hao khí quyển/mưa <span class="f">P<sub>loss,g</sub></span>, tổn hao nhấp nháy khí quyển <span class="f">P<sub>loss,s</sub></span> (bỏ qua với vĩ độ ngoài dải ±20°–±60°), và tổn hao xuyên tường <span class="f">P<sub>loss,e</sub></span> (bỏ qua vì UE ngoài trời, có tầm nhìn thẳng LoS). Tổn hao cơ bản gồm tổn hao không gian tự do cộng fading che khuất (shadow fading, phân phối chuẩn) cộng tổn hao clutter — các giá trị lấy theo Bảng 6.6.2 của TR 38.811. Suy hao khí quyển theo thiên đỉnh được chia cho sin góc ngẩng. Doppler shift <strong>không</strong> được xét trong bài, vì 3GPP xác nhận có thể bù hiệu quả qua tiền/hậu xử lý dựa trên quỹ đạo và vị trí UE đã biết trước.</p>
+  <p>Tổn hao cuối cùng là tổng có trọng số giữa kênh LoS và kênh NLoS theo xác suất LoS. Từ đó tính được SNR và, theo định lý dung lượng Shannon, throughput <span class="f">R<sub>m,k</sub></span> mà vệ tinh <span class="f">m</span> cung cấp cho UE <span class="f">k</span> (bằng 0 nếu không kết nối). Hàm mục tiêu dịch vụ NTN <span class="f">R<sub>NTN</sub></span> là trung bình theo thời gian và theo UE của các throughput này.</p>
+
+  <h3>C. Xây dựng bài toán tối ưu</h3>
+  <p>Mục tiêu ILCHO: tối đa hoá <span class="f">R<sub>NTN</sub></span>, với ràng buộc (i) mỗi UE chỉ kết nối tối đa một vệ tinh tại một thời điểm, (ii) mỗi vệ tinh phục vụ tối đa <span class="f">J</span> kênh (UE), và (iii) chỉ được gán UE cho vệ tinh nằm trong tập khả kiến theo Lemma 2.</p>
+  <blockquote class="lemma">
+    <span class="tag">Lemma 3 — Độ phức tạp NP-hard</span>
+    Tại một thời điểm cố định, bài toán tĩnh tương đương một <strong>bài toán gán tổng quát (generalized assignment problem)</strong> — một bài toán NP-hard kinh điển. Vì bài toán động (theo toàn bộ chuỗi thời gian <span class="f">T</span>) chứa bài toán tĩnh này ở mọi lát thời gian, bài toán tổng thể cũng là NP-hard.<br><br>
+    → Đây là lý do bài báo chuyển sang giải bằng <strong>học tăng cường đa tác tử (MARL)</strong> thay vì tìm lời giải tối ưu chính xác.
+  </blockquote>
+</section>
+
+<section class="sec" id="s4">
+  <h2><span class="rn">IV</span>Kiến thức nền tảng</h2>
+
+  <h3>A. Tổng quan quy trình ILCHO (theo 3GPP CHO Rel-16)</h3>
+  <p>Trong chuyển giao có điều kiện (CHO), có hai sự kiện độc lập: <strong>sự kiện chuẩn bị</strong> (preparation event) và <strong>sự kiện thực thi</strong> (execution event) — khác với BHO (baseline HO) truyền thống, nơi mạng quyết định thời điểm HO một cách phản ứng (reactive), dễ gây HOF. CHO chủ động hơn: UE tự quyết định thời điểm thực hiện HO khi điều kiện được thoả mãn.</p>
+  <p>Quy trình ILCHO gồm 3 pha:</p>
+  <ul>
+    <li><strong>Pha chuẩn bị (preparation):</strong> nếu sự kiện chuẩn bị thoả mãn, UE gửi báo cáo đo (MR) tới vệ tinh nguồn (S-LEO). Trong ILCHO, vệ tinh đích tối ưu (T-LEO) được chọn dựa trên dữ liệu ephemeris (qua Lemma 1, 2) và thông tin trạng thái vệ tinh — quyết định này do <strong>thuật toán điều khiển MARL</strong> thực hiện (Algorithm 1). S-LEO cấu hình các vệ tinh đích ứng viên, gửi yêu cầu CHO tới từng T-LEO ứng viên và nhận xác nhận (ACK); sau đó gửi lệnh CHO cho UE, kèm thời gian giữ (hold-off time) trước khi bước vào pha thực thi, trong lúc đó T-LEO giữ trước tài nguyên vô tuyến.</li>
+    <li><strong>Pha thực thi (execution):</strong> khi T-LEO thoả mãn sự kiện thực thi, UE gửi bản tin thông báo HO tới S-LEO; S-LEO chuyển tiếp dữ liệu đường xuống cho T-LEO; T-LEO đồng bộ với UE, thực hiện cấp phát đường lên và truy cập ngẫu nhiên; UE gửi bản tin xác nhận CHO tới T-LEO. ILCHO dùng <strong>sự kiện thực thi dựa trên khoảng cách</strong> (distance-based event, giống sự kiện A3 trong BHO).</li>
+    <li><strong>Pha hoàn tất (completion):</strong> giống thủ tục BHO — mạng lõi chuyển đổi đường mang (bearer) và chuyển mạch đường dẫn; T-LEO gửi bản tin hoàn tất HO tới S-LEO, kết thúc quy trình CHO.</li>
+  </ul>
+
+  <h3>B. Nền tảng học tăng cường</h3>
+  <p>ILCHO dùng hệ MARL dựa trên <strong>quá trình quyết định Markov (MDP)</strong>: tác tử quan sát trạng thái <span class="f">s<sub>t</sub></span>, chọn hành động <span class="f">a<sub>t</sub></span> theo chính sách <span class="f">π</span>, nhận thưởng <span class="f">r<sub>t</sub></span> và chuyển sang trạng thái mới <span class="f">s<sub>t+1</sub></span>. Mục tiêu là tìm chính sách tối ưu hoá tổng thưởng chiết khấu. Hàm giá trị hành động <span class="f">Q(s,a)</span> được cập nhật qua phương trình Bellman và học sai phân thời gian (<em>Q-learning</em>).</p>
+  <p><span class="tv">DQN</span> xấp xỉ <span class="f">Q(·)</span> bằng mạng nơ-ron sâu, huấn luyện qua hàm mất mát dạng bình phương sai số TD, dùng <strong>replay buffer</strong> (bộ đệm phát lại kinh nghiệm — lưu các tuple <span class="f">(s,a,r,s′)</span>, lấy mẫu ngẫu nhiên theo minibatch để giảm tương quan giữa các bước liên tiếp) và <strong>mạng đích (target network)</strong> cập nhật mềm theo chu kỳ để tăng ổn định huấn luyện.</p>
+
+  <h3>C. Thuật toán QMIX cho MARL</h3>
+  <p>Bài báo dùng thuật toán MARL dựa trên giá trị <strong>QMIX</strong>. So với các thuật toán MARL khác, MADDPG bị loại vì hiệu năng hạn chế trong kịch bản hợp tác và khả năng mở rộng kém; MAPPO có hiệu năng tốt nhưng QMIX được chọn vì học hiệu quả hơn và hội tụ nhanh hơn trong bài toán này.</p>
+  <p>Mỗi UE là một tác tử. QMIX hoạt động theo mô hình <strong>CTDE — huấn luyện tập trung, thực thi phi tập trung</strong> (centralized training, decentralized execution): khi huấn luyện, một bộ điều khiển trung tâm dùng thông tin toàn cục của mọi tác tử để tối ưu hoá hành động chung; khi thực thi, mỗi tác tử chỉ dựa trên quan sát cục bộ của chính nó để quyết định — phù hợp thực tế NTN nơi mỗi UE không thể quan sát đầy đủ trạng thái của các UE khác.</p>
+  <p>Điểm mấu chốt của QMIX là mạng trộn (mixing network) đơn điệu (monotonic): thay vì cộng tuyến tính đơn giản các giá trị Q cục bộ <span class="f">Q<sub>k</sub></span> như một số phương pháp trước, QMIX tổng hợp chúng thành giá trị chung <span class="f">Q<sub>tot</sub></span> qua một mạng siêu tham số (hyper-network) sinh ra trọng số cho mạng trộn, với ràng buộc <span class="f">∂Q<sub>tot</sub>/∂Q<sub>k</sub> ≥ 0</span> — đảm bảo hành động tối ưu cục bộ (arg max theo từng <span class="f">Q<sub>k</sub></span>) luôn tương thích với hành động tối ưu toàn cục (arg max theo <span class="f">Q<sub>tot</sub></span>). Nhờ vậy, mỗi tác tử chọn hành động tham lam dựa trên <span class="f">Q<sub>k</sub></span> cục bộ vẫn đảm bảo tính nhất quán và ổn định học, ngay cả khi chính sách của các tác tử khác đang thay đổi song song — khắc phục nhược điểm <em>non-stationarity</em> của IQL đã nêu ở Mục II.</p>
+  <p>Kiến trúc mạng tác tử dùng <strong>DRQN</strong> (deep recurrent Q-network — mạng Q sâu có hồi quy, dùng GRU để nắm lịch sử quan sát). QMIX gồm ba mạng: mạng tác tử (đại diện <span class="f">Q<sub>k</sub></span>), mạng trộn (kết hợp các <span class="f">Q<sub>k</sub></span> thành <span class="f">Q<sub>tot</sub></span>), và siêu mạng (sinh trọng số cho mạng trộn từ quan sát toàn cục).</p>
+  <p>Việc huấn luyện tập trung được thực hiện bởi bộ điều khiển thông minh mạng vô tuyến gần thời gian thực (near-RT RIC), nơi tổng hợp quan sát và dữ liệu ephemeris vệ tinh. Trên thiết bị, chỉ pha suy luận (thực thi lệnh CHO) được thực hiện — phù hợp vì độ trễ một chiều của vệ tinh LEO ở 550 km chỉ khoảng 5 ms.</p>
+  <div class="callout">
+    <span class="tag">Về timer hợp lệ của dữ liệu ephemeris</span>
+    Theo 3GPP TS 38.331, tham số <span class="f">ntn-UlSyncValidityDuration</span> quy định thời hạn hiệu lực của dữ liệu quỹ đạo vệ tinh (T430 timer), với các giá trị rời rạc từ s5 đến min20 (5 giây đến 20 phút) — quy mô lớn hơn nhiều so với độ trễ tín hiệu, nên độ trễ báo hiệu được bỏ qua trong bài.
+  </div>
+</section>
+
+<section class="sec" id="s5">
+  <h2><span class="rn">V</span>Khung MARL của ILCHO</h2>
+  <p>Vì bài toán <span class="f">(P)</span> ở Mục III-C là NP-hard và có bản chất trò chơi tổng quát (general-sum game — nhiều UE vừa hợp tác vừa cạnh tranh tài nguyên vệ tinh hạn chế), bài toán được chuyển hoá thành một MARL với đặc tính trò chơi ngẫu nhiên (stochastic game), giải bằng QMIX.</p>
+
+  <h3>Mô hình MDP</h3>
+  <p><strong>Tác tử (agent):</strong> mỗi UE <span class="f">k</span> là một tác tử, hoạt động trong môi trường quan sát cục bộ một phần — không biết quan sát của UE khác.</p>
+  <p><strong>Trạng thái (state):</strong> quan sát cục bộ của tác tử <span class="f">k</span> tại thời điểm <span class="f">t</span> là bộ bốn giá trị cho mỗi vệ tinh khả kiến <span class="f">n</span> (tối đa <span class="f">N<sub>max</sub></span> vệ tinh): <span class="f">I<sup>t</sup><sub>k,n</sub></span> — chỉ số logic của vệ tinh khả kiến, <span class="f">D<sup>t</sup><sub>k,n</sub></span> — khoảng cách tới vệ tinh đó, <span class="f">L<sup>t</sup><sub>k,n</sub></span> — số kênh vệ tinh đang dùng, và <span class="f">V<sup>t</sup><sub>k,n</sub></span> — thời gian khả kiến còn lại (<strong>RVT</strong> — remaining visible time). Giá trị <span class="f">N<sub>max</sub></span> được xác định bằng mô phỏng thực nghiệm dựa trên Lemma 2.</p>
+  <p><strong>Hành động (action):</strong> <span class="f">a<sup>t</sup><sub>k</sub></span> nhận giá trị từ 1 đến <span class="f">N<sub>max</sub></span>, chỉ định vệ tinh khả kiến thứ mấy được chọn làm đích HO cho UE <span class="f">k</span>.</p>
+  <p><strong>Phần thưởng (reward):</strong> vì mục tiêu là tối đa hoá hiệu năng dịch vụ trong khi giảm thiểu số lần HO, reward tại bước <span class="f">t</span> cho tác tử <span class="f">k</span> là:</p>
+  <ul>
+    <li><span class="f">−p<sub>1</sub></span> nếu HO thành công;</li>
+    <li><span class="f">−p<sub>2</sub></span> nếu xảy ra lỗi HO (HOF);</li>
+    <li>ngược lại, <span class="f">−U<sub>k,R</sub> + U<sub>k,RVT</sub></span> — hiệu của hai <strong>hàm chi phí dạng sigmoid</strong> <span class="f">U<sub>k</sub>(x) = c<sub>3</sub>/(1+e<sup>c<sub>1</sub>(x−c<sub>2</sub>)</sup>)</span>, một cho throughput (<span class="f">U<sub>k,R</sub></span>, hệ số dấu −,+,+ để throughput cao → thưởng cao) và một cho RVT (<span class="f">U<sub>k,RVT</sub></span>, hệ số dấu +,+,− để RVT thấp → phạt cao).</li>
+  </ul>
+  <div class="callout">
+    <span class="tag">Vì sao dùng hàm sigmoid thay vì hàm tuyến tính?</span>
+    Ngay khi một vệ tinh vừa khả kiến với UE, nó có RVT cao nhưng throughput thấp; RVT giảm dần một cách đơn điệu theo thời gian, trong khi throughput lại <strong>không đơn điệu</strong> — tăng dần rồi giảm khi vệ tinh tiến gần rồi rời xa điểm khoảng cách gần nhất. Một hàm thưởng <em>tuyến tính</em> không thể cân bằng tốt mối quan hệ phi tuyến này: nó dễ đánh giá thấp một vệ tinh đang giảm RVT dù throughput còn chưa đạt đỉnh, hoặc đánh giá cao một vệ tinh có throughput tốt nhưng sắp rời vùng phủ. Hàm sigmoid tạo ra một "điểm ngọt" (sweet spot), thưởng cao cho trạng thái có cả throughput và RVT thuận lợi, phạt các trạng thái cực đoan ở hai đầu — giúp tác tử học chính sách HO bền vững và có tầm nhìn xa hơn, thay vì chỉ tối ưu một chỉ số tuyến tính đơn lẻ.<br><br>
+    Thực nghiệm xác nhận: với hàm tuyến tính, tổng thưởng vẫn có xu hướng hội tụ nhưng số HOF và throughput <strong>dao động mạnh, không hội tụ ổn định</strong>; với hàm sigmoid, cả ba chỉ số đều hội tụ mượt (xem Mục VI).
+  </div>
+  <p>Hàm mất mát QMIX được tối thiểu hoá qua chênh lệch giữa giá trị TD-target và <span class="f">Q<sub>tot</sub></span> ước lượng; mạng đích được cập nhật mềm theo hệ số <span class="f">η<sub>QMIX</sub></span> mỗi <span class="f">T<sub>t</sub></span> bước.</p>
+
+  <div class="algo">
+    <div class="cap">Algorithm 1 — Thuật toán ILCHO (diễn giải)</div>
+    <ol>
+      <li>Khởi tạo mạng đánh giá <span class="f">θ<sub>QMIX</sub></span>, mạng đích <span class="f">θ′<sub>QMIX</sub></span>, mạng trộn, siêu mạng.</li>
+      <li>Với mỗi episode (tối đa <span class="f">N<sub>epi</sub></span>):</li>
+      <li class="indent">Khởi tạo môi trường vệ tinh LEO (UE, vệ tinh).</li>
+      <li class="indent">Với mỗi bước thời gian <span class="f">t = 1 … T<sub>serv</sub></span>:</li>
+      <li class="indent2">Mỗi tác tử <span class="f">k</span> lấy quan sát <span class="f">o<sup>t</sup><sub>k</sub></span>, chọn hành động theo chính sách ε-greedy.</li>
+      <li class="indent2">Chọn vệ tinh đích tối ưu (T-LEO) ở pha chuẩn bị.</li>
+      <li class="indent2"><strong>Nếu</strong> điều kiện thực thi (28) thoả mãn (sự kiện thực thi) → thực hiện HO; nhận thưởng và quan sát kế tiếp; lưu vào bộ đệm phát lại <span class="f">D</span>.</li>
+      <li class="indent">Lấy minibatch từ <span class="f">D</span>; tính <span class="f">Q<sub>tot</sub></span> ước lượng, giá trị đích và hàm mất mát; cập nhật mạng.</li>
+      <li class="indent">Mỗi <span class="f">T<sub>t</sub></span> bước, cập nhật mạng đích.</li>
+    </ol>
+  </div>
+
+  <h3>Độ phức tạp</h3>
+  <p>Độ phức tạp huấn luyện là <span class="f">O(K)</span> khi kích thước mạng và <span class="f">N<sub>max</sub></span> cố định — tuyến tính theo số tác tử (UE) <span class="f">K</span>, thay vì tăng theo tổng số vệ tinh <span class="f">N<sub>total</sub></span>. Độ phức tạp pha thực thi (inference) cũng là <span class="f">O(K)</span> — đây chính là lợi thế khả mở rộng cốt lõi của thiết kế không gian hành động theo Lemma 2 đã nêu ở Mục I.</p>
+</section>
+
+<section class="sec" id="s6">
+  <h2><span class="rn">VI</span>Phân tích hiệu năng</h2>
+  <p>Hiệu năng ILCHO được kiểm chứng trên môi trường chòm sao <strong>Starlink Phase 1-a và Phase 2-a</strong>. Ở Phase 2, vệ tinh bay thấp hơn (340–370 km so với 550 km của Phase 1) → vùng phủ nhỏ hơn, cần nhiều vệ tinh hơn và HO thường xuyên hơn — nên Phase 2 đòi hỏi độ chính xác thuật toán cao hơn và được dùng làm kịch bản thử nghiệm chính.</p>
+
+  <div class="tbl-wrap">
+    <div class="cap">Tham số mô phỏng chính (trích Bảng II)</div>
+    <table>
+      <tr><th>Tham số</th><th>Giá trị</th></tr>
+      <tr><td>Khu vực khảo sát</td><td>[39–41°N, 39–41°E]</td></tr>
+      <tr><td>Số UE</td><td>5 – 100</td></tr>
+      <tr><td>Kịch bản triển khai</td><td>Nông thôn (rural)</td></tr>
+      <tr><td>Băng tần</td><td>Ka-band, băng thông kênh 250 MHz</td></tr>
+      <tr><td>Góc ngẩng tối thiểu <span class="f">ψ<sub>min</sub></span></td><td>30°</td></tr>
+      <tr><td>Thời lượng dịch vụ <span class="f">T<sub>s</sub></span></td><td>10 phút, bước 1 giây</td></tr>
+      <tr><td>Số kênh tối đa mỗi vệ tinh <span class="f">J</span></td><td>8</td></tr>
+      <tr><td>Độ cao vệ tinh (Phase 1 / Phase 2)</td><td>550 km / 340 km</td></tr>
+      <tr><td>Tổng số vệ tinh (Phase 1 / Phase 2)</td><td>1.584 / 5.280</td></tr>
+      <tr><td>Tốc độ học <span class="f">β</span></td><td>10<sup>−4</sup></td></tr>
+      <tr><td>Hệ số chiết khấu <span class="f">σ</span></td><td>0,99</td></tr>
+      <tr><td>ε-greedy</td><td>0,9 → 0,1</td></tr>
+      <tr><td>Số episode huấn luyện</td><td>3.000 – 30.000</td></tr>
+    </table>
+  </div>
+  <p>Với Phase 1-a và Phase 2-a, số vệ tinh khả kiến trung bình theo vĩ độ UE đạt đỉnh lần lượt 17 và 27 vệ tinh (theo Lemma 2). Môi trường mô phỏng cài trên Python 3.11 + PyTorch 2.1.0.</p>
+
+  <h3>Kết quả huấn luyện: sigmoid so với tuyến tính</h3>
+  <p>Với 30 tác tử trên Starlink Phase 2-a, hàm thưởng <strong>sigmoid</strong> cho tổng điểm hội tụ mượt theo episode; số HO và HOF trung bình <em>giảm dần</em> còn throughput trung bình <em>tăng dần</em> khi huấn luyện tiến triển — xác nhận ILCHO học hiệu quả. Ngược lại, với hàm thưởng <strong>tuyến tính</strong> cùng điều kiện, tổng thưởng vẫn có xu hướng hội tụ nhưng HOF và throughput dao động mạnh, không ổn định — minh chứng thực nghiệm cho lập luận ở Mục V về ưu thế của hàm sigmoid.</p>
+
+  <h3>So sánh với các phương pháp HO khác</h3>
+  <p>ILCHO được so sánh với 4 phương pháp trên Starlink Phase 2-a:</p>
+  <ul>
+    <li><strong>MD-CHO</strong> (Minimum Distance): UE HO tới vệ tinh khả kiến gần nhất.</li>
+    <li><strong>MVT-CHO</strong> (Maximum Visible Time): UE HO tới vệ tinh có RVT dài nhất.</li>
+    <li><strong>HSNF</strong>: mô hình luồng mạng dựa trên lý thuyết đồ thị, tối ưu theo ma trận chi phí (throughput và băng thông còn lại trung bình).</li>
+    <li><strong>LBSH</strong> (Load Balancing Satellite HO): Q-learning đa tác tử tối thiểu hoá số lần HO, thưởng kết hợp RVT và tải.</li>
+  </ul>
+  <p>Hai phương pháp nền MD-CHO/MVT-CHO dùng sự kiện thực thi kiểu A2 (dựa trên ngưỡng khoảng cách <span class="f">ζ</span>), tương tự cách các nghiên cứu trước kích hoạt HO trong NTN mà không dùng đo RSRP (vốn kém tin cậy và khó phân biệt giữa các cell vệ tinh do ở xa và thay đổi khó lường).</p>
+
+  <div class="tbl-wrap">
+    <div class="cap">Kết quả chính, Starlink Phase 2-a, 5→100 UE (đọc từ Hình 8)</div>
+    <table>
+      <tr><th>Chỉ số</th><th>ILCHO</th><th>HSNF</th><th>MVT-CHO</th><th>MD-CHO</th><th>LBSH</th></tr>
+      <tr><td>Số HO / UE</td><td>~10–13 <em>(ổn định)</em></td><td>~10 <em>(ổn định)</em></td><td>10→24</td><td>10→38</td><td>33→65</td></tr>
+      <tr><td>Số HOF / UE</td><td>0,48–1,38</td><td>~10 <em>(ổn định)</em></td><td>0→20</td><td>0→25</td><td>4→30</td></tr>
+      <tr><td>Throughput (bps/Hz)</td><td>3,76–3,85</td><td>~3,65–3,70</td><td>~3,5–3,6</td><td>~3,55–3,6</td><td>3,4–3,6</td></tr>
+    </table>
+  </div>
+  <p>Với 5 tác tử, ILCHO có 10,8 lần HO/thời lượng dịch vụ (HO khoảng mỗi 55,56 giây); với 100 tác tử, con số này chỉ nhích lên 12,95 (HO khoảng mỗi 46,32 giây) — gần như không đổi dù tải tăng gấp 20 lần. Ngược lại, các phương pháp chỉ dựa vào khoảng cách hoặc RVT đơn lẻ (MD, MVT) hoặc phần thưởng chưa cân bằng tải tốt (LBSH) đều tăng mạnh số HO và HOF khi số UE tăng, vì độ tương quan cao giữa các UE (nhiều UE cùng chọn "vệ tinh tốt nhất" theo một tiêu chí đơn) gây tắc nghẽn. HSNF ổn định về số HO nhưng có HOF cao đáng kể (~10, không giảm) do việc tính chi phí liên kết cho từng cặp UE–vệ tinh theo thời gian thực trở nên bất khả thi ở quy mô mega-constellation.</p>
+  <p>Về throughput, ILCHO luôn dẫn đầu: 3,85 bps/Hz (5 UE) → 3,79 (50 UE) → 3,76 (100 UE) bps/Hz.</p>
+
+  <h3>Kết quả trên Starlink Phase 1-a</h3>
+  <p>Xu hướng tương tự Phase 2, nhưng vì độ cao lớn hơn (550 km) nên thời gian khả kiến (RVT) dài hơn, số vệ tinh khả kiến giảm. ILCHO và HSNF đều cho số HO ổn định theo số UE; ILCHO dao động 8–9,17 lần HO/thời lượng dịch vụ (mỗi 65,43–75 giây). MVT bắt đầu bộc lộ bất ổn khi UE ≥ 15 do số vệ tinh khả kiến giảm; MD giảm ổn định mạnh vì tương quan UE cao khi ít vệ tinh. ILCHO vẫn giữ HOF dưới 0,98/thời lượng dịch vụ — tốt nhất trong các phương pháp — và throughput cao nhất, cho thấy ILCHO tận dụng tốt dữ liệu quỹ đạo (TLE) và góc ngẩng thay vì phụ thuộc kích hoạt theo đo đạc tín hiệu.</p>
+
+  <h3>Chòm sao lai (hybrid: Phase 1-a + Phase 2-a)</h3>
+  <div class="tbl-wrap">
+    <div class="cap">Bảng III — Số HO, HOF và throughput trung bình (5→100 UE)</div>
+    <table>
+      <tr><th></th><th>Trung bình</th><th>Tối thiểu</th><th>Tối đa</th></tr>
+      <tr><td>Số HO — Phase 1-a</td><td>8,64</td><td>8,00</td><td>9,20</td></tr>
+      <tr><td>Số HO — Phase 2-a</td><td>12,67</td><td>10,80</td><td>13,42</td></tr>
+      <tr><td>Số HO — Hybrid</td><td>12,24</td><td>9,00</td><td>13,16</td></tr>
+      <tr><td>HOF — Phase 1-a</td><td>0,53</td><td>0,00</td><td>0,97</td></tr>
+      <tr><td>HOF — Phase 2-a</td><td>0,67</td><td>0,00</td><td>1,50</td></tr>
+      <tr><td>HOF — Hybrid</td><td>0,97</td><td>0,53</td><td>1,47</td></tr>
+      <tr><td>Throughput — Phase 1-a</td><td>3,375</td><td>3,325</td><td>3,474</td></tr>
+      <tr><td>Throughput — Phase 2-a</td><td>3,788</td><td>3,754</td><td>3,846</td></tr>
+      <tr><td>Throughput — Hybrid</td><td>3,647</td><td>3,572</td><td>3,748</td></tr>
+    </table>
+  </div>
+  <p>Chòm sao lai kế thừa cả hai đặc tính: số HO thấp gần với Phase 1-a, đồng thời throughput cao hơn Phase 1-a nhờ tận dụng lợi thế của Phase 2-a. HOF không khác biệt đáng kể giữa ba kịch bản.</p>
+
+  <h3 id="fairness">A. Công bằng và cân bằng tải</h3>
+  <p>Công bằng throughput giữa các UE được đo bằng <strong>chỉ số công bằng Jain (JFI)</strong>: <span class="f">J<sub>JFI</sub> = (Σ R<sub>k</sub>)² / (K · Σ R<sub>k</sub>²)</span>, càng gần 1 càng công bằng. Với 100 tác tử trên Starlink Phase 2-a, ILCHO đạt <strong>JFI = 0,9798</strong> — rất gần mức công bằng tuyệt đối — và hàm phân phối tích luỹ (CDF) của throughput cho thấy <strong>không có hiện tượng "đói tài nguyên"</strong> ở các UE vùng biên (throughput tối thiểu bách phân vị thứ 10 vẫn đạt 3,50 bps/Hz, so với trung bình 3,846 bps/Hz).</p>
+  <p>Cân bằng tải được đo bằng <strong>phương sai của độ chiếm dụng kênh</strong> <span class="f">O<sub>m,t</sub> = L<sub>m,t</sub>/J</span> giữa các vệ tinh. Với 50 tác tử trên Phase 2-a:</p>
+  <div class="tbl-wrap">
+    <div class="cap">Bảng IV — Phương sai chiếm dụng kênh, 50 UE</div>
+    <table>
+      <tr><th>ILCHO</th><th>MD-CHO</th><th>MVT-CHO</th><th>LBSH</th><th>HSNF</th></tr>
+      <tr><td><strong>0,072</strong></td><td>0,372</td><td>0,400</td><td>0,077</td><td>0,089</td></tr>
+    </table>
+  </div>
+  <p>ILCHO có phương sai thấp nhất — tức phân bổ tải đều nhất giữa các vệ tinh. Điều này là <em>hệ quả trực tiếp</em> của cơ chế học qua hàm thưởng: dồn nhiều UE vào một vệ tinh quá tải sẽ làm tăng xác suất HOF, và sự kiện HOF bị phạt nặng trong hàm thưởng — nên các tác tử tự học cách phân tán tải để duy trì ổn định dịch vụ, dù hàm thưởng <em>không</em> chứa trực tiếp số hạng cân bằng tải.</p>
+</section>
+
+<section class="sec" id="s7">
+  <h2><span class="rn">VII</span>Kết luận và hướng phát triển</h2>
+  <p>ILCHO được đề xuất để hỗ trợ quyết định HO trong NTN chứa nhiều vệ tinh LEO. Vì vệ tinh LEO di chuyển rất nhanh và có độ trễ dài so với mạng mặt đất, các thuật toán HO truyền thống dựa trên kích hoạt theo đo đạc không còn phù hợp. ILCHO khắc phục điều này bằng cách suy ra thông tin trạng thái vệ tinh (vị trí, quỹ đạo) để xác định điều kiện khả kiến, từ đó chọn vệ tinh đích tối ưu nhằm tối đa hoá hiệu năng dịch vụ trong khi giảm số lần HO.</p>
+  <p>Để đồng bộ tối ưu HO cho nhiều UE cùng lúc, ILCHO dùng dự đoán chuyển động vệ tinh qua hệ MARL, và ra quyết định qua một sự kiện thực thi dựa trên khoảng cách trong pha chuẩn bị CHO. Kết quả: số lần HO ổn định hơn và throughput cao hơn so với các sơ đồ HO khác của NTN.</p>
+  <div class="callout">
+    <span class="tag">Hướng nghiên cứu tiếp theo</span>
+    Cần nghiên cứu thêm các yếu tố suy giảm hiệu năng khác trong NTN vệ tinh LEO, nơi bài toán điều khiển sẽ ngày càng phức tạp hơn và việc tối ưu hoá khả năng mở rộng sẽ trở nên thách thức hơn.
+  </div>
+</section>
+
+<hr class="div">
+<p style="font-size:14px;color:var(--text-dim)">Ghi chú của người dịch: đây là bản chuyển ngữ đầy đủ nội dung kỹ thuật của bài báo gốc (Mục Tóm tắt đến Kết luận, kèm ba Lemma, mô hình MDP/QMIX, và toàn bộ số liệu mô phỏng chính ở các Bảng I–IV và Hình 5–11). Ký hiệu công thức được giữ nguyên dạng biến số gốc (subscript, ký tự Hy Lạp) để tiện đối chiếu với bản tiếng Anh. Danh mục 49 tài liệu tham khảo ở cuối bài không được dịch vì là các trích dẫn nguyên văn.</p>
+
+</article>
+</div>
+
+<footer>
+  Dịch từ: M. Choi, M. Park, J. Kim, J.-M. Chung, "Intelligent Handover Scheme for Improved 6G NTN LEO Satellite Network Performance," <em>IEEE Transactions on Mobile Computing</em>, vol. 25, no. 5, pp. 6863–6878, May 2026. DOI 10.1109/TMC.2025.3642278.
+</footer>
+
+</body>
+</html>
