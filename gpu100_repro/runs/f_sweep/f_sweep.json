@@ -1,0 +1,21 @@
+{
+  "purpose": "Search the Walker-Delta phasing factor F for Starlink Phase 2-a to see if any integer value reproduces the paper's published peak accessible-satellite count of 27 (Fig. 5 / N_max).",
+  "constellation": "starlink_phase_2a",
+  "swept_param": "phasing_factor (F)",
+  "F_range_tested": "0..47 (0..num_planes-1, full valid discrete space)",
+  "method": "ilcho.sanity.max_accessible_vs_latitude equivalent, per F: global peak accessible-satellite count over latitudes 0-90deg (lon0=40, duration_s=6000, dt=20s, min_elev=30deg), swapping only phasing_factor via dataclasses.replace on the Phase 2-a ConstellationConfig",
+  "paper_target": 27,
+  "result_summary": "No F in [0,47] reproduces 27. Range observed: 29-32. F=1 (the value used throughout the reproduction) already yields the minimum achievable peak (29) in this search space.",
+  "conclusion": "The 27 vs 29 mismatch is not explained by the unpublished Walker phasing factor F. It must come from some other unpublished detail of the paper's methodology (peak-counting convention, temporal sampling resolution, RAAN/epoch offset, or a different Walker phasing convention).",
+  "date": "2026-09-08",
+  "peak_by_F": {
+    "0": 30, "1": 29, "2": 29, "3": 30, "4": 29, "5": 29, "6": 30, "7": 30,
+    "8": 30, "9": 29, "10": 30, "11": 30, "12": 30, "13": 30, "14": 29,
+    "15": 29, "16": 30, "17": 29, "18": 29, "19": 29, "20": 30, "21": 29,
+    "22": 30, "23": 31, "24": 31, "25": 32, "26": 32, "27": 32, "28": 31,
+    "29": 31, "30": 32, "31": 31, "32": 30, "33": 29, "34": 29, "35": 30,
+    "36": 30, "37": 29, "38": 29, "39": 29, "40": 29, "41": 29, "42": 29,
+    "43": 29, "44": 29, "45": 30, "46": 29, "47": 29
+  },
+  "peak_latitude_deg": "50.0 for every F tested (the latitude of the peak did not shift)"
+}

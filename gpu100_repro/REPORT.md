@@ -65,7 +65,7 @@ phụ thuộc CPU/GPU hay số agent, nên số liệu **giống hệt lượt 2
 | Đại lượng | Bài báo | Bản này | Kết luận |
 |---|---|---|---|
 | Đỉnh vệ tinh khả kiến, Phase 1-a | 17 | **17** (vĩ độ 48°) | ✅ khớp chính xác |
-| Đỉnh vệ tinh khả kiến, Phase 2-a | 27 | 29 (vĩ độ 50°) | ≈ (lệch do hệ số phasing Walker `F` không công bố, như lượt 2) |
+| Đỉnh vệ tinh khả kiến, Phase 2-a | 27 | 29 (vĩ độ 50°) | ≈ (lệch do hệ số phasing Walker `F` không công bố — **đã quét toàn bộ `F`∈[0,47], không có giá trị nào cho đúng 27** [dải kết quả 29–32], xem `CHUA_LAM_DUOC.md` mục C4; lệch không đến từ `F`) |
 | SE tại thiên đỉnh, 340 km | ≈3,76–3,85 bps/Hz | **3,78 bps/Hz** | ✅ |
 | Khoảng cách tối thiểu giữa 2 HO (MD-CHO) | 6,61 s | **8,0 s** | ✅ sát |
 | Trung vị khoảng cách giữa 2 HO | — | 50 s | hợp lý |
@@ -313,7 +313,7 @@ thiếu dung lượng vật lý**, RL hay heuristic đều như nhau khi không 
 | 2 | batch size `b=32` (Table II) | **batch=8** | giới hạn VRAM 8 GB ở K=100/T=600 (§1); chưa rõ ảnh hưởng tới sample efficiency, nhưng hội tụ vẫn mượt và đạt plateau sớm |
 | 3 | `N_max` = 27 | 27 (đúng) | — |
 | 4 | tần số sóng mang không công bố | 20 GHz, hiệu chỉnh theo 3,8 bps/Hz | không đổi so với lượt 2 |
-| 5 | `O_off`, hằng số thưởng, `F` không công bố | tự chọn, đã khảo sát độ nhạy | thứ hạng không đổi (§6); ablation reward (§5) là phát hiện riêng, càng vững hơn ở quy mô lớn |
+| 5 | `O_off`, hằng số thưởng, `F` không công bố | tự chọn, đã khảo sát độ nhạy; **`F` đã quét hết [0,47] (2026-09-08), không giá trị nào khớp đỉnh 27** (§2) | thứ hạng không đổi (§6); ablation reward (§5) là phát hiện riêng, càng vững hơn ở quy mô lớn; lệch đỉnh N_max xác nhận không do `F` |
 | 6 | HSNF/LBSH là cài đặt đầy đủ [22]/[26] | bản xấp xỉ gọn | HSNF thắng throughput + có "vách đá" bão hòa ở tải cao — không đổi qua 3 lượt |
 | 7 | linear reward báo cáo bất ổn (Fig. 7) | **hội tụ ổn định, gần tương đương sigmoid** — nay ở đúng quy mô 100 agent | củng cố kết luận tiêu cực của lượt 2, loại bỏ nghi ngờ "do chưa đủ quy mô" |
 | 8 | tốc độ mô phỏng | GPU cho `learn()` (~10-15×), rollout vẫn CPU-tốc-độ | biến quy mô 100 agent/600s/nghìn episode từ "nhiều ngày" thành "một đêm" trên máy để bàn |

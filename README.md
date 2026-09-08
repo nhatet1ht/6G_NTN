@@ -1,5 +1,9 @@
 # ILCHO reproduction
 
+> 📍 New here, or picking this back up after a break? Start at
+> **[`START_HERE.md`](START_HERE.md)** — reading order for every doc in this repo, current
+> status, and a running log of what's been done each session.
+
 Reproduction of
 
 > M. Choi, M. Park, J. Kim, J.-M. Chung,
