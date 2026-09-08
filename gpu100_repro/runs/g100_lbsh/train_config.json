@@ -1,0 +1,15 @@
+{
+  "constellation": "starlink_phase_2a",
+  "reward": "sigmoid",
+  "mode": "iql",
+  "episodes": 3000,
+  "train_ues": 100,
+  "horizon": 600,
+  "n_max": 27,
+  "eps_anneal": 1800,
+  "learn_every": 1,
+  "batch": 8,
+  "seed": 0,
+  "out": "gpu100_repro/runs/g100_lbsh",
+  "device": "cuda"
+}

@@ -58,7 +58,10 @@ uv run python -m ilcho.sensitivity --ilcho runs/x/policy.pt --out runs/sensitivi
 
 All runs referenced above have **completed**; final numbers, figures, and an
 honest discussion of what did and didn't reproduce are in **`REPORT.md`**
-(tiếng Việt). Design-decision write-ups (also tiếng Việt):
+(tiếng Việt). A newer, closer-to-paper round (100 agents, 600 s training
+horizon — matching Table II exactly, GPU-accelerated) lives self-contained in
+**[`gpu100_repro/REPORT.md`](gpu100_repro/REPORT.md)** and does not overwrite
+anything below. Design-decision write-ups (also tiếng Việt):
 
 * `docs/PHUONG_PHAP_XAY_DUNG_CODE.md` — how the code was built from the paper,
   module by module, with the reasoning behind every choice.

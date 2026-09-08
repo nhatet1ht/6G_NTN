@@ -1,0 +1,597 @@
+############ [0/7] geometry / link-budget sanity ############ Tue, Sep  8, 2026  1:41:35 AM
+=== Accessible LEO satellites inside region [39-41 N] ===
+  starlink_phase_1a   : region-max= 11  region-mean= 8.40
+  starlink_phase_2a   : region-max= 15  region-mean=12.50
+
+=== Global peak accessible count over latitude 0-90 (cf. Fig. 5) ===
+  starlink_phase_1a   : peak= 17 at lat=48.0 deg   (paper N_max=17)
+  starlink_phase_2a   : peak= 29 at lat=50.0 deg   (paper N_max=27)
+
+=== Link-budget probe (cf. throughput ~3.7-3.85 bps/Hz) ===
+  elev=  30 deg  alt=  340 km  d=  634.9 km  PL= 176.9 dB  SNR=  3.59 dB  SE= 1.72 bps/Hz
+  elev=  30 deg  alt=  550 km  d=  992.8 km  PL= 180.8 dB  SNR= -0.30 dB  SE= 0.95 bps/Hz
+  elev=  45 deg  alt=  340 km  d=  469.2 km  PL= 173.4 dB  SNR=  7.09 dB  SE= 2.61 bps/Hz
+  elev=  45 deg  alt=  550 km  d=  749.1 km  PL= 177.5 dB  SNR=  3.03 dB  SE= 1.59 bps/Hz
+  elev=  90 deg  alt=  340 km  d=  340.0 km  PL= 169.4 dB  SNR= 11.06 dB  SE= 3.78 bps/Hz
+  elev=  90 deg  alt=  550 km  d=  550.0 km  PL= 173.6 dB  SNR=  6.88 dB  SE= 2.55 bps/Hz
+{
+  "ho_interval": {
+    "constellation": "starlink_phase_2a",
+    "n_samples": 1372,
+    "min": 8.0,
+    "max": 557.0,
+    "mean": 58.01749271137026,
+    "median": 50.0,
+    "paper_range_s": [
+      6.61,
+      132.28
+    ]
+  },
+  "link_budget": {
+    "340km": "see figure",
+    "550km": "see figure",
+    "1200km": "see figure"
+  }
+}
+global peaks: {'starlink_phase_1a': 17.0, 'starlink_phase_2a': 29.0}
+############ [1/7] ILCHO sigmoid -- 100 agents, 600s, 4000 ep ############ Tue, Sep  8, 2026  1:41:55 AM
+replay buffer: 168 episodes (17.8 MB/episode)
+C:\Users\84946\Documents\learning\6G_NTN\src\ilcho\train.py:127: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return  -109.93 | HO   2.35 | HOF 68.20 | SE  2.05 | loss nan |      3s
+ep    25 | eps 0.89 | return  -115.21 | HO   2.44 | HOF 68.81 | SE  2.04 | loss 3.5460 |     93s
+ep    50 | eps 0.88 | return  -108.14 | HO   2.57 | HOF 67.41 | SE  2.05 | loss 0.3736 |    188s
+ep    75 | eps 0.88 | return   -94.02 | HO   2.61 | HOF 65.07 | SE  2.07 | loss 0.1763 |    281s
+ep   100 | eps 0.87 | return   -93.66 | HO   2.64 | HOF 64.91 | SE  2.07 | loss 0.1252 |    371s
+ep   125 | eps 0.86 | return   -95.29 | HO   2.66 | HOF 65.29 | SE  2.07 | loss 0.1007 |    461s
+ep   150 | eps 0.85 | return   -93.72 | HO   2.65 | HOF 65.17 | SE  2.07 | loss 0.1114 |    550s
+ep   175 | eps 0.84 | return   -87.95 | HO   2.65 | HOF 64.24 | SE  2.08 | loss 0.1323 |    639s
+ep   200 | eps 0.83 | return   -81.65 | HO   2.79 | HOF 62.97 | SE  2.08 | loss 0.1269 |    727s
+ep   225 | eps 0.82 | return   -78.10 | HO   2.68 | HOF 62.47 | SE  2.09 | loss 0.1298 |    809s
+ep   250 | eps 0.82 | return   -76.21 | HO   2.70 | HOF 62.14 | SE  2.09 | loss 0.1277 |    891s
+ep   275 | eps 0.81 | return   -70.43 | HO   2.84 | HOF 61.32 | SE  2.10 | loss 0.1125 |    972s
+ep   300 | eps 0.80 | return   -71.45 | HO   2.80 | HOF 61.28 | SE  2.10 | loss 0.1082 |   1053s
+ep   325 | eps 0.79 | return   -69.93 | HO   2.74 | HOF 61.07 | SE  2.10 | loss 0.1075 |   1133s
+ep   350 | eps 0.78 | return   -69.58 | HO   2.82 | HOF 60.93 | SE  2.10 | loss 0.1203 |   1214s
+ep   375 | eps 0.78 | return   -71.18 | HO   2.76 | HOF 61.17 | SE  2.10 | loss 0.1006 |   1295s
+ep   400 | eps 0.77 | return   -65.95 | HO   2.85 | HOF 60.23 | SE  2.11 | loss 0.0996 |   1375s
+ep   425 | eps 0.76 | return   -63.18 | HO   2.87 | HOF 59.79 | SE  2.11 | loss 0.0856 |   1455s
+ep   450 | eps 0.75 | return   -59.38 | HO   2.98 | HOF 59.27 | SE  2.11 | loss 0.0803 |   1535s
+ep   475 | eps 0.74 | return   -59.89 | HO   2.84 | HOF 59.26 | SE  2.11 | loss 0.0758 |   1615s
+ep   500 | eps 0.73 | return   -60.52 | HO   2.83 | HOF 59.28 | SE  2.11 | loss 0.0772 |   1696s
+ep   525 | eps 0.72 | return   -56.18 | HO   2.97 | HOF 58.47 | SE  2.12 | loss 0.0745 |   1782s
+ep   550 | eps 0.72 | return   -52.51 | HO   3.12 | HOF 57.84 | SE  2.12 | loss 0.0732 |   1870s
+ep   575 | eps 0.71 | return   -49.79 | HO   3.16 | HOF 57.31 | SE  2.13 | loss 0.0898 |   1954s
+ep   600 | eps 0.70 | return   -49.04 | HO   3.14 | HOF 57.20 | SE  2.13 | loss 0.0711 |   2034s
+ep   625 | eps 0.69 | return   -48.29 | HO   3.14 | HOF 57.00 | SE  2.13 | loss 0.0770 |   2115s
+ep   650 | eps 0.68 | return   -45.22 | HO   3.09 | HOF 56.60 | SE  2.13 | loss 0.2618 |   2195s
+ep   675 | eps 0.68 | return   -43.70 | HO   2.97 | HOF 56.66 | SE  2.13 | loss 0.1063 |   2276s
+ep   700 | eps 0.67 | return   -44.47 | HO   2.96 | HOF 56.68 | SE  2.13 | loss 0.2359 |   2358s
+ep   725 | eps 0.66 | return   -43.07 | HO   3.09 | HOF 56.23 | SE  2.14 | loss 0.0681 |   2438s
+ep   750 | eps 0.65 | return   -37.19 | HO   3.38 | HOF 55.08 | SE  2.14 | loss 0.0590 |   2522s
+ep   775 | eps 0.64 | return   -39.64 | HO   3.06 | HOF 55.71 | SE  2.14 | loss 0.0951 |   2603s
+ep   800 | eps 0.63 | return   -39.40 | HO   2.98 | HOF 55.64 | SE  2.14 | loss 0.0835 |   2683s
+ep   825 | eps 0.62 | return   -35.75 | HO   2.87 | HOF 55.67 | SE  2.15 | loss 0.1484 |   2763s
+ep   850 | eps 0.62 | return   -31.99 | HO   3.29 | HOF 54.17 | SE  2.15 | loss 0.0608 |   2842s
+ep   875 | eps 0.61 | return   -26.34 | HO   3.18 | HOF 53.51 | SE  2.16 | loss 0.0545 |   2922s
+ep   900 | eps 0.60 | return   -24.87 | HO   3.16 | HOF 53.36 | SE  2.16 | loss 0.0637 |   3002s
+ep   925 | eps 0.59 | return   -24.20 | HO   3.22 | HOF 53.26 | SE  2.16 | loss 0.0569 |   3081s
+ep   950 | eps 0.58 | return   -24.01 | HO   3.23 | HOF 52.98 | SE  2.16 | loss 0.0517 |   3161s
+ep   975 | eps 0.57 | return   -18.98 | HO   3.25 | HOF 52.29 | SE  2.17 | loss 0.0989 |   3241s
+ep  1000 | eps 0.57 | return   -12.00 | HO   3.48 | HOF 50.80 | SE  2.18 | loss 0.0742 |   3321s
+ep  1025 | eps 0.56 | return   -23.43 | HO   3.04 | HOF 52.84 | SE  2.16 | loss 0.1555 |   3401s
+ep  1050 | eps 0.55 | return   -10.25 | HO   3.51 | HOF 50.35 | SE  2.18 | loss 0.2084 |   3481s
+ep  1075 | eps 0.54 | return   -18.90 | HO   3.03 | HOF 52.15 | SE  2.17 | loss 0.1095 |   3560s
+ep  1100 | eps 0.53 | return   -13.95 | HO   3.10 | HOF 51.37 | SE  2.18 | loss 0.1034 |   3641s
+ep  1125 | eps 0.53 | return   -12.15 | HO   3.21 | HOF 51.02 | SE  2.18 | loss 0.0735 |   3721s
+ep  1150 | eps 0.52 | return    -6.13 | HO   3.35 | HOF 49.97 | SE  2.19 | loss 0.0746 |   3801s
+ep  1175 | eps 0.51 | return    -6.39 | HO   3.36 | HOF 49.92 | SE  2.19 | loss 0.0476 |   3881s
+ep  1200 | eps 0.50 | return    -1.70 | HO   3.41 | HOF 49.01 | SE  2.19 | loss 0.0463 |   3961s
+ep  1225 | eps 0.49 | return     3.28 | HO   3.47 | HOF 48.28 | SE  2.20 | loss 0.0493 |   4041s
+ep  1250 | eps 0.48 | return     5.37 | HO   3.27 | HOF 48.14 | SE  2.20 | loss 0.0548 |   4120s
+ep  1275 | eps 0.47 | return     6.61 | HO   3.41 | HOF 47.49 | SE  2.20 | loss 0.0493 |   4200s
+ep  1300 | eps 0.47 | return    14.26 | HO   3.64 | HOF 46.14 | SE  2.21 | loss 0.0416 |   4280s
+ep  1325 | eps 0.46 | return    12.39 | HO   3.59 | HOF 46.23 | SE  2.21 | loss 0.0398 |   4360s
+ep  1350 | eps 0.45 | return    17.88 | HO   3.55 | HOF 45.53 | SE  2.22 | loss 0.0390 |   4440s
+ep  1375 | eps 0.44 | return    20.12 | HO   3.48 | HOF 45.37 | SE  2.22 | loss 0.0382 |   4519s
+ep  1400 | eps 0.43 | return    19.58 | HO   3.47 | HOF 45.27 | SE  2.22 | loss 0.0381 |   4599s
+ep  1425 | eps 0.42 | return    23.65 | HO   3.48 | HOF 44.44 | SE  2.22 | loss 0.0372 |   4679s
+ep  1450 | eps 0.42 | return    26.29 | HO   3.65 | HOF 43.77 | SE  2.23 | loss 0.0358 |   4759s
+ep  1475 | eps 0.41 | return    32.68 | HO   3.63 | HOF 42.91 | SE  2.24 | loss 0.0353 |   4839s
+ep  1500 | eps 0.40 | return    33.99 | HO   3.75 | HOF 42.55 | SE  2.24 | loss 0.0342 |   4919s
+ep  1525 | eps 0.39 | return    34.34 | HO   3.55 | HOF 42.56 | SE  2.24 | loss 0.0334 |   4999s
+ep  1550 | eps 0.38 | return    34.83 | HO   3.61 | HOF 42.25 | SE  2.24 | loss 0.0328 |   5078s
+ep  1575 | eps 0.38 | return    40.00 | HO   3.62 | HOF 41.42 | SE  2.24 | loss 0.0321 |   5158s
+ep  1600 | eps 0.37 | return    41.37 | HO   3.70 | HOF 41.01 | SE  2.25 | loss 0.0310 |   5238s
+ep  1625 | eps 0.36 | return    46.30 | HO   3.68 | HOF 40.33 | SE  2.25 | loss 0.0303 |   5318s
+ep  1650 | eps 0.35 | return    48.66 | HO   3.79 | HOF 39.83 | SE  2.26 | loss 0.0291 |   5397s
+ep  1675 | eps 0.34 | return    53.60 | HO   3.70 | HOF 39.14 | SE  2.26 | loss 0.0286 |   5477s
+ep  1700 | eps 0.33 | return    54.90 | HO   3.72 | HOF 38.72 | SE  2.27 | loss 0.0279 |   5557s
+ep  1725 | eps 0.32 | return    59.63 | HO   3.71 | HOF 38.11 | SE  2.27 | loss 0.0273 |   5637s
+ep  1750 | eps 0.32 | return    62.43 | HO   3.78 | HOF 37.48 | SE  2.28 | loss 0.0269 |   5717s
+ep  1775 | eps 0.31 | return    64.90 | HO   3.82 | HOF 37.08 | SE  2.28 | loss 0.0264 |   5796s
+ep  1800 | eps 0.30 | return    69.54 | HO   3.81 | HOF 36.27 | SE  2.28 | loss 0.0260 |   5876s
+ep  1825 | eps 0.29 | return    72.66 | HO   3.86 | HOF 35.69 | SE  2.29 | loss 0.0252 |   5956s
+ep  1850 | eps 0.28 | return    74.06 | HO   3.86 | HOF 35.26 | SE  2.29 | loss 0.0245 |   6036s
+ep  1875 | eps 0.28 | return    79.48 | HO   3.87 | HOF 34.46 | SE  2.30 | loss 0.0241 |   6115s
+ep  1900 | eps 0.27 | return    83.63 | HO   3.84 | HOF 33.78 | SE  2.30 | loss 0.0239 |   6195s
+ep  1925 | eps 0.26 | return    84.97 | HO   3.86 | HOF 33.36 | SE  2.30 | loss 0.0234 |   6275s
+ep  1950 | eps 0.25 | return    90.21 | HO   3.94 | HOF 32.55 | SE  2.31 | loss 0.0230 |   6355s
+ep  1975 | eps 0.24 | return    94.05 | HO   3.94 | HOF 31.75 | SE  2.32 | loss 0.0227 |   6434s
+ep  2000 | eps 0.23 | return    96.21 | HO   3.95 | HOF 31.42 | SE  2.32 | loss 0.0223 |   6515s
+ep  2025 | eps 0.22 | return    98.18 | HO   3.92 | HOF 30.87 | SE  2.32 | loss 0.0219 |   6594s
+ep  2050 | eps 0.22 | return   104.08 | HO   4.02 | HOF 29.85 | SE  2.33 | loss 0.0215 |   6674s
+ep  2075 | eps 0.21 | return   107.66 | HO   4.00 | HOF 29.14 | SE  2.33 | loss 0.0212 |   6754s
+ep  2100 | eps 0.20 | return   112.51 | HO   4.10 | HOF 28.30 | SE  2.34 | loss 0.0209 |   6833s
+ep  2125 | eps 0.19 | return   114.94 | HO   4.02 | HOF 27.91 | SE  2.34 | loss 0.0204 |   6913s
+ep  2150 | eps 0.18 | return   119.82 | HO   4.08 | HOF 26.97 | SE  2.35 | loss 0.0201 |   6992s
+ep  2175 | eps 0.17 | return   123.99 | HO   4.13 | HOF 26.25 | SE  2.36 | loss 0.0194 |   7072s
+ep  2200 | eps 0.17 | return   129.63 | HO   4.11 | HOF 25.36 | SE  2.36 | loss 0.0192 |   7152s
+ep  2225 | eps 0.16 | return   133.42 | HO   4.15 | HOF 24.55 | SE  2.37 | loss 0.0187 |   7233s
+ep  2250 | eps 0.15 | return   134.58 | HO   4.13 | HOF 24.09 | SE  2.37 | loss 0.0183 |   7312s
+ep  2275 | eps 0.14 | return   141.87 | HO   4.19 | HOF 22.91 | SE  2.38 | loss 0.0180 |   7393s
+ep  2300 | eps 0.13 | return   147.31 | HO   4.19 | HOF 22.07 | SE  2.38 | loss 0.0178 |   7472s
+ep  2325 | eps 0.12 | return   149.62 | HO   4.18 | HOF 21.32 | SE  2.39 | loss 0.0176 |   7551s
+ep  2350 | eps 0.12 | return   155.03 | HO   4.30 | HOF 20.50 | SE  2.40 | loss 0.0172 |   7631s
+ep  2375 | eps 0.11 | return   163.31 | HO   4.22 | HOF 19.36 | SE  2.41 | loss 0.0170 |   7711s
+ep  2400 | eps 0.10 | return   165.87 | HO   4.23 | HOF 18.52 | SE  2.41 | loss 0.0165 |   7790s
+ep  2425 | eps 0.10 | return   164.68 | HO   4.30 | HOF 18.30 | SE  2.41 | loss 0.0161 |   7870s
+ep  2450 | eps 0.10 | return   166.76 | HO   4.15 | HOF 18.25 | SE  2.41 | loss 0.0158 |   7950s
+ep  2475 | eps 0.10 | return   169.67 | HO   4.22 | HOF 17.91 | SE  2.41 | loss 0.0154 |   8029s
+ep  2500 | eps 0.10 | return   167.90 | HO   4.28 | HOF 17.94 | SE  2.41 | loss 0.0154 |   8109s
+ep  2525 | eps 0.10 | return   169.13 | HO   4.29 | HOF 17.82 | SE  2.41 | loss 0.0149 |   8188s
+ep  2550 | eps 0.10 | return   168.47 | HO   4.29 | HOF 17.95 | SE  2.41 | loss 0.0147 |   8268s
+ep  2575 | eps 0.10 | return   170.12 | HO   4.30 | HOF 17.75 | SE  2.41 | loss 0.0147 |   8348s
+ep  2600 | eps 0.10 | return   168.70 | HO   4.31 | HOF 17.81 | SE  2.41 | loss 0.0147 |   8427s
+ep  2625 | eps 0.10 | return   169.54 | HO   4.25 | HOF 17.87 | SE  2.41 | loss 0.0146 |   8507s
+ep  2650 | eps 0.10 | return   169.22 | HO   4.31 | HOF 17.79 | SE  2.41 | loss 0.0144 |   8587s
+ep  2675 | eps 0.10 | return   169.46 | HO   4.31 | HOF 17.84 | SE  2.41 | loss 0.0144 |   8666s
+ep  2700 | eps 0.10 | return   169.16 | HO   4.32 | HOF 17.68 | SE  2.41 | loss 0.0144 |   8746s
+ep  2725 | eps 0.10 | return   169.54 | HO   4.29 | HOF 17.65 | SE  2.41 | loss 0.0141 |   8825s
+ep  2750 | eps 0.10 | return   168.71 | HO   4.39 | HOF 17.84 | SE  2.41 | loss 0.0139 |   8905s
+ep  2775 | eps 0.10 | return   166.80 | HO   4.37 | HOF 18.04 | SE  2.41 | loss 0.0137 |   8985s
+ep  2800 | eps 0.10 | return   169.86 | HO   4.37 | HOF 17.67 | SE  2.41 | loss 0.0137 |   9065s
+ep  2825 | eps 0.10 | return   169.27 | HO   4.27 | HOF 17.93 | SE  2.41 | loss 0.0136 |   9144s
+ep  2850 | eps 0.10 | return   169.06 | HO   4.31 | HOF 17.84 | SE  2.41 | loss 0.0134 |   9224s
+ep  2875 | eps 0.10 | return   168.47 | HO   4.34 | HOF 17.85 | SE  2.41 | loss 0.0134 |   9304s
+ep  2900 | eps 0.10 | return   170.00 | HO   4.32 | HOF 17.73 | SE  2.41 | loss 0.0135 |   9383s
+ep  2925 | eps 0.10 | return   168.17 | HO   4.34 | HOF 17.79 | SE  2.41 | loss 0.0134 |   9463s
+ep  2950 | eps 0.10 | return   166.60 | HO   4.32 | HOF 18.04 | SE  2.41 | loss 0.0135 |   9543s
+ep  2975 | eps 0.10 | return   168.81 | HO   4.36 | HOF 17.72 | SE  2.41 | loss 0.0134 |   9622s
+ep  3000 | eps 0.10 | return   167.82 | HO   4.40 | HOF 17.66 | SE  2.41 | loss 0.0131 |   9701s
+ep  3025 | eps 0.10 | return   167.16 | HO   4.34 | HOF 17.85 | SE  2.41 | loss 0.0129 |   9781s
+ep  3050 | eps 0.10 | return   168.03 | HO   4.21 | HOF 17.92 | SE  2.41 | loss 0.0130 |   9860s
+ep  3075 | eps 0.10 | return   168.74 | HO   4.19 | HOF 17.87 | SE  2.41 | loss 0.0127 |   9940s
+ep  3100 | eps 0.10 | return   168.84 | HO   4.36 | HOF 17.66 | SE  2.41 | loss 0.0128 |  10019s
+ep  3125 | eps 0.10 | return   170.11 | HO   4.24 | HOF 17.70 | SE  2.41 | loss 0.0127 |  10099s
+ep  3150 | eps 0.10 | return   168.45 | HO   4.30 | HOF 17.69 | SE  2.41 | loss 0.0125 |  10179s
+ep  3175 | eps 0.10 | return   168.08 | HO   4.24 | HOF 17.81 | SE  2.41 | loss 0.0126 |  10257s
+ep  3200 | eps 0.10 | return   166.41 | HO   4.27 | HOF 17.99 | SE  2.41 | loss 0.0124 |  10337s
+ep  3225 | eps 0.10 | return   170.18 | HO   4.24 | HOF 17.71 | SE  2.41 | loss 0.0122 |  10417s
+ep  3250 | eps 0.10 | return   167.43 | HO   4.22 | HOF 17.97 | SE  2.41 | loss 0.0122 |  10497s
+ep  3275 | eps 0.10 | return   169.67 | HO   4.42 | HOF 17.49 | SE  2.41 | loss 0.0123 |  10576s
+ep  3300 | eps 0.10 | return   168.35 | HO   4.39 | HOF 17.79 | SE  2.41 | loss 0.0121 |  10656s
+ep  3325 | eps 0.10 | return   167.82 | HO   4.23 | HOF 17.80 | SE  2.41 | loss 0.0120 |  10736s
+ep  3350 | eps 0.10 | return   167.87 | HO   4.31 | HOF 17.74 | SE  2.41 | loss 0.0119 |  10816s
+ep  3375 | eps 0.10 | return   168.13 | HO   4.35 | HOF 17.65 | SE  2.41 | loss 0.0121 |  10896s
+ep  3400 | eps 0.10 | return   167.95 | HO   4.38 | HOF 17.94 | SE  2.41 | loss 0.0121 |  10975s
+ep  3425 | eps 0.10 | return   169.51 | HO   4.34 | HOF 17.59 | SE  2.41 | loss 0.0121 |  11055s
+ep  3450 | eps 0.10 | return   169.23 | HO   4.31 | HOF 17.70 | SE  2.41 | loss 0.0116 |  11135s
+ep  3475 | eps 0.10 | return   167.64 | HO   4.29 | HOF 17.91 | SE  2.41 | loss 0.0116 |  11214s
+ep  3500 | eps 0.10 | return   169.90 | HO   4.30 | HOF 17.50 | SE  2.41 | loss 0.0117 |  11294s
+ep  3525 | eps 0.10 | return   166.04 | HO   4.37 | HOF 17.94 | SE  2.41 | loss 0.0114 |  11373s
+ep  3550 | eps 0.10 | return   170.16 | HO   4.29 | HOF 17.66 | SE  2.41 | loss 0.0113 |  11453s
+ep  3575 | eps 0.10 | return   168.66 | HO   4.21 | HOF 17.67 | SE  2.41 | loss 0.0114 |  11533s
+ep  3600 | eps 0.10 | return   168.49 | HO   4.30 | HOF 17.71 | SE  2.41 | loss 0.0115 |  11612s
+ep  3625 | eps 0.10 | return   169.84 | HO   4.32 | HOF 17.46 | SE  2.41 | loss 0.0115 |  11692s
+ep  3650 | eps 0.10 | return   170.86 | HO   4.18 | HOF 17.68 | SE  2.41 | loss 0.0110 |  11771s
+ep  3675 | eps 0.10 | return   169.54 | HO   4.28 | HOF 17.56 | SE  2.41 | loss 0.0111 |  11851s
+ep  3700 | eps 0.10 | return   167.19 | HO   4.23 | HOF 17.87 | SE  2.41 | loss 0.0112 |  11930s
+ep  3725 | eps 0.10 | return   168.79 | HO   4.39 | HOF 17.49 | SE  2.41 | loss 0.0110 |  12010s
+ep  3750 | eps 0.10 | return   165.62 | HO   4.26 | HOF 18.04 | SE  2.41 | loss 0.0111 |  12089s
+ep  3775 | eps 0.10 | return   169.06 | HO   4.26 | HOF 17.63 | SE  2.41 | loss 0.0109 |  12169s
+ep  3800 | eps 0.10 | return   169.13 | HO   4.25 | HOF 17.57 | SE  2.41 | loss 0.0108 |  12248s
+ep  3825 | eps 0.10 | return   168.76 | HO   4.35 | HOF 17.61 | SE  2.41 | loss 0.0109 |  12327s
+ep  3850 | eps 0.10 | return   167.39 | HO   4.34 | HOF 17.65 | SE  2.41 | loss 0.0108 |  12407s
+ep  3875 | eps 0.10 | return   168.02 | HO   4.43 | HOF 17.49 | SE  2.41 | loss 0.0109 |  12487s
+ep  3900 | eps 0.10 | return   169.23 | HO   4.39 | HOF 17.50 | SE  2.41 | loss 0.0108 |  12566s
+ep  3925 | eps 0.10 | return   167.39 | HO   4.40 | HOF 17.81 | SE  2.41 | loss 0.0105 |  12646s
+ep  3950 | eps 0.10 | return   168.22 | HO   4.36 | HOF 17.41 | SE  2.41 | loss 0.0105 |  12726s
+ep  3975 | eps 0.10 | return   169.58 | HO   4.35 | HOF 17.46 | SE  2.41 | loss 0.0105 |  12805s
+ep  4000 | eps 0.10 | return   166.16 | HO   4.37 | HOF 17.84 | SE  2.41 | loss 0.0104 |  12885s
+saved -> gpu100_repro/runs/g100_ilcho_sigmoid  (12886s)
+############ [2/7] ILCHO linear (Eq. 30 ablation) -- 3000 ep ############ Tue, Sep  8, 2026  5:16:44 AM
+replay buffer: 168 episodes (17.8 MB/episode)
+C:\Users\84946\Documents\learning\6G_NTN\src\ilcho\train.py:127: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return   173.50 | HO   2.35 | HOF 68.21 | SE  2.05 | loss nan |      3s
+ep    25 | eps 0.89 | return   168.31 | HO   2.43 | HOF 68.89 | SE  2.04 | loss 5.0254 |     78s
+ep    50 | eps 0.88 | return   173.88 | HO   2.51 | HOF 67.89 | SE  2.05 | loss 0.5301 |    157s
+ep    75 | eps 0.87 | return   191.80 | HO   2.59 | HOF 65.22 | SE  2.07 | loss 0.2124 |    235s
+ep   100 | eps 0.86 | return   192.47 | HO   2.61 | HOF 65.05 | SE  2.07 | loss 0.1427 |    314s
+ep   125 | eps 0.84 | return   188.80 | HO   2.64 | HOF 65.54 | SE  2.06 | loss 0.1118 |    393s
+ep   150 | eps 0.83 | return   191.89 | HO   2.65 | HOF 65.10 | SE  2.07 | loss 0.1287 |    474s
+ep   175 | eps 0.82 | return   203.21 | HO   2.70 | HOF 63.52 | SE  2.08 | loss 0.1440 |    553s
+ep   200 | eps 0.81 | return   209.34 | HO   2.75 | HOF 62.30 | SE  2.09 | loss 0.1548 |    633s
+ep   225 | eps 0.80 | return   214.10 | HO   2.71 | HOF 61.82 | SE  2.10 | loss 0.1542 |    713s
+ep   250 | eps 0.79 | return   216.44 | HO   2.77 | HOF 61.35 | SE  2.10 | loss 0.1357 |    793s
+ep   275 | eps 0.78 | return   221.32 | HO   2.89 | HOF 60.52 | SE  2.11 | loss 0.1164 |    873s
+ep   300 | eps 0.77 | return   221.13 | HO   2.80 | HOF 60.59 | SE  2.10 | loss 0.1115 |    952s
+ep   325 | eps 0.76 | return   224.50 | HO   2.72 | HOF 60.17 | SE  2.11 | loss 0.1250 |   1032s
+ep   350 | eps 0.74 | return   223.99 | HO   2.75 | HOF 60.26 | SE  2.11 | loss 0.2559 |   1111s
+ep   375 | eps 0.73 | return   224.89 | HO   2.79 | HOF 60.06 | SE  2.11 | loss 0.1967 |   1191s
+ep   400 | eps 0.72 | return   229.54 | HO   2.88 | HOF 59.34 | SE  2.11 | loss 0.1048 |   1271s
+ep   425 | eps 0.71 | return   236.91 | HO   3.05 | HOF 58.07 | SE  2.12 | loss 0.0866 |   1351s
+ep   450 | eps 0.70 | return   240.96 | HO   3.01 | HOF 57.55 | SE  2.13 | loss 0.0905 |   1431s
+ep   475 | eps 0.69 | return   239.55 | HO   2.89 | HOF 57.79 | SE  2.13 | loss 0.0859 |   1511s
+ep   500 | eps 0.68 | return   238.64 | HO   2.85 | HOF 57.89 | SE  2.12 | loss 0.1159 |   1591s
+ep   525 | eps 0.67 | return   245.81 | HO   3.06 | HOF 56.71 | SE  2.13 | loss 0.3374 |   1671s
+ep   550 | eps 0.66 | return   248.25 | HO   3.03 | HOF 56.24 | SE  2.14 | loss 0.0817 |   1751s
+ep   575 | eps 0.64 | return   254.49 | HO   3.27 | HOF 55.13 | SE  2.14 | loss 0.0786 |   1831s
+ep   600 | eps 0.63 | return   258.17 | HO   3.16 | HOF 54.84 | SE  2.15 | loss 0.0743 |   1910s
+ep   625 | eps 0.62 | return   256.17 | HO   3.11 | HOF 55.06 | SE  2.15 | loss 0.0752 |   1990s
+ep   650 | eps 0.61 | return   256.83 | HO   3.01 | HOF 55.04 | SE  2.15 | loss 0.0758 |   2069s
+ep   675 | eps 0.60 | return   263.31 | HO   3.13 | HOF 53.91 | SE  2.16 | loss 0.1244 |   2148s
+ep   700 | eps 0.59 | return   259.41 | HO   3.03 | HOF 54.51 | SE  2.15 | loss 0.1374 |   2228s
+ep   725 | eps 0.58 | return   271.10 | HO   3.33 | HOF 52.62 | SE  2.16 | loss 0.1210 |   2307s
+ep   750 | eps 0.57 | return   268.77 | HO   3.17 | HOF 53.04 | SE  2.16 | loss 0.1024 |   2387s
+ep   775 | eps 0.56 | return   275.66 | HO   3.20 | HOF 51.97 | SE  2.17 | loss 0.0701 |   2466s
+ep   800 | eps 0.54 | return   276.15 | HO   3.16 | HOF 51.96 | SE  2.17 | loss 0.1018 |   2546s
+ep   825 | eps 0.53 | return   280.95 | HO   3.08 | HOF 51.42 | SE  2.18 | loss 0.0649 |   2625s
+ep   850 | eps 0.52 | return   289.75 | HO   3.52 | HOF 49.63 | SE  2.18 | loss 0.0624 |   2705s
+ep   875 | eps 0.51 | return   287.78 | HO   3.20 | HOF 50.21 | SE  2.18 | loss 0.1568 |   2784s
+ep   900 | eps 0.50 | return   292.04 | HO   3.22 | HOF 49.57 | SE  2.19 | loss 0.1196 |   2864s
+ep   925 | eps 0.49 | return   287.69 | HO   3.11 | HOF 50.20 | SE  2.18 | loss 0.1605 |   2943s
+ep   950 | eps 0.48 | return   301.15 | HO   3.47 | HOF 47.87 | SE  2.20 | loss 0.0993 |   3023s
+ep   975 | eps 0.47 | return   306.72 | HO   3.54 | HOF 47.12 | SE  2.21 | loss 0.0840 |   3102s
+ep  1000 | eps 0.46 | return   311.36 | HO   3.51 | HOF 46.39 | SE  2.21 | loss 0.0562 |   3182s
+ep  1025 | eps 0.44 | return   311.30 | HO   3.43 | HOF 46.47 | SE  2.21 | loss 0.0685 |   3261s
+ep  1050 | eps 0.43 | return   312.64 | HO   3.26 | HOF 46.32 | SE  2.21 | loss 0.0781 |   3341s
+ep  1075 | eps 0.42 | return   318.73 | HO   3.38 | HOF 45.35 | SE  2.22 | loss 0.1207 |   3420s
+ep  1100 | eps 0.41 | return   321.24 | HO   3.46 | HOF 44.95 | SE  2.22 | loss 0.0575 |   3500s
+ep  1125 | eps 0.40 | return   330.76 | HO   3.70 | HOF 43.16 | SE  2.23 | loss 0.0815 |   3580s
+ep  1150 | eps 0.39 | return   323.59 | HO   3.19 | HOF 44.66 | SE  2.23 | loss 0.0846 |   3660s
+ep  1175 | eps 0.38 | return   337.29 | HO   3.63 | HOF 42.33 | SE  2.24 | loss 0.0902 |   3739s
+ep  1200 | eps 0.37 | return   341.19 | HO   3.65 | HOF 41.63 | SE  2.24 | loss 0.0554 |   3819s
+ep  1225 | eps 0.36 | return   347.16 | HO   3.74 | HOF 40.77 | SE  2.25 | loss 0.0481 |   3898s
+ep  1250 | eps 0.34 | return   352.02 | HO   3.70 | HOF 39.97 | SE  2.26 | loss 0.0567 |   3977s
+ep  1275 | eps 0.33 | return   349.47 | HO   3.52 | HOF 40.44 | SE  2.26 | loss 0.0516 |   4057s
+ep  1300 | eps 0.32 | return   360.10 | HO   3.72 | HOF 38.69 | SE  2.27 | loss 0.0545 |   4137s
+ep  1325 | eps 0.31 | return   359.74 | HO   3.59 | HOF 38.66 | SE  2.27 | loss 0.0596 |   4217s
+ep  1350 | eps 0.30 | return   371.84 | HO   3.80 | HOF 36.82 | SE  2.28 | loss 0.0412 |   4296s
+ep  1375 | eps 0.29 | return   377.03 | HO   3.90 | HOF 35.94 | SE  2.29 | loss 0.0387 |   4376s
+ep  1400 | eps 0.28 | return   382.40 | HO   3.86 | HOF 35.31 | SE  2.29 | loss 0.0390 |   4455s
+ep  1425 | eps 0.27 | return   388.21 | HO   3.80 | HOF 34.28 | SE  2.30 | loss 0.0374 |   4535s
+ep  1450 | eps 0.26 | return   392.29 | HO   3.87 | HOF 33.61 | SE  2.30 | loss 0.0363 |   4614s
+ep  1475 | eps 0.24 | return   398.56 | HO   3.97 | HOF 32.48 | SE  2.31 | loss 0.0352 |   4694s
+ep  1500 | eps 0.23 | return   405.53 | HO   4.01 | HOF 31.37 | SE  2.32 | loss 0.0334 |   4774s
+ep  1525 | eps 0.22 | return   410.75 | HO   4.07 | HOF 30.49 | SE  2.32 | loss 0.0328 |   4853s
+ep  1550 | eps 0.21 | return   416.54 | HO   4.14 | HOF 29.64 | SE  2.33 | loss 0.0324 |   4933s
+ep  1575 | eps 0.20 | return   423.21 | HO   4.19 | HOF 28.51 | SE  2.34 | loss 0.0316 |   5012s
+ep  1600 | eps 0.19 | return   427.67 | HO   4.17 | HOF 27.74 | SE  2.34 | loss 0.0309 |   5091s
+ep  1625 | eps 0.18 | return   434.71 | HO   4.11 | HOF 26.73 | SE  2.35 | loss 0.0302 |   5171s
+ep  1650 | eps 0.17 | return   441.23 | HO   4.21 | HOF 25.70 | SE  2.36 | loss 0.0295 |   5250s
+ep  1675 | eps 0.16 | return   450.47 | HO   4.16 | HOF 24.34 | SE  2.37 | loss 0.0288 |   5330s
+ep  1700 | eps 0.14 | return   455.08 | HO   4.29 | HOF 23.27 | SE  2.37 | loss 0.0281 |   5410s
+ep  1725 | eps 0.13 | return   463.71 | HO   4.22 | HOF 22.22 | SE  2.38 | loss 0.0275 |   5489s
+ep  1750 | eps 0.12 | return   470.57 | HO   4.32 | HOF 20.99 | SE  2.39 | loss 0.0272 |   5569s
+ep  1775 | eps 0.11 | return   477.33 | HO   4.31 | HOF 19.88 | SE  2.40 | loss 0.0264 |   5648s
+ep  1800 | eps 0.10 | return   485.01 | HO   4.29 | HOF 18.61 | SE  2.41 | loss 0.0259 |   5728s
+ep  1825 | eps 0.10 | return   489.98 | HO   4.32 | HOF 17.79 | SE  2.41 | loss 0.0253 |   5807s
+ep  1850 | eps 0.10 | return   488.62 | HO   4.22 | HOF 18.14 | SE  2.41 | loss 0.0252 |   5887s
+ep  1875 | eps 0.10 | return   490.34 | HO   4.30 | HOF 17.86 | SE  2.41 | loss 0.0246 |   5966s
+ep  1900 | eps 0.10 | return   490.38 | HO   4.29 | HOF 17.72 | SE  2.41 | loss 0.0246 |   6046s
+ep  1925 | eps 0.10 | return   490.99 | HO   4.31 | HOF 17.76 | SE  2.41 | loss 0.0242 |   6125s
+ep  1950 | eps 0.10 | return   490.78 | HO   4.32 | HOF 17.78 | SE  2.41 | loss 0.0244 |   6204s
+ep  1975 | eps 0.10 | return   491.44 | HO   4.31 | HOF 17.72 | SE  2.41 | loss 0.0243 |   6284s
+ep  2000 | eps 0.10 | return   490.40 | HO   4.30 | HOF 17.87 | SE  2.41 | loss 0.0247 |   6364s
+ep  2025 | eps 0.10 | return   489.87 | HO   4.30 | HOF 17.86 | SE  2.41 | loss 0.0244 |   6443s
+ep  2050 | eps 0.10 | return   491.88 | HO   4.28 | HOF 17.63 | SE  2.41 | loss 0.0241 |   6522s
+ep  2075 | eps 0.10 | return   491.49 | HO   4.35 | HOF 17.62 | SE  2.41 | loss 0.0241 |   6602s
+ep  2100 | eps 0.10 | return   490.57 | HO   4.28 | HOF 17.60 | SE  2.41 | loss 0.0240 |   6681s
+ep  2125 | eps 0.10 | return   489.18 | HO   4.21 | HOF 18.00 | SE  2.41 | loss 0.0243 |   6760s
+ep  2150 | eps 0.10 | return   490.52 | HO   4.31 | HOF 17.73 | SE  2.41 | loss 0.0241 |   6840s
+ep  2175 | eps 0.10 | return   490.94 | HO   4.34 | HOF 17.70 | SE  2.41 | loss 0.0238 |   6919s
+ep  2200 | eps 0.10 | return   491.21 | HO   4.32 | HOF 17.58 | SE  2.41 | loss 0.0238 |   6998s
+ep  2225 | eps 0.10 | return   490.03 | HO   4.28 | HOF 17.68 | SE  2.41 | loss 0.0238 |   7078s
+ep  2250 | eps 0.10 | return   488.80 | HO   4.32 | HOF 17.90 | SE  2.41 | loss 0.0236 |   7158s
+ep  2275 | eps 0.10 | return   490.60 | HO   4.35 | HOF 17.64 | SE  2.41 | loss 0.0237 |   7237s
+ep  2300 | eps 0.10 | return   491.97 | HO   4.33 | HOF 17.57 | SE  2.41 | loss 0.0234 |   7317s
+ep  2325 | eps 0.10 | return   491.93 | HO   4.24 | HOF 17.64 | SE  2.41 | loss 0.0240 |   7396s
+ep  2350 | eps 0.10 | return   490.32 | HO   4.35 | HOF 17.72 | SE  2.41 | loss 0.0239 |   7476s
+ep  2375 | eps 0.10 | return   492.72 | HO   4.34 | HOF 17.44 | SE  2.42 | loss 0.0243 |   7555s
+ep  2400 | eps 0.10 | return   490.72 | HO   4.24 | HOF 17.66 | SE  2.41 | loss 0.0241 |   7635s
+ep  2425 | eps 0.10 | return   489.93 | HO   4.31 | HOF 17.84 | SE  2.41 | loss 0.0245 |   7714s
+ep  2450 | eps 0.10 | return   491.33 | HO   4.30 | HOF 17.66 | SE  2.41 | loss 0.0242 |   7793s
+ep  2475 | eps 0.10 | return   491.07 | HO   4.30 | HOF 17.61 | SE  2.41 | loss 0.0244 |   7873s
+ep  2500 | eps 0.10 | return   491.68 | HO   4.36 | HOF 17.45 | SE  2.41 | loss 0.0243 |   7952s
+ep  2525 | eps 0.10 | return   491.01 | HO   4.34 | HOF 17.52 | SE  2.41 | loss 0.0241 |   8032s
+ep  2550 | eps 0.10 | return   491.16 | HO   4.29 | HOF 17.61 | SE  2.41 | loss 0.0243 |   8111s
+ep  2575 | eps 0.10 | return   491.04 | HO   4.31 | HOF 17.49 | SE  2.41 | loss 0.0244 |   8191s
+ep  2600 | eps 0.10 | return   491.07 | HO   4.33 | HOF 17.51 | SE  2.41 | loss 0.0245 |   8270s
+ep  2625 | eps 0.10 | return   491.72 | HO   4.34 | HOF 17.50 | SE  2.41 | loss 0.0245 |   8350s
+ep  2650 | eps 0.10 | return   491.29 | HO   4.32 | HOF 17.63 | SE  2.41 | loss 0.0243 |   8429s
+ep  2675 | eps 0.10 | return   490.35 | HO   4.31 | HOF 17.67 | SE  2.41 | loss 0.0243 |   8509s
+ep  2700 | eps 0.10 | return   491.10 | HO   4.32 | HOF 17.49 | SE  2.41 | loss 0.0246 |   8589s
+ep  2725 | eps 0.10 | return   492.06 | HO   4.30 | HOF 17.40 | SE  2.41 | loss 0.0244 |   8668s
+ep  2750 | eps 0.10 | return   491.57 | HO   4.35 | HOF 17.51 | SE  2.41 | loss 0.0243 |   8748s
+ep  2775 | eps 0.10 | return   490.23 | HO   4.31 | HOF 17.68 | SE  2.41 | loss 0.0244 |   8827s
+ep  2800 | eps 0.10 | return   491.53 | HO   4.37 | HOF 17.36 | SE  2.41 | loss 0.0246 |   8907s
+ep  2825 | eps 0.10 | return   492.74 | HO   4.25 | HOF 17.55 | SE  2.42 | loss 0.0247 |   8987s
+ep  2850 | eps 0.10 | return   491.62 | HO   4.36 | HOF 17.37 | SE  2.41 | loss 0.0242 |   9066s
+ep  2875 | eps 0.10 | return   490.51 | HO   4.32 | HOF 17.52 | SE  2.41 | loss 0.0245 |   9146s
+ep  2900 | eps 0.10 | return   492.62 | HO   4.28 | HOF 17.45 | SE  2.41 | loss 0.0244 |   9225s
+ep  2925 | eps 0.10 | return   491.76 | HO   4.31 | HOF 17.45 | SE  2.41 | loss 0.0245 |   9305s
+ep  2950 | eps 0.10 | return   491.01 | HO   4.25 | HOF 17.70 | SE  2.41 | loss 0.0248 |   9384s
+ep  2975 | eps 0.10 | return   493.21 | HO   4.34 | HOF 17.34 | SE  2.42 | loss 0.0249 |   9463s
+ep  3000 | eps 0.10 | return   492.03 | HO   4.32 | HOF 17.46 | SE  2.41 | loss 0.0250 |   9543s
+saved -> gpu100_repro/runs/g100_ilcho_linear  (9544s)
+############ [3/7] LBSH (IQL) -- 3000 ep ############ Tue, Sep  8, 2026  7:55:52 AM
+replay buffer: 168 episodes (17.8 MB/episode)
+C:\Users\84946\Documents\learning\6G_NTN\src\ilcho\train.py:127: RuntimeWarning: Mean of empty slice
+  f"loss {np.nanmean(hist['loss'][w]):.4f} | "
+ep     1 | eps 0.90 | return   186.04 | HO   2.35 | HOF 68.21 | SE  2.05 | loss nan |      3s
+ep    25 | eps 0.89 | return   206.48 | HO   2.68 | HOF 65.25 | SE  2.07 | loss 5.6719 |     77s
+ep    50 | eps 0.88 | return   218.51 | HO   2.84 | HOF 63.41 | SE  2.08 | loss 5.4717 |    154s
+ep    75 | eps 0.87 | return   215.32 | HO   2.72 | HOF 63.94 | SE  2.08 | loss 5.3067 |    232s
+ep   100 | eps 0.86 | return   217.90 | HO   2.70 | HOF 63.64 | SE  2.08 | loss 5.0671 |    311s
+ep   125 | eps 0.84 | return   221.54 | HO   2.86 | HOF 62.90 | SE  2.09 | loss 4.8247 |    391s
+ep   150 | eps 0.83 | return   229.71 | HO   2.91 | HOF 61.69 | SE  2.10 | loss 4.6408 |    470s
+ep   175 | eps 0.82 | return   236.18 | HO   3.05 | HOF 61.01 | SE  2.10 | loss 4.5509 |    550s
+ep   200 | eps 0.81 | return   238.46 | HO   3.16 | HOF 60.18 | SE  2.10 | loss 4.4830 |    630s
+ep   225 | eps 0.80 | return   241.77 | HO   3.04 | HOF 60.09 | SE  2.10 | loss 4.4347 |    709s
+ep   250 | eps 0.79 | return   244.62 | HO   3.15 | HOF 59.60 | SE  2.11 | loss 4.3438 |    790s
+ep   275 | eps 0.78 | return   246.68 | HO   3.22 | HOF 59.18 | SE  2.11 | loss 4.2813 |    871s
+ep   300 | eps 0.77 | return   248.89 | HO   3.18 | HOF 59.04 | SE  2.11 | loss 4.2030 |    951s
+ep   325 | eps 0.76 | return   251.79 | HO   3.15 | HOF 58.70 | SE  2.11 | loss 4.1216 |   1031s
+ep   350 | eps 0.74 | return   252.62 | HO   3.20 | HOF 58.43 | SE  2.11 | loss 4.0080 |   1110s
+ep   375 | eps 0.73 | return   254.08 | HO   3.20 | HOF 58.16 | SE  2.11 | loss 3.8740 |   1189s
+ep   400 | eps 0.72 | return   258.56 | HO   3.34 | HOF 57.50 | SE  2.12 | loss 3.7729 |   1269s
+ep   425 | eps 0.71 | return   263.96 | HO   3.33 | HOF 56.87 | SE  2.12 | loss 3.6684 |   1348s
+ep   450 | eps 0.70 | return   266.56 | HO   3.37 | HOF 56.53 | SE  2.13 | loss 3.5899 |   1428s
+ep   475 | eps 0.69 | return   269.54 | HO   3.37 | HOF 56.08 | SE  2.13 | loss 3.5367 |   1507s
+ep   500 | eps 0.68 | return   271.79 | HO   3.40 | HOF 55.86 | SE  2.13 | loss 3.4450 |   1587s
+ep   525 | eps 0.67 | return   274.89 | HO   3.44 | HOF 55.37 | SE  2.14 | loss 3.3482 |   1667s
+ep   550 | eps 0.66 | return   278.63 | HO   3.48 | HOF 54.72 | SE  2.14 | loss 3.2743 |   1746s
+ep   575 | eps 0.64 | return   279.82 | HO   3.66 | HOF 54.23 | SE  2.14 | loss 3.2075 |   1826s
+ep   600 | eps 0.63 | return   284.37 | HO   3.57 | HOF 53.87 | SE  2.14 | loss 3.1323 |   1906s
+ep   625 | eps 0.62 | return   287.13 | HO   3.58 | HOF 53.48 | SE  2.15 | loss 3.0898 |   1985s
+ep   650 | eps 0.61 | return   289.86 | HO   3.61 | HOF 52.95 | SE  2.15 | loss 3.0305 |   2065s
+ep   675 | eps 0.60 | return   296.51 | HO   3.64 | HOF 51.92 | SE  2.16 | loss 2.9598 |   2144s
+ep   700 | eps 0.59 | return   296.13 | HO   3.63 | HOF 52.01 | SE  2.16 | loss 2.9326 |   2223s
+ep   725 | eps 0.58 | return   301.46 | HO   3.60 | HOF 51.38 | SE  2.16 | loss 2.8697 |   2303s
+ep   750 | eps 0.57 | return   304.19 | HO   3.74 | HOF 50.69 | SE  2.17 | loss 2.8080 |   2383s
+ep   775 | eps 0.56 | return   309.26 | HO   3.67 | HOF 50.22 | SE  2.17 | loss 2.7475 |   2462s
+ep   800 | eps 0.54 | return   311.64 | HO   3.74 | HOF 49.71 | SE  2.18 | loss 2.6774 |   2541s
+ep   825 | eps 0.53 | return   319.03 | HO   3.66 | HOF 49.02 | SE  2.18 | loss 2.6168 |   2621s
+ep   850 | eps 0.52 | return   318.57 | HO   3.79 | HOF 48.61 | SE  2.18 | loss 2.5625 |   2701s
+ep   875 | eps 0.51 | return   324.54 | HO   3.70 | HOF 48.26 | SE  2.19 | loss 2.5221 |   2780s
+ep   900 | eps 0.50 | return   327.90 | HO   3.79 | HOF 47.51 | SE  2.19 | loss 2.4590 |   2860s
+ep   925 | eps 0.49 | return   333.61 | HO   3.78 | HOF 46.97 | SE  2.20 | loss 2.4201 |   2939s
+ep   950 | eps 0.48 | return   334.58 | HO   3.81 | HOF 46.44 | SE  2.20 | loss 2.3700 |   3019s
+ep   975 | eps 0.47 | return   340.90 | HO   3.86 | HOF 45.71 | SE  2.21 | loss 2.3234 |   3098s
+ep  1000 | eps 0.46 | return   345.80 | HO   3.90 | HOF 44.97 | SE  2.21 | loss 2.2722 |   3178s
+ep  1025 | eps 0.44 | return   348.57 | HO   3.93 | HOF 44.61 | SE  2.21 | loss 2.2129 |   3257s
+ep  1050 | eps 0.43 | return   351.69 | HO   3.96 | HOF 44.09 | SE  2.21 | loss 2.1849 |   3336s
+ep  1075 | eps 0.42 | return   356.51 | HO   4.03 | HOF 43.36 | SE  2.22 | loss 2.1350 |   3415s
+ep  1100 | eps 0.41 | return   361.55 | HO   3.90 | HOF 42.97 | SE  2.22 | loss 2.0825 |   3495s
+ep  1125 | eps 0.40 | return   366.63 | HO   4.04 | HOF 41.98 | SE  2.23 | loss 2.0356 |   3574s
+ep  1150 | eps 0.39 | return   371.18 | HO   3.99 | HOF 41.43 | SE  2.23 | loss 1.9898 |   3653s
+ep  1175 | eps 0.38 | return   376.47 | HO   3.92 | HOF 40.70 | SE  2.24 | loss 1.9428 |   3733s
+ep  1200 | eps 0.37 | return   380.90 | HO   4.07 | HOF 39.98 | SE  2.24 | loss 1.8931 |   3813s
+ep  1225 | eps 0.36 | return   385.43 | HO   4.05 | HOF 39.39 | SE  2.25 | loss 1.8508 |   3892s
+ep  1250 | eps 0.34 | return   390.44 | HO   4.13 | HOF 38.58 | SE  2.25 | loss 1.8036 |   3971s
+ep  1275 | eps 0.33 | return   396.12 | HO   4.11 | HOF 37.82 | SE  2.26 | loss 1.7442 |   4050s
+ep  1300 | eps 0.32 | return   403.28 | HO   4.11 | HOF 36.86 | SE  2.27 | loss 1.6929 |   4130s
+ep  1325 | eps 0.31 | return   407.72 | HO   4.18 | HOF 36.17 | SE  2.27 | loss 1.6448 |   4209s
+ep  1350 | eps 0.30 | return   411.79 | HO   4.23 | HOF 35.49 | SE  2.27 | loss 1.5993 |   4289s
+ep  1375 | eps 0.29 | return   417.07 | HO   4.29 | HOF 34.69 | SE  2.28 | loss 1.5621 |   4368s
+ep  1400 | eps 0.28 | return   424.20 | HO   4.31 | HOF 33.95 | SE  2.28 | loss 1.5051 |   4447s
+ep  1425 | eps 0.27 | return   430.40 | HO   4.25 | HOF 32.94 | SE  2.29 | loss 1.4464 |   4527s
+ep  1450 | eps 0.26 | return   436.80 | HO   4.36 | HOF 32.08 | SE  2.30 | loss 1.3991 |   4606s
+ep  1475 | eps 0.24 | return   443.43 | HO   4.42 | HOF 31.07 | SE  2.31 | loss 1.3583 |   4685s
+ep  1500 | eps 0.23 | return   448.44 | HO   4.39 | HOF 30.25 | SE  2.31 | loss 1.2940 |   4764s
+ep  1525 | eps 0.22 | return   456.14 | HO   4.43 | HOF 29.16 | SE  2.32 | loss 1.2526 |   4843s
+ep  1550 | eps 0.21 | return   460.67 | HO   4.57 | HOF 28.37 | SE  2.32 | loss 1.2105 |   4922s
+ep  1575 | eps 0.20 | return   468.85 | HO   4.49 | HOF 27.34 | SE  2.33 | loss 1.1493 |   5001s
+ep  1600 | eps 0.19 | return   472.86 | HO   4.53 | HOF 26.56 | SE  2.33 | loss 1.1005 |   5080s
+ep  1625 | eps 0.18 | return   481.16 | HO   4.50 | HOF 25.41 | SE  2.34 | loss 1.0509 |   5160s
+ep  1650 | eps 0.17 | return   487.43 | HO   4.52 | HOF 24.46 | SE  2.35 | loss 1.0076 |   5239s
+ep  1675 | eps 0.16 | return   498.42 | HO   4.47 | HOF 23.23 | SE  2.36 | loss 0.9506 |   5319s
+ep  1700 | eps 0.14 | return   505.35 | HO   4.48 | HOF 22.05 | SE  2.37 | loss 0.9046 |   5398s
+ep  1725 | eps 0.13 | return   515.68 | HO   4.41 | HOF 21.01 | SE  2.38 | loss 0.8454 |   5477s
+ep  1750 | eps 0.12 | return   523.43 | HO   4.52 | HOF 19.65 | SE  2.39 | loss 0.8032 |   5555s
+ep  1775 | eps 0.11 | return   533.56 | HO   4.41 | HOF 18.33 | SE  2.40 | loss 0.7578 |   5635s
+ep  1800 | eps 0.10 | return   540.63 | HO   4.46 | HOF 17.12 | SE  2.40 | loss 0.7057 |   5714s
+ep  1825 | eps 0.10 | return   542.85 | HO   4.53 | HOF 16.53 | SE  2.41 | loss 0.6453 |   5793s
+ep  1850 | eps 0.10 | return   542.08 | HO   4.44 | HOF 16.75 | SE  2.40 | loss 0.6118 |   5872s
+ep  1875 | eps 0.10 | return   541.17 | HO   4.38 | HOF 16.86 | SE  2.40 | loss 0.5770 |   5952s
+ep  1900 | eps 0.10 | return   540.97 | HO   4.34 | HOF 16.87 | SE  2.40 | loss 0.5527 |   6031s
+ep  1925 | eps 0.10 | return   543.65 | HO   4.37 | HOF 16.76 | SE  2.40 | loss 0.5313 |   6110s
+ep  1950 | eps 0.10 | return   544.15 | HO   4.45 | HOF 16.67 | SE  2.41 | loss 0.5166 |   6189s
+ep  1975 | eps 0.10 | return   546.67 | HO   4.39 | HOF 16.47 | SE  2.41 | loss 0.5063 |   6269s
+ep  2000 | eps 0.10 | return   543.30 | HO   4.44 | HOF 16.70 | SE  2.41 | loss 0.5042 |   6348s
+ep  2025 | eps 0.10 | return   546.71 | HO   4.29 | HOF 16.66 | SE  2.41 | loss 0.5008 |   6427s
+ep  2050 | eps 0.10 | return   547.19 | HO   4.32 | HOF 16.43 | SE  2.41 | loss 0.4966 |   6506s
+ep  2075 | eps 0.10 | return   546.10 | HO   4.41 | HOF 16.49 | SE  2.41 | loss 0.4906 |   6587s
+ep  2100 | eps 0.10 | return   543.69 | HO   4.39 | HOF 16.61 | SE  2.41 | loss 0.4833 |   6666s
+ep  2125 | eps 0.10 | return   545.12 | HO   4.31 | HOF 16.81 | SE  2.41 | loss 0.4819 |   6745s
+ep  2150 | eps 0.10 | return   545.93 | HO   4.25 | HOF 16.83 | SE  2.40 | loss 0.4864 |   6824s
+ep  2175 | eps 0.10 | return   544.58 | HO   4.32 | HOF 16.65 | SE  2.40 | loss 0.4785 |   6904s
+ep  2200 | eps 0.10 | return   542.96 | HO   4.35 | HOF 16.63 | SE  2.41 | loss 0.4777 |   6983s
+ep  2225 | eps 0.10 | return   542.60 | HO   4.29 | HOF 16.58 | SE  2.41 | loss 0.4741 |   7063s
+ep  2250 | eps 0.10 | return   543.32 | HO   4.07 | HOF 17.00 | SE  2.41 | loss 0.4730 |   7142s
+ep  2275 | eps 0.10 | return   543.96 | HO   3.96 | HOF 16.82 | SE  2.42 | loss 0.4699 |   7221s
+ep  2300 | eps 0.10 | return   546.41 | HO   3.98 | HOF 16.70 | SE  2.42 | loss 0.4677 |   7300s
+ep  2325 | eps 0.10 | return   546.14 | HO   4.03 | HOF 16.84 | SE  2.41 | loss 0.4618 |   7379s
+ep  2350 | eps 0.10 | return   545.16 | HO   4.13 | HOF 16.82 | SE  2.42 | loss 0.4618 |   7459s
+ep  2375 | eps 0.10 | return   546.56 | HO   4.13 | HOF 16.61 | SE  2.42 | loss 0.4567 |   7538s
+ep  2400 | eps 0.10 | return   545.15 | HO   4.14 | HOF 16.76 | SE  2.41 | loss 0.4525 |   7617s
+ep  2425 | eps 0.10 | return   545.37 | HO   4.14 | HOF 16.87 | SE  2.41 | loss 0.4535 |   7697s
+ep  2450 | eps 0.10 | return   545.56 | HO   4.15 | HOF 16.73 | SE  2.41 | loss 0.4516 |   7776s
+ep  2475 | eps 0.10 | return   544.17 | HO   4.16 | HOF 16.56 | SE  2.41 | loss 0.4486 |   7855s
+ep  2500 | eps 0.10 | return   544.15 | HO   4.22 | HOF 16.55 | SE  2.41 | loss 0.4478 |   7934s
+ep  2525 | eps 0.10 | return   542.73 | HO   4.16 | HOF 16.54 | SE  2.41 | loss 0.4439 |   8014s
+ep  2550 | eps 0.10 | return   544.28 | HO   4.05 | HOF 16.75 | SE  2.41 | loss 0.4466 |   8093s
+ep  2575 | eps 0.10 | return   542.79 | HO   4.10 | HOF 16.63 | SE  2.41 | loss 0.4434 |   8172s
+ep  2600 | eps 0.10 | return   540.89 | HO   4.09 | HOF 16.74 | SE  2.41 | loss 0.4423 |   8251s
+ep  2625 | eps 0.10 | return   543.12 | HO   4.14 | HOF 16.67 | SE  2.41 | loss 0.4400 |   8331s
+ep  2650 | eps 0.10 | return   543.12 | HO   4.18 | HOF 16.68 | SE  2.41 | loss 0.4373 |   8410s
+ep  2675 | eps 0.10 | return   542.00 | HO   4.16 | HOF 16.74 | SE  2.41 | loss 0.4377 |   8489s
+ep  2700 | eps 0.10 | return   542.50 | HO   4.18 | HOF 16.62 | SE  2.41 | loss 0.4348 |   8569s
+ep  2725 | eps 0.10 | return   543.94 | HO   4.14 | HOF 16.55 | SE  2.41 | loss 0.4345 |   8648s
+ep  2750 | eps 0.10 | return   544.00 | HO   4.19 | HOF 16.70 | SE  2.41 | loss 0.4304 |   8731s
+ep  2775 | eps 0.10 | return   541.24 | HO   4.07 | HOF 16.85 | SE  2.41 | loss 0.4311 |   8811s
+ep  2800 | eps 0.10 | return   542.12 | HO   4.12 | HOF 16.57 | SE  2.41 | loss 0.4300 |   8892s
+ep  2825 | eps 0.10 | return   543.79 | HO   4.08 | HOF 16.74 | SE  2.41 | loss 0.4303 |   8971s
+ep  2850 | eps 0.10 | return   542.38 | HO   4.11 | HOF 16.62 | SE  2.42 | loss 0.4257 |   9052s
+ep  2875 | eps 0.10 | return   539.94 | HO   4.04 | HOF 16.83 | SE  2.41 | loss 0.4283 |   9133s
+ep  2900 | eps 0.10 | return   545.99 | HO   4.09 | HOF 16.58 | SE  2.42 | loss 0.4274 |   9214s
+ep  2925 | eps 0.10 | return   542.90 | HO   3.98 | HOF 16.73 | SE  2.42 | loss 0.4259 |   9294s
+ep  2950 | eps 0.10 | return   543.91 | HO   4.03 | HOF 16.79 | SE  2.41 | loss 0.4280 |   9374s
+ep  2975 | eps 0.10 | return   544.19 | HO   4.12 | HOF 16.54 | SE  2.42 | loss 0.4275 |   9454s
+ep  3000 | eps 0.10 | return   543.98 | HO   4.06 | HOF 16.66 | SE  2.41 | loss 0.4221 |   9534s
+saved -> gpu100_repro/runs/g100_lbsh  (9535s)
+############ [4/7] eval sweep: starlink_phase_2a ############ Tue, Sep  8, 2026 10:34:50 AM
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      starlink_phase_2a  UE=  5 | ho  10.400 | hof   0.022 | se   2.934 | jfi   0.998 | occ_var   0.008
+ILCHO      starlink_phase_2a  UE= 20 | ho  10.100 | hof   0.244 | se   2.837 | jfi   0.998 | occ_var   0.059
+ILCHO      starlink_phase_2a  UE= 40 | ho  10.400 | hof   1.497 | se   2.666 | jfi   0.997 | occ_var   0.111
+ILCHO      starlink_phase_2a  UE= 70 | ho   7.616 | hof   3.056 | se   2.533 | jfi   0.996 | occ_var   0.143
+ILCHO      starlink_phase_2a  UE=100 | ho   4.256 | hof   4.952 | se   2.498 | jfi   0.995 | occ_var   0.141
+ILCHO-lin  starlink_phase_2a  UE=  5 | ho  12.022 | hof   0.000 | se   3.036 | jfi   0.996 | occ_var   0.011
+ILCHO-lin  starlink_phase_2a  UE= 20 | ho  10.856 | hof   1.528 | se   2.877 | jfi   0.996 | occ_var   0.062
+ILCHO-lin  starlink_phase_2a  UE= 40 | ho  10.144 | hof   1.347 | se   2.625 | jfi   0.995 | occ_var   0.095
+ILCHO-lin  starlink_phase_2a  UE= 70 | ho   7.490 | hof   2.479 | se   2.512 | jfi   0.994 | occ_var   0.138
+ILCHO-lin  starlink_phase_2a  UE=100 | ho   4.179 | hof   4.611 | se   2.501 | jfi   0.995 | occ_var   0.142
+MD-CHO     starlink_phase_2a  UE=  5 | ho  15.467 | hof   0.000 | se   3.427 | jfi   0.999 | occ_var   0.016
+MD-CHO     starlink_phase_2a  UE= 20 | ho  11.811 | hof  32.467 | se   2.956 | jfi   0.975 | occ_var   0.094
+MD-CHO     starlink_phase_2a  UE= 40 | ho   4.397 | hof  64.169 | se   2.418 | jfi   0.977 | occ_var   0.173
+MD-CHO     starlink_phase_2a  UE= 70 | ho   0.067 | hof  90.116 | se   1.976 | jfi   0.969 | occ_var   0.204
+MD-CHO     starlink_phase_2a  UE=100 | ho   0.000 | hof 100.587 | se   1.770 | jfi   0.974 | occ_var   0.150
+MVT-CHO    starlink_phase_2a  UE=  5 | ho   6.933 | hof   0.022 | se   3.019 | jfi   0.997 | occ_var   0.009
+MVT-CHO    starlink_phase_2a  UE= 20 | ho   6.422 | hof   3.972 | se   2.981 | jfi   0.997 | occ_var   0.079
+MVT-CHO    starlink_phase_2a  UE= 40 | ho   5.169 | hof   9.664 | se   2.861 | jfi   0.997 | occ_var   0.153
+MVT-CHO    starlink_phase_2a  UE= 70 | ho   3.483 | hof  20.979 | se   2.582 | jfi   0.995 | occ_var   0.195
+MVT-CHO    starlink_phase_2a  UE=100 | ho   2.412 | hof  30.552 | se   2.353 | jfi   0.980 | occ_var   0.148
+HSNF       starlink_phase_2a  UE=  5 | ho  16.489 | hof   0.022 | se   3.423 | jfi   0.999 | occ_var   0.016
+HSNF       starlink_phase_2a  UE= 20 | ho  13.117 | hof   0.022 | se   3.329 | jfi   0.998 | occ_var   0.094
+HSNF       starlink_phase_2a  UE= 40 | ho  11.317 | hof   0.025 | se   3.104 | jfi   0.998 | occ_var   0.160
+HSNF       starlink_phase_2a  UE= 70 | ho   9.887 | hof   0.040 | se   2.805 | jfi   0.993 | occ_var   0.188
+HSNF       starlink_phase_2a  UE=100 | ho   5.543 | hof   3.368 | se   2.554 | jfi   0.992 | occ_var   0.142
+LBSH       starlink_phase_2a  UE=  5 | ho   9.556 | hof   0.022 | se   2.438 | jfi   0.993 | occ_var   0.008
+LBSH       starlink_phase_2a  UE= 20 | ho   9.722 | hof   0.200 | se   2.375 | jfi   0.992 | occ_var   0.044
+LBSH       starlink_phase_2a  UE= 40 | ho   8.642 | hof   0.950 | se   2.402 | jfi   0.992 | occ_var   0.091
+LBSH       starlink_phase_2a  UE= 70 | ho   6.875 | hof   1.722 | se   2.473 | jfi   0.994 | occ_var   0.137
+LBSH       starlink_phase_2a  UE=100 | ho   3.941 | hof   3.279 | se   2.503 | jfi   0.994 | occ_var   0.142
+############ [4/7] eval sweep: starlink_phase_1a ############ Tue, Sep  8, 2026 10:41:37 AM
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      starlink_phase_1a  UE=  5 | ho   5.222 | hof   0.022 | se   1.919 | jfi   0.998 | occ_var   0.018
+ILCHO      starlink_phase_1a  UE= 20 | ho   5.733 | hof   0.461 | se   1.769 | jfi   0.995 | occ_var   0.089
+ILCHO      starlink_phase_1a  UE= 40 | ho   5.653 | hof   1.989 | se   1.635 | jfi   0.994 | occ_var   0.138
+ILCHO      starlink_phase_1a  UE= 70 | ho   2.902 | hof  24.014 | se   1.479 | jfi   0.986 | occ_var   0.120
+ILCHO      starlink_phase_1a  UE=100 | ho   2.331 | hof 136.178 | se   1.152 | jfi   0.894 | occ_var   0.070
+ILCHO-lin  starlink_phase_1a  UE=  5 | ho   6.933 | hof   0.022 | se   1.931 | jfi   0.997 | occ_var   0.018
+ILCHO-lin  starlink_phase_1a  UE= 20 | ho   6.239 | hof   1.161 | se   1.775 | jfi   0.997 | occ_var   0.099
+ILCHO-lin  starlink_phase_1a  UE= 40 | ho   5.503 | hof   2.156 | se   1.650 | jfi   0.995 | occ_var   0.145
+ILCHO-lin  starlink_phase_1a  UE= 70 | ho   2.502 | hof  23.946 | se   1.488 | jfi   0.983 | occ_var   0.125
+ILCHO-lin  starlink_phase_1a  UE=100 | ho   1.536 | hof 138.750 | se   1.148 | jfi   0.900 | occ_var   0.069
+MD-CHO     starlink_phase_1a  UE=  5 | ho  11.178 | hof   0.044 | se   2.220 | jfi   0.999 | occ_var   0.030
+MD-CHO     starlink_phase_1a  UE= 20 | ho   4.817 | hof  52.239 | se   1.683 | jfi   0.984 | occ_var   0.144
+MD-CHO     starlink_phase_1a  UE= 40 | ho   0.261 | hof  85.358 | se   1.300 | jfi   0.977 | occ_var   0.203
+MD-CHO     starlink_phase_1a  UE= 70 | ho   0.000 | hof 115.176 | se   1.060 | jfi   0.963 | occ_var   0.129
+MD-CHO     starlink_phase_1a  UE=100 | ho   0.000 | hof 208.133 | se   0.825 | jfi   0.875 | occ_var   0.074
+MVT-CHO    starlink_phase_1a  UE=  5 | ho   5.111 | hof   0.000 | se   1.959 | jfi   0.999 | occ_var   0.024
+MVT-CHO    starlink_phase_1a  UE= 20 | ho   3.600 | hof  10.850 | se   1.863 | jfi   0.997 | occ_var   0.129
+MVT-CHO    starlink_phase_1a  UE= 40 | ho   2.183 | hof  25.761 | se   1.632 | jfi   0.996 | occ_var   0.206
+MVT-CHO    starlink_phase_1a  UE= 70 | ho   1.203 | hof  58.997 | se   1.341 | jfi   0.972 | occ_var   0.131
+MVT-CHO    starlink_phase_1a  UE=100 | ho   0.942 | hof 165.529 | se   1.037 | jfi   0.870 | occ_var   0.073
+HSNF       starlink_phase_1a  UE=  5 | ho  10.822 | hof   0.022 | se   2.213 | jfi   0.999 | occ_var   0.029
+HSNF       starlink_phase_1a  UE= 20 | ho   7.361 | hof   0.011 | se   2.048 | jfi   0.998 | occ_var   0.144
+HSNF       starlink_phase_1a  UE= 40 | ho   6.631 | hof   0.014 | se   1.827 | jfi   0.996 | occ_var   0.199
+HSNF       starlink_phase_1a  UE= 70 | ho   3.046 | hof  17.006 | se   1.516 | jfi   0.985 | occ_var   0.127
+HSNF       starlink_phase_1a  UE=100 | ho   1.602 | hof 130.381 | se   1.173 | jfi   0.897 | occ_var   0.075
+LBSH       starlink_phase_1a  UE=  5 | ho   5.489 | hof   0.178 | se   1.567 | jfi   0.997 | occ_var   0.016
+LBSH       starlink_phase_1a  UE= 20 | ho   5.411 | hof   0.200 | se   1.570 | jfi   0.994 | occ_var   0.073
+LBSH       starlink_phase_1a  UE= 40 | ho   4.728 | hof   0.611 | se   1.585 | jfi   0.995 | occ_var   0.123
+LBSH       starlink_phase_1a  UE= 70 | ho   3.268 | hof  15.857 | se   1.511 | jfi   0.989 | occ_var   0.121
+LBSH       starlink_phase_1a  UE=100 | ho   3.453 | hof 127.916 | se   1.182 | jfi   0.903 | occ_var   0.072
+############ [4/7] eval sweep: hybrid ############ Tue, Sep  8, 2026 11:01:33 AM
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF', 'LBSH']
+ILCHO      hybrid             UE=  5 | ho  11.244 | hof   0.000 | se   2.776 | jfi   0.999 | occ_var   0.005
+ILCHO      hybrid             UE= 20 | ho  11.022 | hof   0.339 | se   2.687 | jfi   0.998 | occ_var   0.038
+ILCHO      hybrid             UE= 40 | ho  11.603 | hof   1.544 | se   2.553 | jfi   0.997 | occ_var   0.085
+ILCHO      hybrid             UE= 70 | ho   9.695 | hof   4.816 | se   2.490 | jfi   0.997 | occ_var   0.146
+ILCHO      hybrid             UE=100 | ho   7.816 | hof   5.677 | se   2.453 | jfi   0.996 | occ_var   0.183
+ILCHO-lin  hybrid             UE=  5 | ho  11.378 | hof   0.022 | se   2.870 | jfi   0.999 | occ_var   0.005
+ILCHO-lin  hybrid             UE= 20 | ho  10.806 | hof   0.700 | se   2.798 | jfi   0.997 | occ_var   0.039
+ILCHO-lin  hybrid             UE= 40 | ho  10.369 | hof   1.994 | se   2.631 | jfi   0.997 | occ_var   0.088
+ILCHO-lin  hybrid             UE= 70 | ho   9.284 | hof   4.483 | se   2.512 | jfi   0.997 | occ_var   0.146
+ILCHO-lin  hybrid             UE=100 | ho   6.737 | hof   5.901 | se   2.479 | jfi   0.996 | occ_var   0.192
+MD-CHO     hybrid             UE=  5 | ho  15.467 | hof   0.000 | se   3.427 | jfi   0.999 | occ_var   0.010
+MD-CHO     hybrid             UE= 20 | ho  11.811 | hof  32.467 | se   2.956 | jfi   0.975 | occ_var   0.063
+MD-CHO     hybrid             UE= 40 | ho   4.397 | hof  64.169 | se   2.418 | jfi   0.977 | occ_var   0.126
+MD-CHO     hybrid             UE= 70 | ho   0.081 | hof  90.040 | se   1.973 | jfi   0.971 | occ_var   0.184
+MD-CHO     hybrid             UE=100 | ho   0.000 | hof  98.794 | se   1.786 | jfi   0.978 | occ_var   0.208
+MVT-CHO    hybrid             UE=  5 | ho   5.533 | hof   0.022 | se   2.284 | jfi   0.999 | occ_var   0.009
+MVT-CHO    hybrid             UE= 20 | ho   4.756 | hof   6.333 | se   2.221 | jfi   0.996 | occ_var   0.059
+MVT-CHO    hybrid             UE= 40 | ho   3.264 | hof  16.428 | se   2.104 | jfi   0.990 | occ_var   0.119
+MVT-CHO    hybrid             UE= 70 | ho   1.816 | hof  20.525 | se   2.202 | jfi   0.985 | occ_var   0.175
+MVT-CHO    hybrid             UE=100 | ho   1.330 | hof  22.091 | se   2.235 | jfi   0.983 | occ_var   0.205
+HSNF       hybrid             UE=  5 | ho  16.467 | hof   0.022 | se   3.422 | jfi   0.999 | occ_var   0.010
+HSNF       hybrid             UE= 20 | ho  13.144 | hof   0.022 | se   3.328 | jfi   0.998 | occ_var   0.063
+HSNF       hybrid             UE= 40 | ho  11.361 | hof   0.028 | se   3.106 | jfi   0.998 | occ_var   0.119
+HSNF       hybrid             UE= 70 | ho  10.106 | hof   0.016 | se   2.806 | jfi   0.993 | occ_var   0.175
+HSNF       hybrid             UE=100 | ho  11.306 | hof   0.080 | se   2.600 | jfi   0.992 | occ_var   0.189
+LBSH       hybrid             UE=  5 | ho  13.222 | hof   0.067 | se   2.391 | jfi   0.997 | occ_var   0.004
+LBSH       hybrid             UE= 20 | ho  13.439 | hof   0.150 | se   2.354 | jfi   0.997 | occ_var   0.027
+LBSH       hybrid             UE= 40 | ho  13.211 | hof   0.864 | se   2.344 | jfi   0.997 | occ_var   0.060
+LBSH       hybrid             UE= 70 | ho  12.189 | hof   1.846 | se   2.350 | jfi   0.997 | occ_var   0.113
+LBSH       hybrid             UE=100 | ho  10.244 | hof   3.568 | se   2.357 | jfi   0.996 | occ_var   0.158
+############ [5/7] matched reward ablation ############ Tue, Sep  8, 2026 11:10:18 AM
+methods: ['ILCHO', 'ILCHO-lin', 'MD-CHO', 'MVT-CHO', 'HSNF']
+ILCHO      starlink_phase_2a  UE=  5 | ho  10.400 | hof   0.022 | se   2.934 | jfi   0.998 | occ_var   0.008
+ILCHO      starlink_phase_2a  UE= 20 | ho  10.100 | hof   0.244 | se   2.837 | jfi   0.998 | occ_var   0.059
+ILCHO      starlink_phase_2a  UE= 40 | ho  10.400 | hof   1.497 | se   2.666 | jfi   0.997 | occ_var   0.111
+ILCHO      starlink_phase_2a  UE= 70 | ho   7.616 | hof   3.056 | se   2.533 | jfi   0.996 | occ_var   0.143
+ILCHO      starlink_phase_2a  UE=100 | ho   4.256 | hof   4.952 | se   2.498 | jfi   0.995 | occ_var   0.141
+ILCHO-lin  starlink_phase_2a  UE=  5 | ho  12.022 | hof   0.000 | se   3.036 | jfi   0.996 | occ_var   0.011
+ILCHO-lin  starlink_phase_2a  UE= 20 | ho  10.856 | hof   1.528 | se   2.877 | jfi   0.996 | occ_var   0.062
+ILCHO-lin  starlink_phase_2a  UE= 40 | ho  10.144 | hof   1.347 | se   2.625 | jfi   0.995 | occ_var   0.095
+ILCHO-lin  starlink_phase_2a  UE= 70 | ho   7.490 | hof   2.479 | se   2.512 | jfi   0.994 | occ_var   0.138
+ILCHO-lin  starlink_phase_2a  UE=100 | ho   4.179 | hof   4.611 | se   2.501 | jfi   0.995 | occ_var   0.142
+MD-CHO     starlink_phase_2a  UE=  5 | ho  15.467 | hof   0.000 | se   3.427 | jfi   0.999 | occ_var   0.016
+MD-CHO     starlink_phase_2a  UE= 20 | ho  11.811 | hof  32.467 | se   2.956 | jfi   0.975 | occ_var   0.094
+MD-CHO     starlink_phase_2a  UE= 40 | ho   4.397 | hof  64.169 | se   2.418 | jfi   0.977 | occ_var   0.173
+MD-CHO     starlink_phase_2a  UE= 70 | ho   0.067 | hof  90.116 | se   1.976 | jfi   0.969 | occ_var   0.204
+MD-CHO     starlink_phase_2a  UE=100 | ho   0.000 | hof 100.587 | se   1.770 | jfi   0.974 | occ_var   0.150
+MVT-CHO    starlink_phase_2a  UE=  5 | ho   6.933 | hof   0.022 | se   3.019 | jfi   0.997 | occ_var   0.009
+MVT-CHO    starlink_phase_2a  UE= 20 | ho   6.422 | hof   3.972 | se   2.981 | jfi   0.997 | occ_var   0.079
+MVT-CHO    starlink_phase_2a  UE= 40 | ho   5.169 | hof   9.664 | se   2.861 | jfi   0.997 | occ_var   0.153
+MVT-CHO    starlink_phase_2a  UE= 70 | ho   3.483 | hof  20.979 | se   2.582 | jfi   0.995 | occ_var   0.195
+MVT-CHO    starlink_phase_2a  UE=100 | ho   2.412 | hof  30.552 | se   2.353 | jfi   0.980 | occ_var   0.148
+HSNF       starlink_phase_2a  UE=  5 | ho  16.489 | hof   0.022 | se   3.423 | jfi   0.999 | occ_var   0.016
+HSNF       starlink_phase_2a  UE= 20 | ho  13.117 | hof   0.022 | se   3.329 | jfi   0.998 | occ_var   0.094
+HSNF       starlink_phase_2a  UE= 40 | ho  11.317 | hof   0.025 | se   3.104 | jfi   0.998 | occ_var   0.160
+HSNF       starlink_phase_2a  UE= 70 | ho   9.887 | hof   0.040 | se   2.805 | jfi   0.993 | occ_var   0.188
+HSNF       starlink_phase_2a  UE=100 | ho   5.543 | hof   3.368 | se   2.554 | jfi   0.992 | occ_var   0.142
+############ [6/7] sensitivity (50 UE, Phase 2-a) ############ Tue, Sep  8, 2026 11:15:32 AM
+handover_offset_km=10.0: ILCHO ho=12.72 hof=1.61 se=2.71 | MD hof=91.65 | MVT hof=15.73
+handover_offset_km=25.0: ILCHO ho=11.31 hof=2.17 se=2.65 | MD hof=87.78 | MVT hof=14.81
+handover_offset_km=50.0: ILCHO ho=9.61 hof=2.22 se=2.61 | MD hof=75.81 | MVT hof=12.25
+handover_offset_km=75.0: ILCHO ho=9.31 hof=2.10 se=2.57 | MD hof=65.07 | MVT hof=10.69
+handover_offset_km=100.0: ILCHO ho=9.25 hof=1.69 se=2.51 | MD hof=53.42 | MVT hof=8.93
+ho_cooldown_s=0.0: ILCHO ho=9.83 hof=3.85 se=2.61 | MD hof=357.39 | MVT hof=54.03
+ho_cooldown_s=2.0: ILCHO ho=10.09 hof=2.75 se=2.62 | MD hof=180.86 | MVT hof=27.91
+ho_cooldown_s=5.0: ILCHO ho=9.61 hof=2.22 se=2.61 | MD hof=75.81 | MVT hof=12.25
+ho_cooldown_s=10.0: ILCHO ho=9.45 hof=1.72 se=2.58 | MD hof=40.01 | MVT hof=6.97
+ho_cooldown_s=20.0: ILCHO ho=8.73 hof=2.09 se=2.55 | MD hof=24.05 | MVT hof=4.52
+max_channels=4: ILCHO ho=4.19 hof=5.81 se=2.49 | MD hof=100.44 | MVT hof=31.03
+max_channels=6: ILCHO ho=8.05 hof=3.53 se=2.55 | MD hof=87.34 | MVT hof=18.83
+max_channels=8: ILCHO ho=9.61 hof=2.22 se=2.61 | MD hof=75.81 | MVT hof=12.25
+max_channels=12: ILCHO ho=10.64 hof=0.83 se=2.72 | MD hof=55.47 | MVT hof=7.34
+max_channels=16: ILCHO ho=10.23 hof=0.19 se=2.81 | MD hof=42.06 | MVT hof=5.19
+saved gpu100_repro/runs/g100_sensitivity
+############ [7/7] report tables ############ Tue, Sep  8, 2026 11:18:40 AM
+wrote gpu100_repro/report_assets/TABLES.md and figures
+### GPU100 RUN DONE -- Tue, Sep  8, 2026 11:18:41 AM
