@@ -66,6 +66,12 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 (Phase 2-a, Phase 1-a, hybrid, OneWeb), reward ablation, sensitivity; đã merge vào `main`.
 Đã thử dò hệ số phasing Walker `F` (kết quả âm tính — xem `gpu100_repro/CHUA_LAM_DUOC.md` C4).
 
+**Đang treo, chờ quyết định:** train đa-seed cho 3 policy (mục A2) — đã tính effort cụ thể
+(seed=0 đã có sẵn từ lượt 3; cần thêm ~17h46p cho 2 seed nữa hoặc ~35h32p cho 4 seed nữa, xem
+bảng trong `gpu100_repro/CHUA_LAM_DUOC.md` §A2). **Chưa chạy** — người dùng muốn đọc hết tài
+liệu hiện có trước, rồi mới quyết định chạy bao nhiêu seed. Khi quay lại, hỏi thẳng "chạy đa-seed
+chưa" hoặc chờ người dùng chủ động yêu cầu.
+
 **Đang mở / có thể làm tiếp** (chi tiết + effort ước tính ở `gpu100_repro/CHUA_LAM_DUOC.md`):
 - Nhóm [A] (làm được, cần thêm thời gian): train đa-seed, cài đúng HSNF/LBSH theo bài gốc
   [22]/[26], `batch=32` đúng Table II (cần GPU ≥16GB), train native cho Phase 1-a/hybrid,
@@ -80,6 +86,9 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
+- **2026-09-08** — Tính effort cụ thể cho train đa-seed (mục A2): ~17h46p thêm cho 3 seed,
+  ~35h32p thêm cho 5 seed (seed=0 đã có sẵn). Người dùng chọn **đọc tài liệu trước, chưa chạy**
+  — xem mục 3 ở trên.
 - **2026-09-08** — Dò hệ số phasing Walker `F` (0–47) cho Starlink Phase 2-a để tìm giá trị
   khớp đỉnh khả kiến 27 (bài báo). **Kết quả âm tính**: không `F` nào cho ra 27, dải kết quả
   29–32, `F=1` (giá trị đang dùng) đã là tốt nhất có thể. → `gpu100_repro/runs/f_sweep/f_sweep.json`,
