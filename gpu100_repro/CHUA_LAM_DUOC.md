@@ -27,15 +27,23 @@ Chưa rõ mức ảnh hưởng thực tế của batch nhỏ hơn tới sample e
 huấn luyện vẫn hội tụ mượt và bão hòa sớm (§3 báo cáo chính), nhưng chưa loại trừ hoàn toàn
 khả năng batch=32 hội tụ nhanh hơn hoặc ổn định hơn nữa.
 
-### A2. Huấn luyện đa-seed (chỉ eval mới có đa-seed)
+### A2. ~~Huấn luyện đa-seed~~ ✅ Đã làm một phần (3 seed) — 2026-09-09
 
-Mỗi policy (`g100_ilcho_sigmoid`, `g100_ilcho_linear`, `g100_lbsh`) hiện chỉ có **một lần
-train** (`--seed 0`). Việc **eval** đã dùng 3 seed để lấy trung bình ± độ lệch chuẩn, nhưng
-bản thân quá trình học — vốn có thể hội tụ về nghiệm khác nhau tùy seed khởi tạo mạng — chưa
-được lặp lại độc lập. Cần train mỗi cấu hình **3–5 lần với seed khác nhau** rồi báo cáo
-mean±std của chính sách cuối cùng để biết kết quả ở `REPORT.md` §4 có ổn định qua random seed
-hay chỉ là một lần chạy may mắn. Với tốc độ ~3,6 s/episode hiện tại, nhân 3–5 lần cho ra
-~1,5–2 ngày chạy nền — làm được, chỉ chưa làm vì ngân sách thời gian lượt này giới hạn overnight.
+Đã train thêm seed=1, seed=2 (bên cạnh seed=0 sẵn có) cho cả 3 policy — cấu hình giống hệt
+seed=0 — rồi eval lại trên Phase 2-a. ~17h49p chạy nền
+(`gpu100_repro/run_gpu100_multiseed.sh`, `runs/g100_*_seed{1,2}/`). Tổng hợp mean±std qua 3
+seed: `runs/multiseed_aggregate.{json,md}`, phân tích đầy đủ ở `REPORT.md` §4.3.
+
+**Kết quả:** kết luận chính của báo cáo (khoảng cách HOF ILCHO-vs-HSNF/LBSH ở 100 UE thu hẹp
+mạnh so với lượt 2) **giữ vững qua cả 3 seed** — 1,34× (trung bình 3 seed) so với 1,47× (chỉ
+seed=0). seed=0 hơi bi quan hơn mức trung bình ở 40-70 UE, không phải bị chọn lọc có lợi.
+Baseline (MD-CHO/MVT-CHO/HSNF) có `std=0` tuyệt đối qua 3 seed — xác nhận đúng như kỳ vọng
+(không học, không phụ thuộc seed train), là một phép kiểm tra pipeline hữu ích.
+
+**Vẫn còn thiếu (nếu muốn làm tiếp):** mới có **n=3**, đủ để loại trừ "seed=0 là ngoại lệ may
+mắn" nhưng độ lệch chuẩn còn khá lớn ở vùng 40-70 UE (ví dụ ILCHO-lin HOF 20UE: std gần bằng
+mean) — muốn khoảng tin cậy chặt hơn cần thêm 2 seed nữa (seed=3,4) cho đủ 5, ước tính thêm
+~17h49p chạy nền tương tự.
 
 ### A3. Cài đặt đầy đủ HSNF (ref. [22]) và LBSH (ref. [26]) theo đúng bài gốc
 
@@ -144,7 +152,7 @@ bản tái hiện.
 | # | Việc | Loại | Effort nếu muốn làm |
 |---|---|---|---|
 | A1 | batch=32 đúng Table II | A | GPU ≥16GB hoặc truncated BPTT |
-| A2 | Train đa-seed (3–5 lần/policy) | A | ~1,5–2 ngày chạy nền |
+| A2 | ~~Train đa-seed~~ (3 xong, 5 nếu muốn chặt hơn) | A | ✅ 3 seed xong — xem `REPORT.md` §4.3; +2 seed nữa ~17h49p nếu muốn |
 | A3 | Cài đúng HSNF [22] / LBSH [26] | A | ~1,5 ngày đọc+code |
 | A4 | ~~Dò `F` cho đúng đỉnh N_max=27~~ | A | ✅ đã xong — kết quả âm tính, xem C4 |
 | A5 | Train native cho Phase 1-a/hybrid | A | ~2,5–4h/chòm vệ tinh |

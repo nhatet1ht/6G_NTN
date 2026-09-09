@@ -175,6 +175,50 @@ phải vì ILCHO "bắt kịp" mà vì HSNF gặp đúng ngưỡng bão hòa ở
 - ✅ **Outage:** ILCHO giữ mất dịch vụ dưới 1,6% tới 100 UE (thấp hơn cả lượt 2's ~6,8%, nhờ
   ít HOF hơn), MD-CHO vẫn ~33%.
 
+### 4.3 Độ ổn định qua nhiều seed huấn luyện (bổ sung 2026-09-09, mục A2)
+
+Mọi số liệu ở §4.1/4.2 đều từ **một lần train duy nhất** (seed=0). Để biết đó có phải chỉ là
+một lần chạy may mắn hay không, đã train thêm **2 seed nữa** (seed=1, seed=2) cho cả 3 policy
+— cấu hình giống hệt seed=0 (100 agent, `N_max=27`, horizon 600s, batch=8, học mỗi episode) —
+rồi eval lại trên Starlink Phase 2-a. Tổng thời gian: ~17h49p chạy nền (dữ liệu thô:
+`runs/g100_*_seed{1,2}/`, `runs/g100_eval_starlink_phase_2a_seed{1,2}/`, tổng hợp:
+`runs/multiseed_aggregate.{json,md}`).
+
+**HOF, trung bình ± độ lệch chuẩn qua 3 seed train (Phase 2-a)**
+
+| #UE | 5 | 20 | 40 | 70 | 100 |
+|---|--:|--:|--:|--:|--:|
+| ILCHO | 0,05±0,06 | 0,21±0,03 | 0,92±0,45 | 2,04±0,72 | **4,52±0,32** |
+| ILCHO-lin | 0,02±0,02 | 0,57±0,67 | 0,79±0,42 | 1,99±0,34 | 4,30±0,38 |
+| LBSH | 0,10±0,10 | 0,22±0,11 | 0,69±0,25 | 1,73±0,18 | **3,37±0,07** |
+| HSNF *(không học, `std=0` — kiểm chứng đúng)* | 0,02 | 0,02 | 0,03 | 0,04 | 3,37 |
+
+**3 giá trị riêng lẻ (ILCHO, HOF)** — để thấy độ tán trực tiếp, không chỉ qua mean±std:
+
+| #UE | seed 0 (lượt 3 gốc) | seed 1 | seed 2 |
+|---|--:|--:|--:|
+| 40 | 1,50 | 0,40 | 0,87 |
+| 70 | 3,06 | 1,60 | 1,48 |
+| 100 | 4,95 | 4,41 | 4,19 |
+
+**Đọc kết quả:**
+- ✅ **Kết luận chính của §4.1 giữ vững qua cả 3 seed**, không phải may rủi: ở 100 UE, ILCHO
+  (4,52±0,32) chỉ còn cách HSNF (3,37) **1,34×** và LBSH (3,37±0,07) **1,34×** — cùng bậc với
+  con số 1,47× tính từ riêng seed=0, độ lệch chuẩn nhỏ (≤0,72 ở mọi điểm) so với khoảng cách
+  tuyệt đối với MD-CHO/MVT-CHO (hàng chục).
+- ✅ **seed=0 (số liệu chính dùng xuyên suốt báo cáo) không phải seed tốt nhất** — thực ra hơi
+  *bi quan* hơn mức trung bình ở 40-70 UE (HOF seed=0 cao nhất trong 3 seed ở cả hai điểm này).
+  Nghĩa là các con số công bố ở §4 **không bị chọn lọc theo hướng có lợi** cho ILCHO.
+- ✅ **HSNF/MD-CHO/MVT-CHO có `std=0` tuyệt đối** qua 3 seed (đúng như kỳ vọng — baseline
+  không học, không phụ thuộc seed train) — xác nhận pipeline eval hoạt động đúng, không có rò
+  rỉ ngẫu nhiên nào ảnh hưởng tới baseline.
+- ✅ **LBSH cũng ổn định** (std ≤0,25 ở HOF, ≤0,08 ở SE) dù là policy học (IQL) — không có dấu
+  hiệu bất ổn giữa các lần train độc lập.
+- ⚠️ Độ lệch chuẩn **tương đối lớn ở vùng giữa** (40-70 UE, ví dụ ILCHO-lin HOF 20UE=0,57±0,67 —
+  std gần bằng mean) vì cỡ mẫu chỉ **n=3** — đủ để loại trừ khả năng "seed=0 là ngoại lệ may
+  mắn", nhưng chưa đủ để báo cáo khoảng tin cậy chặt. Muốn hẹp hơn cần 5 seed (xem
+  `CHUA_LAM_DUOC.md` A2, phần còn lại nếu muốn làm tiếp).
+
 ---
 
 ## 5. Ablation hàm thưởng — sigmoid (Eq. 27) vs linear (Eq. 30), đúng quy mô 100 agent
@@ -338,6 +382,11 @@ paper công bố rõ nhất (số agent, horizon) và cho một kết quả tíc
 4. ✅ **Độ vững chắc qua khảo sát độ nhạy được cải thiện** ở mọi tham số, rõ nhất ở góc thiếu
    tài nguyên cực đoan (`J=4`: 22,3→5,81).
 5. ✅ **Hybrid và zero-shot Phase 1-a** đều cải thiện cùng xu hướng (§7).
+6. ✅ **Kết luận #1 không phải may rủi từ một lần train** — train thêm 2 seed độc lập (§4.3)
+   cho kết quả cùng bậc (khoảng cách ILCHO-vs-HSNF/LBSH ở 100 UE: 1,34× qua 3 seed so với
+   1,47× của riêng seed=0), std nhỏ so với khoảng cách với MD-CHO/MVT-CHO, và seed=0 (số liệu
+   dùng xuyên suốt báo cáo) hơi bi quan hơn mức trung bình chứ không phải bị chọn theo hướng
+   có lợi.
 
 **Không tái hiện được — vẫn là phát hiện, không đổi qua cả 3 lượt (không phải do thiếu quy
 mô train):**

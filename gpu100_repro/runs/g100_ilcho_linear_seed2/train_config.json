@@ -1,0 +1,15 @@
+{
+  "constellation": "starlink_phase_2a",
+  "reward": "linear",
+  "mode": "qmix",
+  "episodes": 3000,
+  "train_ues": 100,
+  "horizon": 600,
+  "n_max": 27,
+  "eps_anneal": 1800,
+  "learn_every": 1,
+  "batch": 8,
+  "seed": 2,
+  "out": "gpu100_repro/runs/g100_ilcho_linear_seed2",
+  "device": "cuda"
+}

@@ -60,20 +60,21 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 
 ---
 
-## 3. Trạng thái hiện tại (cập nhật lần cuối: 2026-09-08)
+## 3. Trạng thái hiện tại (cập nhật lần cuối: 2026-09-09)
 
-**Đã xong:** lượt 3 tái hiện (100 agent/600s/GPU) hoàn chỉnh — training, eval 4 chòm vệ tinh
-(Phase 2-a, Phase 1-a, hybrid, OneWeb), reward ablation, sensitivity; đã merge vào `main`.
-Đã thử dò hệ số phasing Walker `F` (kết quả âm tính — xem `gpu100_repro/CHUA_LAM_DUOC.md` C4).
+**Đã xong:**
+- Lượt 3 tái hiện (100 agent/600s/GPU) hoàn chỉnh — training, eval 4 chòm vệ tinh (Phase 2-a,
+  Phase 1-a, hybrid, OneWeb), reward ablation, sensitivity.
+- Dò hệ số phasing Walker `F` (kết quả âm tính — xem `gpu100_repro/CHUA_LAM_DUOC.md` C4).
+- **Train đa-seed (mục A2), 3 seed tổng cộng** — seed=1,2 train thêm bên cạnh seed=0, ~17h49p
+  chạy nền, xong 2026-09-09 19:43. Kết quả: **kết luận chính của báo cáo giữ vững qua cả 3
+  seed** (khoảng cách ILCHO-vs-HSNF/LBSH ở 100 UE: 1,34× trung bình 3 seed, so với 1,47× chỉ
+  seed=0) — xem `gpu100_repro/REPORT.md` §4.3, dữ liệu ở `gpu100_repro/runs/multiseed_aggregate.md`.
 
-**Đang chạy nền (từ 2026-09-09, ~1h54 sáng):** train đa-seed cho 3 policy (mục A2) — 3 seed
-tổng cộng (seed=0 có sẵn + seed=1,2 mới), `gpu100_repro/run_gpu100_multiseed.sh`, dự kiến
-~17h46p (xong khoảng ~19h45 tối 2026-09-09). Log: `gpu100_repro/run_gpu100_multiseed.log`.
-Khi xong sẽ tự chạy `gpu100_repro/aggregate_multiseed.py` → `runs/multiseed_aggregate.{json,md}`
-(mean±std của ILCHO/ILCHO-lin/LBSH qua 3 seed train, trên Starlink Phase 2-a). **Việc còn lại
-sau khi script chạy xong:** đọc `multiseed_aggregate.md`, viết thêm một mục vào
-`gpu100_repro/REPORT.md` (hoặc file riêng) báo cáo độ ổn định qua seed, và cập nhật A2 trong
-`CHUA_LAM_DUOC.md` từ "chưa làm" sang "đã làm — kết quả X".
+Toàn bộ đã push lên `main`.
+
+**Có thể làm tiếp nếu muốn chặt hơn:** thêm 2 seed nữa (seed=3,4) cho đủ 5 seed — std hiện tại
+còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương tự).
 
 **Đang mở / có thể làm tiếp** (chi tiết + effort ước tính ở `gpu100_repro/CHUA_LAM_DUOC.md`):
 - Nhóm [A] (làm được, cần thêm thời gian): train đa-seed, cài đúng HSNF/LBSH theo bài gốc
@@ -89,6 +90,12 @@ sau khi script chạy xong:** đọc `multiseed_aggregate.md`, viết thêm mộ
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
+- **2026-09-09** — Train đa-seed hoàn tất (3 seed tổng, mục A2), ~17h49p chạy nền, không lỗi.
+  Kết luận chính (§4.1 lượt 3) giữ vững qua seed: khoảng cách ILCHO-vs-HSNF/LBSH ở 100 UE
+  1,34× (trung bình 3 seed) so với 1,47× (chỉ seed=0); seed=0 hơi bi quan hơn trung bình, không
+  bị chọn lọc có lợi; baseline có std=0 tuyệt đối qua seed (đúng kỳ vọng, xác nhận pipeline
+  đúng). → `gpu100_repro/REPORT.md` §4.3, §9 mục 6; `CHUA_LAM_DUOC.md` A2 cập nhật "đã làm";
+  dữ liệu thô `gpu100_repro/runs/multiseed_aggregate.{json,md}`.
 - **2026-09-09** — Bắt đầu chạy train đa-seed (3 seed tổng, mục A2) sau khi người dùng đọc
   xong tài liệu. Script mới: `gpu100_repro/run_gpu100_multiseed.sh`,
   `gpu100_repro/aggregate_multiseed.py`. Chạy nền, dự kiến xong ~19h45 tối cùng ngày.
