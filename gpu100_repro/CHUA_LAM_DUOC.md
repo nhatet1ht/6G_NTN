@@ -128,7 +128,7 @@ Ba điều này đã được kiểm chứng lặp lại qua **cả 3 lượt** 
    và **không nằm trong nhóm [B]** nữa theo nghĩa "chưa quét" — quét rồi, không ra. Dữ liệu thô:
    `runs/f_sweep/f_sweep.json`.
 
-Bốn mục này **không nằm trong danh sách A** — không phải "chưa làm", mà "đã làm, kết quả khác
+Ba mục này **không nằm trong danh sách A** — không phải "chưa làm", mà "đã làm, kết quả khác
 bài báo", và lặp lại nhất quán (hoặc đã quét hết không gian hợp lệ) nên nhiều khả năng phản
 ánh khác biệt thật về cách cài đặt baseline hoặc tham số ẩn, không phải lỗi hay thiếu sót của
 bản tái hiện.
@@ -142,7 +142,7 @@ bản tái hiện.
 | 1. Vector hoá `environment.py` | ✅ **Xong** (đã có trước lượt 3, dùng trong cả 3 lượt) |
 | 2. Train đúng quy mô bài báo (100 agent, 600s, N_max=27) | ✅ **Xong** ở mức 3.000–4.000 episode (chưa thử 30.000, xem A2/A7 — nhưng đã bão hòa sớm, xem `REPORT.md` §3) |
 | 3. Cài đầy đủ HSNF/LBSH theo bài gốc [22]/[26] | ❌ **Chưa** — xem A3 |
-| 4. Đa seed | ⚠️ **Một nửa** — eval đã đa-seed (3), train vẫn 1 seed — xem A2 |
+| 4. Đa seed | ✅ **Xong (3/5)** — train 3 seed + eval 3 seed/điểm, xem A2 | 
 | 5. Liên hệ tác giả | ❌ **Chưa** — việc của bạn, xem [B] |
 
 ---
@@ -159,4 +159,4 @@ bản tái hiện.
 | A6 | ~~Thêm OneWeb Phase 1 vào so sánh~~ | A | ✅ đã xong — xem `REPORT.md` §7.3 |
 | A7 | Quét trục batch/learn-every | A | vài giờ |
 | B  | 5 tham số ẩn bài báo không công bố | B | không tự làm được — cần tác giả |
-| C1–C4 | 4 tuyên bố/số liệu không khớp (kể cả `F`, mới thêm) | C | đã kết luận, không cần làm thêm |
+| C1–C3 | 3 tuyên bố/số liệu không khớp (kể cả `F`) | C | đã kết luận, không cần làm thêm |
