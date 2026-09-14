@@ -90,12 +90,17 @@ còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương t�
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
-- **2026-09-14** — Viết báo cáo tiến độ (LaTeX + PDF, tiếng Việt, kiểu báo cáo tuần/tháng cho
-  GVHD) tóm tắt bài toán + toàn bộ việc đã làm tính tới 2026-09-10. File:
-  `bao_cao/bao_cao_tien_do.tex` (biên dịch bằng `xelatex`, không dùng polyglossia — bị lỗi
-  trên bản MiKTeX hiện tại, đã bỏ qua và tự thêm `\renewcommand{\tablename}{Bảng}` để chú
-  thích bảng đúng tiếng Việt). Đã gửi PDF cho người dùng qua SendUserFile, 2 chỗ (tên sinh
-  viên, tên GVHD) còn để trống — người dùng cần tự điền trước khi nộp.
+- **2026-09-14** — Tách thành **2 báo cáo riêng** (LaTeX + PDF, tiếng Việt, không ghi ngày/giờ
+  — chỉ để trao đổi cô-trò, không phải báo cáo hành chính có mốc thời gian):
+  `bao_cao/bao_cao_survey.tex` (survey sâu về bài báo ILCHO: bối cảnh, 4 đóng góp, công trình
+  liên quan, phương pháp, kết quả bài báo công bố, điểm mạnh/hạn chế, hướng mở — dựng từ
+  `docs/theory/ILCHO_notes/01_...` và `06_Survey_...`) và
+  `bao_cao/bao_cao_thu_nghiem.tex` (đổi tên từ `bao_cao_tien_do.tex`, bỏ phần ngày/giai đoạn —
+  tóm tắt việc đã tái hiện). Biên dịch bằng `xelatex`; **polyglossia bị lỗi trên bản MiKTeX
+  hiện tại** (thiếu lệnh expl3 nội bộ) — đã bỏ qua, chỉ dùng `fontspec` + Times New Roman +
+  `\renewcommand{\tablename}{Bảng}`, tiếng Việt vẫn hiển thị đúng. Đã gửi cả 4 file (2 .tex +
+  2 PDF) cho người dùng qua SendUserFile. 2 chỗ (tên sinh viên, tên GVHD) còn để trống ở mỗi
+  file — người dùng cần tự điền trước khi nộp.
 - **2026-09-09** — Train đa-seed hoàn tất (3 seed tổng, mục A2), ~17h49p chạy nền, không lỗi.
   Kết luận chính (§4.1 lượt 3) giữ vững qua seed: khoảng cách ILCHO-vs-HSNF/LBSH ở 100 UE
   1,34× (trung bình 3 seed) so với 1,47× (chỉ seed=0); seed=0 hơi bi quan hơn trung bình, không

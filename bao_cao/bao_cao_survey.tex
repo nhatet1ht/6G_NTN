@@ -1,0 +1,229 @@
+% !TEX program = xelatex
+% Báo cáo survey bài báo ILCHO
+% Biên dịch bằng XeLaTeX (cần font hỗ trợ tiếng Việt, vd. Times New Roman có sẵn trên Windows).
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\renewcommand{\tablename}{Bảng}
+\usepackage{titlesec}
+\usepackage{setspace}
+\onehalfspacing
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{\textbf{BÁO CÁO SURVEY BÀI BÁO}\\[4pt]
+\large ``Intelligent Handover Scheme for Improved 6G NTN\\
+LEO Satellite Network Performance'' (ILCHO)}
+\author{Sinh viên: ........................................\\
+Giảng viên hướng dẫn: Cô ........................................}
+\date{}
+
+\begin{document}
+\maketitle
+\vspace{-2em}
+
+\section{Thông tin bài báo}
+
+M. Choi, M. Park, J. Kim, J.-M. Chung, \emph{``Intelligent Handover Scheme for Improved 6G
+NTN LEO Satellite Network Performance,''} IEEE Transactions on Mobile Computing, vol. 25,
+no. 5, 05/2026, tr. 6863--6880. DOI: 10.1109/TMC.2025.3642278.
+
+\section{Bối cảnh \& vấn đề đặt ra}
+
+6G hướng tới phủ sóng toàn cầu, trong đó mạng phi mặt đất (NTN) dùng vệ tinh quỹ đạo thấp
+(LEO, cao độ 300--2.000 km) là mảnh ghép quan trọng để phủ vùng thưa dân và tăng dung lượng.
+Do bay nhanh (hàng km/s) và vùng phủ hẹp, một thiết bị người dùng (UE) trong chòm vệ tinh
+LEO mật độ cao (kiểu Starlink) phải \textbf{chuyển giao (handover) liên tục} — theo 3GPP TR
+38.821, mỗi 6,6--132,3 giây tuỳ vị trí. Đo cường độ tín hiệu (RSRP) kiểu mạng mặt đất không
+đáng tin cậy ở đây vì các vệ tinh ở xa và tín hiệu giữa chúng gần giống nhau. 3GPP đề xuất cơ
+chế \textbf{Conditional Handover (CHO, Rel-16)} — chuẩn bị trước nhiều ứng viên, chuyển giao
+chủ động khi điều kiện thoả thay vì chờ đo đạc — nhưng \textbf{chưa giải quyết} bài toán chọn
+vệ tinh đích nào là tốt nhất khi có hàng chục/hàng trăm UE cùng cạnh tranh tài nguyên.
+
+\section{Đóng góp chính của bài báo}
+
+Bài báo đề xuất \textbf{ILCHO} = CHO + học tăng cường đa tác tử (\textbf{QMIX}) để chọn vệ
+tinh đích, với 4 đóng góp:
+
+\begin{enumerate}[leftmargin=1.3em]
+  \item \textbf{Nền tảng giải tích (3 Lemma):} chứng minh vị trí vệ tinh là hàm \emph{tất
+        định} theo thời gian (từ tham số quỹ đạo Walker-Delta) $\Rightarrow$ suy ra được điều
+        kiện ``khả kiến'' (accessible) của mỗi UE với từng vệ tinh mà không cần đo đạc thời
+        gian thực; và chứng minh bài toán gán tối ưu là \textbf{NP-hard} (quy về generalized
+        assignment problem) $\Rightarrow$ biện minh cho việc dùng học máy thay vì giải chính
+        xác.
+  \item \textbf{Môi trường thực tế:} mô phỏng trên tham số Starlink thật (hồ sơ FCC) — Phase
+        1-a ($\sim$550 km), Phase 2-a ($\sim$340 km), và kịch bản hybrid — thay vì mô hình giả
+        định dưới 100 vệ tinh như phần lớn công trình trước.
+  \item \textbf{Công thức MARL khả mở rộng:} không gian hành động của mỗi agent chỉ là số vệ
+        tinh \emph{khả kiến tối đa} $N_{\max}$ (suy từ Lemma 2), không phải tổng số vệ tinh
+        toàn hệ thống $\Rightarrow$ độ phức tạp huấn luyện/suy luận \textbf{tuyến tính theo số
+        UE}, không phụ thuộc tổng số vệ tinh — đây là điểm kỹ thuật giá trị nhất của bài báo.
+  \item \textbf{Kiểm chứng thực nghiệm:} theo nhóm tác giả, đây là nghiên cứu đầu tiên kiểm
+        chứng CHO điều khiển bằng RL trên một mega-constellation LEO thương mại thực thụ.
+\end{enumerate}
+
+\section{Công trình liên quan \& 4 phương pháp so sánh (baseline)}
+
+Bài báo xếp các công trình liên quan theo hướng tiếp cận (Bảng~\ref{tab:related}) và chọn 4
+phương pháp so sánh, đại diện cho 2 nhóm — heuristic đơn tiêu chí và MARL không cắt không
+gian hành động — để chỉ ra cả hai đều ``sụp'' khi số UE tăng.
+
+\begin{table}[h]
+\centering\small
+\caption{Các hướng tiếp cận liên quan và hạn chế được bài báo chỉ ra}
+\label{tab:related}
+\begin{tabular}{@{}p{3.1cm}p{5cm}p{6cm}@{}}
+\toprule
+\textbf{Hướng} & \textbf{Ý tưởng} & \textbf{Hạn chế (theo bài báo)} \\
+\midrule
+Lý thuyết trò chơi & Tối đa lợi ích UE bằng potential game & Không học, giả định lý tưởng \\
+Network-flow (\textbf{HSNF}) & Đồ thị luồng, chi phí = throughput + băng thông còn lại & Tính chi phí mọi cặp UE--vệ tinh thời gian thực bất khả thi ở quy mô mega \\
+RL đa tác tử độc lập (\textbf{LBSH}) & Q-learning độc lập, thưởng = RVT + tải + phạt HO & Không gian hành động nổ khi ghép vào Starlink, khó hội tụ \\
+DQN + OneWeb & Tối đa throughput & Bỏ qua chi phí báo hiệu do HO thừa \\
+DRL vệ tinh tự quyết & Vệ tinh nguồn tự chọn, UE không gửi báo cáo đo & Chỉ 3 mặt phẳng quỹ đạo $\Rightarrow$ ``curse of dimensionality'' khi lên chòm thật \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\textbf{4 baseline dùng để so sánh với ILCHO:} MD-CHO (chọn vệ tinh khả kiến gần nhất),
+MVT-CHO (chọn vệ tinh có thời gian nhìn thấy còn lại — RVT — dài nhất), HSNF (gán tham lam
+tối đa hoá thông lượng tức thời có ràng buộc dung lượng), LBSH (RL đa tác tử độc lập + thưởng
+cân bằng tải). \textbf{Thông điệp so sánh:} heuristic đơn tiêu chí (MD/MVT) sụp vì nhiều UE
+gần nhau cùng chọn một vệ tinh ``tốt nhất'' theo tiêu chí $\Rightarrow$ nghẽn; LBSH sụp vì
+không gian hành động không được cắt gọn; ILCHO ổn định nhờ cả ba: thưởng đa mục tiêu, không
+gian hành động $=N_{\max}$, và QMIX xử lý tương tác nhiều agent.
+
+\section{Phương pháp}
+
+\subsection{Mô hình hoá bài toán}
+
+Mỗi UE là một agent; quan sát cục bộ của agent $k$ tại bước thời gian $t$ là danh sách $N_{\max}$
+vệ tinh khả kiến, mỗi vệ tinh mang 4 đặc trưng: chỉ số vệ tinh, khoảng cách tới nó, số kênh nó
+đang dùng, và RVT (thời gian còn nhìn thấy được). Hành động là chọn 1 trong $N_{\max}$ vệ tinh
+đó làm vệ tinh đích (T-LEO). Đây là bài toán \textbf{ra quyết định tuần tự có nhiều tác tử},
+không phải bài toán dự đoán: vị trí vệ tinh được suy ra tất định từ tham số quỹ đạo (Lemma 1),
+không phải học từ dữ liệu lịch sử.
+
+\subsection{Hàm thưởng — điểm nhấn kỹ thuật của bài báo}
+
+Thưởng phạt nặng khi chuyển giao thất bại, thưởng nhẹ khi chuyển giao thành công; ngoài ra là
+một hàm chi phí \textbf{dạng sigmoid} kết hợp thông lượng và RVT: thông lượng cao $\to$ thưởng
+cao, RVT quá thấp $\to$ bị phạt. Bài báo lập luận thông lượng theo thời gian của một vệ tinh
+\emph{không đơn điệu} (tăng khi vệ tinh tiến gần thiên đỉnh rồi giảm khi ra xa) trong khi RVT
+giảm đơn điệu $\Rightarrow$ một hàm thưởng \emph{tuyến tính} đơn giản dễ định giá sai các vệ
+tinh ở hai đầu; hàm sigmoid tạo ra một ``điểm ngọt'' tránh được vấn đề này. Bài báo có hẳn một
+thí nghiệm đối chứng (huấn luyện với thưởng tuyến tính) để minh hoạ lập luận này.
+
+\subsection{Bộ điều khiển QMIX}
+
+Bài báo chọn QMIX (so với MADDPG, MAPPO) vì học hiệu quả và hội tụ nhanh hơn trong bài toán
+hợp tác này. Mỗi agent có một mạng nơ-ron hồi quy (DRQN, dùng GRU để nhớ lịch sử quan sát) ước
+lượng giá trị hành động cục bộ; một \emph{mixing network} trộn các giá trị cục bộ thành giá
+trị toàn cục theo ràng buộc đơn điệu (hành động tham lam cục bộ luôn tăng giá trị toàn cục) —
+đây là cách QMIX khắc phục vấn đề \emph{non-stationarity} (môi trường ``không đứng yên'' dưới
+góc nhìn một agent, vì các agent khác cũng đang học) mà các phương pháp học độc lập như IQL
+(dùng trong LBSH) gặp phải. Huấn luyện tập trung, thực thi phân tán (CTDE): lúc suy luận, mỗi
+UE/vệ tinh chỉ cần quan sát cục bộ.
+
+\subsection{Quy trình chuyển giao 3 pha}
+
+ILCHO chỉ can thiệp vào \textbf{pha chuẩn bị} của CHO (dùng QMIX chọn vệ tinh đích); \textbf{pha
+thực thi} vẫn dùng một sự kiện cố định dựa trên khoảng cách (chuyển giao khi vệ tinh đích gần
+hơn vệ tinh đang phục vụ một khoảng bù \emph{offset}); \textbf{pha hoàn tất} giống chuyển giao
+truyền thống.
+
+\section{Kết quả thực nghiệm bài báo công bố}
+
+Thiết lập: Starlink Phase 1-a/2-a/hybrid, vùng dịch vụ hẹp [39--41\textdegree{}N], 5--100 UE,
+huấn luyện 3.000--30.000 episode. Các kết quả chính (Bảng~\ref{tab:results}):
+
+\begin{table}[h]
+\centering\small
+\caption{Tóm tắt kết quả chính bài báo công bố (Starlink Phase 2-a, 5$\to$100 UE)}
+\label{tab:results}
+\begin{tabular}{@{}p{3.6cm}p{3.6cm}p{3cm}p{3cm}@{}}
+\toprule
+\textbf{Chỉ số} & \textbf{ILCHO} & \textbf{Baseline tốt nhất} & \textbf{Baseline kém nhất} \\
+\midrule
+Số chuyển giao / UE & 10,8 $\to$ 13,0 (ổn định) & $\sim$10 (HSNF, ổn định) & 10 $\to$ 38 (MD-CHO) \\
+Số chuyển giao thất bại / UE & 0,48 $\to$ 1,38 & -- & tăng mạnh, mọi baseline \\
+Thông lượng (bps/Hz) & \textbf{3,85 $\to$ 3,76} (cao nhất) & $\sim$3,65--3,70 (HSNF) & $\sim$3,4--3,6 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Ở 100 UE, ILCHO giữ số chuyển giao gần như không đổi (mỗi $\sim$46 giây/lần) dù tải tăng 20
+lần so với 5 UE, trong khi mọi baseline tăng vọt. Độ công bằng (Jain's Fairness Index) đạt
+\textbf{0,9798}; phương sai chiếm dụng kênh (đo cân bằng tải) của ILCHO (0,072) thấp hơn hẳn
+MD-CHO (0,372) và MVT-CHO (0,400) — dù hàm thưởng không có số hạng cân bằng tải tường minh,
+đây là hệ quả gián tiếp của việc phạt nặng chuyển giao thất bại (agent tự học né vệ tinh quá
+tải).
+
+\section{Điểm mạnh}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item Cơ sở giải tích chặt chẽ, mô hình dựng từ tham số một chòm vệ tinh thương mại thật.
+  \item Thiết kế không gian hành động theo $N_{\max}$ giải quyết đúng vấn đề mà các công trình
+        MARL trước đó vấp phải khi mở rộng lên quy mô mega-constellation.
+  \item So sánh công bằng với nhiều baseline, nhiều kịch bản chòm vệ tinh.
+  \item Có thí nghiệm đối chứng (ablation) cho lựa chọn thiết kế hàm thưởng, có lập luận vật lý
+        rõ ràng đi kèm.
+\end{itemize}
+
+\section{Hạn chế}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Không phải ``dự đoán'' theo nghĩa học máy.} Vị trí vệ tinh là tất định (Lemma
+        1); phần ``trí tuệ'' nằm ở \emph{ra quyết định}, không phải học một đại lượng bất
+        định (RSRP tương lai, tải tương lai...). Câu chữ ``movement predictions'' ở phần kết
+        luận của bài báo dễ gây hiểu nhầm.
+  \item UE được giả định \textbf{cố định} (VSAT) — không có UE di động (điện thoại, tàu, máy
+        bay).
+  \item \textbf{Bỏ qua hiệu ứng Doppler} — chỉ giả định đã được bù ở lớp vật lý.
+  \item Huấn luyện tốn kém (3.000--30.000 episode), chưa phân tích khả thi học trực tuyến
+        (online learning) trên bộ điều khiển thời gian thực.
+  \item Vùng địa lý thử nghiệm hẹp (một dải vĩ độ), chưa quét theo vĩ độ cao/vùng cực.
+  \item \textbf{Thiếu chi tiết để tái lập}: không công bố tần số sóng mang chính xác, giá trị
+        offset khoảng cách, các hằng số của hàm thưởng, hệ số pha chòm vệ tinh, siêu tham số
+        gốc của 2 baseline HSNF/LBSH, và không báo cáo độ lệch chuẩn/số lần chạy lặp lại.
+\end{itemize}
+
+\section{Khoảng trống nghiên cứu \& hướng phát triển có thể khai thác}
+
+Đặt bài báo vào bức tranh chung ``AI cho handover'', có thể phân loại theo trục
+\textbf{dự đoán} (prediction — học một đại lượng bất định từ dữ liệu) và \textbf{ra quyết
+định} (decision/control — như ILCHO). ILCHO thuần thuộc nhóm ra quyết định. Một số hướng mở:
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Thêm thành phần dự đoán thật sự} (LSTM/Transformer dự báo SINR hiệu dụng
+        tương lai, hoặc xác suất chuyển giao thất bại) làm điều kiện chuẩn bị/thực thi CHO,
+        khác biệt rõ với cách tiếp cận thuần hình học của ILCHO.
+  \item Mở rộng sang \textbf{UE di động} và \textbf{bù Doppler không hoàn hảo}.
+  \item \textbf{Học trực tuyến / liên tục} thay vì huấn luyện offline một lần.
+  \item \textbf{Multi-connectivity} (chuẩn bị nhiều kết nối thay vì hard handover).
+  \item Xây \textbf{benchmark chuẩn} cho bài toán handover trong NTN (hiện mỗi công trình dùng
+        một bộ mô phỏng, tham số riêng, khó so sánh trực tiếp).
+\end{itemize}
+
+\section{Kết luận}
+
+ILCHO là một cách tiếp cận có cơ sở kỹ thuật vững cho bài toán chọn vệ tinh đích trong chuyển
+giao NTN, với đóng góp cốt lõi là thiết kế không gian hành động giúp học tăng cường đa tác tử
+mở rộng được tới quy mô mega-constellation — điều các công trình MARL trước đó chưa làm được.
+Hạn chế lớn nhất về mặt học thuật là cách dùng từ ``dự đoán'' không chính xác (bài toán thực
+chất là ra quyết định trên thông tin tất định), và về mặt thực nghiệm là thiếu nhiều chi tiết
+cần thiết để tái lập đầy đủ kết quả.
+
+\end{document}
