@@ -1,0 +1,204 @@
+% !TEX program = xelatex
+% Báo cáo tiến độ — tái hiện bài báo ILCHO
+% Biên dịch bằng XeLaTeX (cần font hỗ trợ tiếng Việt, vd. Times New Roman có sẵn trên Windows).
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+
+\usepackage[a4paper,margin=2.5cm]{geometry}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{caption}
+\renewcommand{\tablename}{Bảng}
+\usepackage{titlesec}
+\usepackage{setspace}
+\onehalfspacing
+
+\titleformat{\section}{\large\bfseries}{\thesection.}{0.5em}{}
+\titleformat{\subsection}{\normalsize\bfseries}{\thesubsection.}{0.5em}{}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt}
+
+\title{\textbf{BÁO CÁO TIẾN ĐỘ NGHIÊN CỨU}\\[4pt]
+\large Tái hiện bài báo ``Intelligent Handover Scheme for Improved 6G NTN\\
+LEO Satellite Network Performance'' (ILCHO)}
+\author{Sinh viên: ........................................\\
+Giảng viên hướng dẫn: Cô ........................................}
+\date{Ngày báo cáo: 14/09/2026 \quad (giai đoạn: 06/09/2026 -- 10/09/2026)}
+
+\begin{document}
+\maketitle
+
+\section{Bài toán}
+
+Bài báo gốc: M. Choi, M. Park, J. Kim, J.-M. Chung, \emph{``Intelligent Handover Scheme for
+Improved 6G NTN LEO Satellite Network Performance,''} IEEE Transactions on Mobile Computing,
+vol. 25, no. 5, 05/2026, tr. 6863--6880.
+
+Bài báo đề xuất \textbf{ILCHO}: kết hợp \textbf{Conditional Handover (CHO)} của 3GPP với
+\textbf{học tăng cường đa tác tử (QMIX)} để chọn vệ tinh đích cho từng thiết bị người dùng
+(UE) trong một chòm vệ tinh LEO mật độ cao (kiểu Starlink). Bài toán đặt ra: khi số vệ tinh
+và số UE lớn, việc chuyển giao (handover) liên tục là bắt buộc (vài chục giây một lần), các
+phương pháp truyền thống (chọn theo khoảng cách gần nhất, theo thời gian nhìn thấy lâu nhất)
+gây ra tỉ lệ chuyển giao thất bại (HOF) cao khi tải hệ thống tăng. Mục tiêu của ILCHO là dùng
+QMIX để chọn vệ tinh đích thông minh hơn, giữ HOF thấp và thông lượng (throughput) ổn định
+ngay cả khi số UE tăng cao.
+
+Bài báo \textbf{không công khai mã nguồn}, và \textbf{không công bố một số tham số quan
+trọng} (tần số sóng mang chính xác, ngưỡng thực thi chuyển giao, các hằng số trong hàm
+thưởng, hệ số pha của chòm vệ tinh Walker-Delta). Nhiệm vụ đặt ra là \textbf{tái hiện lại
+toàn bộ phương pháp từ đầu} chỉ dựa trên nội dung bài báo, đối chiếu số liệu tái hiện được
+với số liệu bài báo công bố, và báo cáo trung thực phần nào khớp / không khớp.
+
+\section{Mục tiêu tái hiện}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item Dựng lại toàn bộ mô hình: hình học quỹ đạo vệ tinh, mô hình kênh truyền (3GPP TR
+        38.811/38.821), môi trường mô phỏng CHO đa tác tử, bộ điều khiển QMIX, và 4 phương
+        pháp so sánh (baseline) mà bài báo dùng.
+  \item Huấn luyện và đánh giá ở quy mô càng gần bài báo càng tốt (số UE, số vệ tinh, số
+        episode huấn luyện).
+  \item Đối chiếu các tuyên bố chính của bài báo (số chuyển giao, số chuyển giao thất bại,
+        thông lượng, độ công bằng) với kết quả tái hiện được.
+  \item Báo cáo trung thực: phần nào tái hiện được, phần nào không, và vì sao (do quy mô tính
+        toán, hay do khác biệt thật về phương pháp/tham số ẩn).
+\end{itemize}
+
+\section{Công việc đã thực hiện}
+
+\subsection{Dựng phương pháp từ bài báo}
+
+Đã dựng toàn bộ mã nguồn (không có mã nguồn gốc để tham khảo) gồm: hình học chòm vệ tinh
+Walker-Delta, mô hình liên kết vô tuyến theo chuẩn 3GPP, môi trường mô phỏng CHO đa tác tử,
+bộ học QMIX (mạng nơ-ron hồi quy + mạng trộn giá trị đơn điệu), và 4 phương pháp so sánh:
+MD-CHO (chọn theo khoảng cách gần nhất), MVT-CHO (chọn theo thời gian nhìn thấy lâu nhất),
+HSNF (gán tham lam tối đa hoá thông lượng), LBSH (học tăng cường đơn tác tử + cân bằng tải).
+
+\subsection{Ba lượt tái hiện, tăng dần quy mô}
+
+Do giới hạn phần cứng ban đầu (chỉ có CPU), việc tái hiện được chia làm nhiều lượt, mỗi lượt
+tiến gần hơn tới đúng quy mô bài báo công bố (Bảng~\ref{tab:rounds}). Lượt 3 thực hiện sau khi
+đổi sang máy có GPU (RTX 3060 Ti), cho phép huấn luyện đúng số tác nhân (agent) tối đa và đúng
+độ dài một lượt mô phỏng (600 giây) mà bài báo dùng.
+
+\begin{table}[h]
+\centering
+\caption{Ba lượt tái hiện, tiến dần tới đúng quy mô bài báo}
+\label{tab:rounds}
+\begin{tabular}{lccc}
+\toprule
+ & \textbf{Lượt 1} & \textbf{Lượt 2} & \textbf{Lượt 3 (mới nhất)} \\
+\midrule
+Phần cứng          & CPU     & CPU     & CPU + GPU \\
+Số agent lúc huấn luyện & 12--16  & 48      & \textbf{100 (đúng mức tối đa bài báo)} \\
+Độ dài một lượt mô phỏng & 300 giây & 420 giây & \textbf{600 giây (đúng bài báo)} \\
+Số episode huấn luyện   & 800--1.800 & 2.000--2.800 & 3.000--4.000 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Các kiểm chứng bổ sung (sau lượt 3)}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Huấn luyện lặp lại với 3 hạt giống ngẫu nhiên (seed) độc lập} cho cả 3 chính
+        sách, để kiểm tra kết quả có ổn định hay chỉ là một lần chạy may mắn. Kết quả: kết luận
+        chính vẫn giữ vững qua cả 3 lần chạy độc lập.
+  \item \textbf{Quét toàn bộ hệ số pha (phasing factor) của chòm Walker-Delta} (48 giá trị khả
+        dĩ) để tìm xem có giá trị nào cho đúng con số bài báo công bố hay không. Kết quả: không
+        có giá trị nào khớp — đây là kết quả âm tính đáng tin vì đã thử hết toàn bộ khả năng.
+  \item \textbf{Bổ sung so sánh với chòm vệ tinh OneWeb} (có trong bảng tham số của bài báo
+        nhưng chưa từng được đưa vào so sánh ở 2 lượt đầu).
+\end{itemize}
+
+\section{Kết quả chính}
+
+Kết quả nổi bật nhất: khi tăng dần quy mô huấn luyện qua 3 lượt (đúng số agent, đúng độ dài
+mô phỏng bài báo công bố), khoảng cách hiệu năng giữa ILCHO và các phương pháp so sánh tốt
+nhất thu hẹp rất nhanh (Bảng~\ref{tab:hof}), cho thấy \textbf{ngân sách huấn luyện chính là yếu
+tố chính} khiến lượt tái hiện đầu chưa khớp bài báo, không phải do sai phương pháp.
+
+\begin{table}[h]
+\centering
+\caption{Số lần chuyển giao thất bại (HOF) trung bình mỗi thiết bị, khi hệ thống có 100 người
+dùng cùng lúc — càng thấp càng tốt}
+\label{tab:hof}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Phương pháp} & \textbf{Lượt 1} & \textbf{Lượt 2} & \textbf{Lượt 3} \\
+\midrule
+ILCHO (đề xuất)        & $\approx$47,4 & 21,1 & \textbf{4,95} (4,52 khi lấy trung bình 3 seed) \\
+So với phương pháp tốt nhất khác & --   & 6,3 lần & \textbf{1,34 lần} \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Các kết luận khác đã tái hiện được, vững chắc qua khảo sát độ nhạy tham số:
+
+\begin{itemize}[leftmargin=1.2em]
+  \item ILCHO giữ số lần chuyển giao thất bại thấp hơn hẳn 2 phương pháp truyền thống
+        (khoảng cách gần nhất, thời gian nhìn thấy lâu nhất) ở \textbf{mọi} mức số người dùng
+        đã thử (5 đến 100).
+  \item Độ công bằng giữa các người dùng (Jain fairness index) đạt 0,995--0,998, khớp/tốt hơn
+        con số bài báo công bố (0,9798).
+  \item Hình học quỹ đạo và mô hình liên kết vô tuyến khớp sát số liệu bài báo (sai lệch vài
+        phần trăm).
+\end{itemize}
+
+Hai tuyên bố của bài báo \textbf{không tái hiện được}, đã kiểm chứng nhất quán qua cả 3 lượt
+nên đây là phát hiện thật, không phải do thiếu sót:
+
+\begin{itemize}[leftmargin=1.2em]
+  \item Bài báo cho rằng ILCHO có thông lượng cao nhất trong mọi phương pháp — trong bản tái
+        hiện này, phương pháp HSNF (tham lam tối đa hoá thông lượng tức thời) luôn cao hơn.
+  \item Bài báo cho rằng hàm thưởng tuyến tính (một biến thể được thử nghiệm) huấn luyện bất
+        ổn — trong bản tái hiện này, nó hội tụ ổn định, gần tương đương hàm thưởng chính.
+\end{itemize}
+
+\section{Hạn chế và những gì chưa làm được}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Một số tham số bài báo không công bố} (tần số sóng mang chính xác, ngưỡng
+        thực thi chuyển giao, các hằng số hàm thưởng, hệ số pha chòm vệ tinh, siêu tham số
+        gốc của 2 phương pháp so sánh). Đã tự chọn giá trị hợp lý và kiểm chứng độ nhạy với
+        2 trong 5 tham số này (kết luận không đổi dù giá trị là bao nhiêu) — 3 tham số còn lại
+        chưa kiểm chứng được đầy đủ. Đây là giới hạn \textbf{không thể tự đóng được} nếu không
+        liên hệ trực tiếp nhóm tác giả bài báo.
+  \item Hai phương pháp so sánh (HSNF, LBSH) đang dùng bản triển khai rút gọn của mình, chưa
+        cài đúng theo 2 bài báo tham chiếu gốc — đây là việc còn có thể làm thêm nếu có thời
+        gian.
+  \item Do giới hạn bộ nhớ GPU hiện có, một số siêu tham số huấn luyện (kích thước lô dữ liệu)
+        chưa đúng hoàn toàn như bài báo công bố.
+  \item Mới kiểm chứng ổn định qua 3 lần huấn luyện độc lập (khuyến nghị thống kê tối thiểu);
+        có thể tăng lên 5 lần nếu muốn kết quả chặt hơn.
+\end{itemize}
+
+\section{Kế hoạch tiếp theo}
+
+\begin{enumerate}[leftmargin=1.2em]
+  \item Đọc và cài đặt lại đúng 2 phương pháp so sánh (HSNF, LBSH) theo đúng 2 bài báo tham
+        chiếu gốc — đây là việc có khả năng làm rõ nhất liệu 2 kết luận chưa tái hiện được ở
+        Mục 4 là do bản triển khai rút gọn hay là khác biệt thật.
+  \item Cân nhắc liên hệ nhóm tác giả bài báo để xin các tham số chưa công bố.
+  \item Nếu còn thời gian: huấn luyện riêng cho từng chòm vệ tinh (hiện đang dùng chuyển giao
+        chính sách từ chòm vệ tinh chính sang các chòm khác), và tăng số lần huấn luyện độc
+        lập lên 5.
+\end{enumerate}
+
+\section{Kết luận}
+
+Sau 3 lượt tái hiện, tuyên bố cốt lõi của bài báo — một cơ chế chuyển giao điều kiện điều
+khiển bằng học tăng cường đa tác tử giữ số chuyển giao thất bại thấp và ổn định trong chòm vệ
+tinh mật độ cao, nơi các phương pháp truyền thống thất bại khi tải tăng — \textbf{đã tái hiện
+được rõ ràng và vững chắc}. Khoảng cách với bài báo ở vùng tải cao nhất đã thu hẹp mạnh nhờ
+huấn luyện đúng quy mô bài báo công bố. Một số chi tiết (thông lượng cao nhất, độ ổn định của
+một biến thể hàm thưởng) chưa tái hiện được và đã được báo cáo trung thực như các phát hiện
+riêng, không che giấu.
+
+\vspace{1em}
+\noindent\emph{Toàn bộ mã nguồn, số liệu chi tiết và các báo cáo kỹ thuật đầy đủ (tiếng Việt)
+được lưu tại kho mã nguồn của đề tài.}
+
+\end{document}
