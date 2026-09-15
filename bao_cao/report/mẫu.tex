@@ -1,0 +1,499 @@
+\documentclass{article} % Tạo một bản báo cáo
+\usepackage[utf8]{inputenc}
+\usepackage[T5]{fontenc} % Để sử dụng Tiếng Việt
+\usepackage[fontsize=13pt]{scrextend} % Set fontsize=13pt
+\usepackage{forest}
+\usepackage{diagbox} % for diagonal split box
+\usepackage{array}
+\usepackage[none]{hyphenat}
+%\usepackage[paperheight=29.7cm,paperwidth=21cm,right=2cm,left=3cm,top=2cm,bottom=2.5cm]{geometry}% Chuẩn A4, căn lề phải, trái, trên, dưới.
+\usepackage[paperheight=29.7cm,paperwidth=21cm,right=2cm,left=3cm,top=2cm,bottom=2.5cm,twoside]{geometry}% Chuẩn A4, căn lề phải, trái, trên, dưới.
+\usepackage{longtable}
+\usepackage{longtable}
+\usepackage{newunicodechar}
+\newunicodechar{Γ}{\ensuremath{\Gamma}}
+\usepackage{mathptmx} % Time New Roman
+\usepackage{amsmath}
+\usepackage{graphicx} % Thư viện chèn ảnh
+\usepackage{float} % Set vị trí chèn ảnh
+\usepackage{tikz} % Thư viện tạo khung bìa
+\usetikzlibrary{calc} % Thư viện tikz
+\usepackage{indentfirst} % Thư viện thụt đầu dòng
+\renewcommand{\baselinestretch}{1.2} % Giãn dòng 1.2
+\setlength{\parskip}{6pt} % Spacing after
+\setlength{\parindent}{1cm} % Set khoảng cách thụt đầu dòng mỗi đoạn
+\usepackage{titlesec} % Thư viện để set up các kiểu chữ
+\setcounter{secnumdepth}{4} % 4 Heading
+\titlespacing*{\section}{0pt}{0pt}{30pt} % Heading 1
+\titleformat*{\section}{\fontsize{16pt}{0pt}\selectfont \bfseries \centering}
+\titlespacing*{\subsection}{0pt}{10pt}{0pt} % Heading 2
+\titleformat*{\subsection}{\fontsize{14pt}{0pt}\selectfont \bfseries}
+\titlespacing*{\subsubsection}{0pt}{10pt}{0pt} % Heading 3
+\titleformat*{\subsubsection}{\fontsize{13pt}{0pt}\selectfont \bfseries \itshape}
+\titlespacing*{\paragraph}{0pt}{10pt}{0pt} % Heading 4
+\titleformat*{\paragraph}{\fontsize{13pt}{0pt}\selectfont \itshape}
+\renewcommand{\figurename}{\fontsize{12pt}{0pt}\selectfont \bfseries Hình}
+\renewcommand{\thefigure}{\thesection.\arabic{figure}}
+\usepackage[font=bf]{caption}
+\captionsetup[figure]{labelsep=space}
+\renewcommand{\tablename}{\fontsize{12pt}{0pt}\selectfont \bfseries Bảng}
+\renewcommand{\thetable}{\thesection.\arabic{table}}
+\captionsetup[table]{labelsep=space}
+\usepackage{tabularx}
+\newcolumntype{s}{>{\hsize=.3\hsize}X}
+\newcolumntype{y}{>{\hsize=.4\hsize}X}
+\newcolumntype{d}{>{\hsize=.1\hsize}X}
+\newcolumntype{a}{>{\hsize=1.1\hsize}X}
+\newcolumntype{g}{>{\hsize=5\hsize}X}
+\renewcommand{\tabularxcolumn}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}} % Thay đổi đánh số phương trình mặc định
+\newtheorem{theorem}{Định lý}[section]
+\newtheorem{defn}[theorem]{Định nghĩa}
+\newtheorem{corollary}[theorem]{Hệ quả}
+\newtheorem{lemma}[theorem]{Bổ đề}
+\usepackage{lipsum} % Thư viện tạo chữ linh tinh.
+\renewcommand{\contentsname}{MỤC LỤC}
+\renewcommand{\listfigurename}{DANH MỤC HÌNH VẼ}
+\renewcommand{\listtablename}{DANH MỤC BẢNG BIỂU}
+\renewcommand{\refname}{TÀI LIỆU THAM KHẢO}
+\usepackage[unicode]{hyperref}
+\usepackage{colortbl}
+\definecolor{LightCyan}{rgb}{0.88,1,1}
+\usepackage{forloop}
+\newcounter{loopcntr}
+\newcommand{\rpt}[2][1]{\forloop{loopcntr}{0}{\value{loopcntr}<#1}{#2}}
+\begin{document}
+\input{Bia} % Bìa đồ án.
+\input{LoiNoiDau} % Lời nói đầu.
+ % Tạo mục lục tự động
+\addtocontents{toc}{\protect\thispagestyle{empty}}
+\tableofcontents
+\thispagestyle{empty}
+\cleardoublepage
+\input{Abbreviations} % Danh mục ký hiệu và chữ viết tắt
+%Tạo danh mục hình vẽ.
+{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Hình~\oldnumberline}
+\listoffigures}
+\phantomsection\addcontentsline{toc}{section}{\numberline {} DANH MỤC HÌNH VẼ}
+\newpage
+ %Tạo danh mục bảng biểu.
+{\let\oldnumberline\numberline
+\renewcommand{\numberline}{Bảng~\oldnumberline}
+\listoftables}
+\phantomsection\addcontentsline{toc}{section}{\numberline {} DANH MỤC BẢNG BIỂU}
+\newpage
+\input{Abstract} % Tóm tắt đồ án
+\pagenumbering{arabic} % Đánh số thứ tự 1,2,3...
+\section*{CHƯƠNG 1. ĐẶT VẤN ĐỀ}
+\addcontentsline{toc}{section}{\numberline{}CHƯƠNG 1. ĐẶT VẤN ĐỀ}
+\setcounter{section}{1}
+\setcounter{subsection}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\subsection{Giới thiệu bài toán}
+Sự phát triển không ngừng của các hệ thống truyền thông di động, cùng với sự gia tăng mạnh mẽ của số lượng người dùng và các thiết bị Internet vạn vật (IoT), đang đặt ra những yêu cầu ngày càng khắt khe về hiệu suất mạng. Để đáp ứng nhu cầu về tốc độ dữ liệu cao hơn, độ trễ thấp và chất lượng dịch vụ (QoS) được đảm bảo, các tiêu chuẩn truyền thông di động thế hệ mới như 5G và xa hơn (B5G) đang được phát triển và triển khai.
+Một trong những công nghệ then chốt để đạt được các mục tiêu này là việc sử dụng dải tần số cao hơn, đặc biệt là sóng milimet (Millimeter Wave - mmWave), hoạt động trong khoảng từ 30 đến 300 GHz. Dải tần mmWave cung cấp băng thông rộng lớn, cho phép đạt được tốc độ dữ liệu cực cao, lên tới 10 Gbps theo yêu cầu của 3GPP Release 15 và đã được chứng minh có thể đạt 6.756 Gbps trong một số tiêu chuẩn. Tuy nhiên, việc sử dụng tần số cao cũng đi kèm với những thách thức lớn. Sóng mmWave bị suy hao đường truyền trong không gian tự do lớn hơn đáng kể và dễ bị che chắn bởi các vật cản.
+Để khắc phục những hạn chế này, các mạng 5G mmWave đòi hỏi một giải pháp kép:
+\begin{itemize}
+    \item \textbf{Triển khai trạm gốc (Base Station - BS)} với mật độ dày đặc hơn để thu hẹp khoảng cách truyền tín hiệu, do đó các "cell" (vùng phủ sóng) trở nên nhỏ hơn.
+    \item \textbf{Sử dụng công nghệ tạo chùm tia (Beamforming)} để tập trung năng lượng tín hiệu theo một hướng cụ thể, giúp bù lại suy hao đường truyền và đảm bảo kết nối ổn định.
+\end{itemize}
+Hệ quả trực tiếp của việc triển khai BS dày đặc là khi một thiết bị người dùng (User Equipment - UE) di chuyển, nó sẽ phải thực hiện quá trình chuyển giao (handover) giữa các BS thường xuyên hơn rất nhiều. Quá trình quản lý di động (mobility management) này trở thành một bài toán tối ưu hóa phức tạp, bởi một quy trình handover không hiệu quả có thể dẫn đến suy giảm đáng kể trải nghiệm người dùng. Do đó, việc nghiên cứu và phát triển các thuật toán handover thông minh và hiệu quả là một yêu cầu cấp thiết để khai thác tối đa tiềm năng của mạng 5G.
+\subsection{Các Thách thức của Quy trình Handover Truyền thống}
+Trong các mạng di động LTE và 5G NR, quy trình handover được tiêu chuẩn hóa bởi 3GPP và hoạt động dựa trên một cơ chế sự kiện (event-based). Quyết định handover chủ yếu dựa trên các báo cáo đo lường công suất tín hiệu tham chiếu nhận được (Reference Signal Received Power - RSRP) từ UE. Cụ thể, các sự kiện như A2 (RSRP của BS đang phục vụ giảm xuống dưới một ngưỡng) và A3 (RSRP của một BS lân cận vượt qua RSRP của BS đang phục vụ một khoảng chênh lệch nhất định - hysteresis) sẽ được kích hoạt. Sau khi một điều kiện được thỏa mãn trong một khoảng thời gian chờ gọi là Time-to-Trigger (TTT), UE sẽ gửi báo cáo đo lường để BS hiện tại có thể khởi tạo handover.
+Tuy nhiên, giao thức truyền thống này bộc lộ nhiều hạn chế, đặc biệt trong môi trường mạng dày đặc và di động cao của 5G:
+\begin{itemize}
+    \item \textbf{Thiếu khả năng thích ứng:} Giao thức 3GPP sử dụng các tham số được cấu hình cố định như TTT và hysteresis. Các giá trị này có thể hoạt động tốt trong một kịch bản cụ thể nhưng không thể tối ưu cho mọi điều kiện mạng và tốc độ di chuyển khác nhau của UE (ví dụ giữa người đi bộ và phương tiện di chuyển nhanh).
+    \item \textbf{Hiện tượng Ping-Pong (PP):} Là tình trạng UE chuyển giao qua lại liên tục giữa hai BS trong một khoảng thời gian ngắn. Điều này xảy ra khi UE di chuyển ở ranh giới vùng phủ sóng, gây lãng phí tài nguyên mạng và làm giảm thông lượng dữ liệu của người dùng.
+    \item \textbf{Thất bại Chuyển giao (HOF) và Lỗi Liên kết Vô tuyến (RLF):} Nếu handover được kích hoạt quá muộn, chất lượng tín hiệu (SINR) của BS hiện tại có thể giảm xuống quá thấp, khiến UE mất đồng bộ với mạng và dẫn đến RLF. HOF xảy ra khi quá trình handover bị hủy bỏ giữa chừng do tín hiệu quá yếu. Cả hai trường hợp đều gây gián đoạn dịch vụ nghiêm trọng.
+    \item \textbf{Bỏ qua yếu tố Cân bằng tải (Load Balancing):} Các quyết định handover truyền thống thường chỉ dựa trên chất lượng tín hiệu mà không xem xét đến tình trạng tải của các BS. Trong bối cảnh số lượng thiết bị kết nối ngày càng tăng, việc chuyển giao một UE đến một BS đã bị quá tải có thể làm giảm hiệu suất của cả UE đó và các UE khác đang kết nối với BS.
+\end{itemize}
+\subsection{Vai trò và Tiềm năng của Trí tuệ Nhân tạo (AI)}
+Trí tuệ Nhân tạo (AI), đặc biệt là các kỹ thuật Học máy (Machine Learning - ML) và Học tăng cường (Reinforcement Learning - RL), đang mở ra những hướng đi đầy hứa hẹn. Thay vì dựa vào các quy tắc và tham số cố định, các thuật toán dựa trên AI có khả năng học hỏi từ dữ liệu mạng và tương tác với môi trường để đưa ra các quyết định handover thông minh, thích ứng và chủ động. Việc áp dụng các phương pháp học máy có thể làm giảm "chi phí toàn diện" (holistic cost) của quá trình handover bằng cách đưa ra dự đoán chính xác hơn.
+Trong khuôn khổ báo cáo này, tôi sẽ tập trung phân tích ba hướng tiếp cận tiêu biểu, được đề xuất trong các công trình nghiên cứu gần đây, nhằm minh họa cho tiềm năng của AI trong việc tối ưu hóa handover:
+\begin{itemize}
+    \item Sử dụng Học tăng cường sâu (DRL) để xây dựng một giao thức handover có khả năng thích ứng với nhiều tốc độ di chuyển khác nhau của người dùng mà không cần huấn luyện lại, với mục tiêu vượt qua hiệu suất của giao thức 3GPP tiêu chuẩn.
+    \item Áp dụng Học máy có giám sát trong kiến trúc Mạng Truy cập Vô tuyến Mở (O-RAN) để thực hiện handover chủ động trong mạng cho phương tiện (V2X) bằng cách dự đoán trước thời gian kết nối.
+    \item Sử dụng Học tăng cường (Q-learning) để phát triển một phương pháp handover không chỉ đảm bảo kết nối liền mạch mà còn tích hợp yếu tố cân bằng tải giữa các BS trong mạng mmWave.
+\end{itemize}
+\newpage
+\section*{CHƯƠNG 2. TỔNG QUAN CÁC PHƯƠNG PHÁP TỐI ƯU DỰA TRÊN AI}
+\addcontentsline{toc}{section}{\numberline{}CHƯƠNG 2. TỔNG QUAN CÁC PHƯƠNG PHÁP TỐI ƯU DỰA TRÊN HỌC MÁY VÀ HỌC TĂNG CƯỜNG}
+\setcounter{section}{2}
+\setcounter{subsection}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\subsection{Phương pháp học tăng cường sâu (DRL) cho giao thức Handover thích ứng}
+Phương pháp này được đề xuất trong bối cảnh mạng 5G NR, nhằm xây dựng một giao thức handover thông minh có khả năng thích ứng với các điều kiện di chuyển đa dạng của người dùng \cite{gu2024deep}
+\begin{itemize}
+    \item \textbf{Mục tiêu:}
+    \begin{itemize}
+        \item Xây dựng một tác nhân học tăng cường sâu (DRL) có khả năng hoạt động hiệu quả ở nhiều tốc độ di chuyển khác nhau (ví dụ: người đi bộ, xe đạp, ô tô) mà không cần huấn luyện lại.
+        \item Vượt qua hiệu suất của giao thức handover 5G NR tiêu chuẩn của 3GPP về tốc độ dữ liệu trung bình và số lần lỗi liên kết vô tuyến (RLF).
+        \item Tìm ra thời điểm tối ưu để kích hoạt handover nhằm ngăn chặn RLF và giảm thiểu các hiện tượng handover không cần thiết như Ping-Pong (PP).
+    \end{itemize}
+    \item \textbf{Thuật toán:}
+    \begin{itemize}
+        \item Phương pháp sử dụng Proximal Policy Optimization (PPO), một thuật toán DRL dựa trên chính sách (policy-based).
+        \item Kiến trúc được sử dụng là Actor-Critic, bao gồm hai mạng nơ-ron: mạng Actor quyết định hành động cần thực hiện và mạng Critic đánh giá giá trị của trạng thái hiện tại. Thuật toán PPO sử dụng hàm mất mát LCLIP để ngăn các bước cập nhật quá lớn, giúp quá trình huấn luyện ổn định hơn.
+    \end{itemize}
+    \item \textbf{Thiết kế Môi trường Học tăng cường:}
+    \begin{itemize}
+        \item \textbf{Trạng thái (State):} Đầu vào cho mạng nơ-ron bao gồm ba phần:
+        \begin{enumerate}
+            \item Một vector mã hóa one-hot để chỉ định trạm gốc (BS) mà UE đang kết nối.
+            \item Các giá trị "pseudo RSRQ" đã được chuẩn hóa của tất cả các BS. Giá trị này được tính toán từ RSRP để đảm bảo tính tương thích cao với giao thức 3GPP hiện có, vì giao thức tiêu chuẩn cũng chỉ sử dụng RSRP.
+            \item Một cờ nhị phân để thông báo cho tác nhân biết liệu một handover có khả năng gây ra hiện tượng ping-pong hay không (dựa trên thời gian tối thiểu giữa hai lần handover - MTS).
+        \end{enumerate}
+        \item \textbf{Hành động (Action):} Tác nhân có thể chọn bất kỳ BS nào trong mạng làm BS mục tiêu để kết nối.
+    \item \textbf{Hàm thưởng (Reward):} Được thiết kế để tối ưu hóa đồng thời nhiều mục tiêu:
+    \begin{itemize}
+        \item Thưởng: Khi kết nối thành công với BS có tín hiệu mạnh nhất.
+        \item Phạt: Khi xảy ra hiện tượng Ping-Pong , khi SINR của BS đang phục vụ giảm xuống dưới ngưỡng Qout , hoặc khi UE rơi vào trạng thái phục hồi lỗi liên kết (RLF recovery)
+    \end{itemize}
+    \item \textbf{Kết quả chính:}
+    \begin{itemize}
+        \item Mô phỏng được thực hiện bằng Vienna 5G System Level Simulator trên bản đồ khu vực trung tâm thành phố Karlsruhe, Đức. Dữ liệu được tạo ra cho 10 quỹ đạo để huấn luyện và 5 quỹ đạo để kiểm thử.
+        \item So với giao thức 3GPP tiêu chuẩn, tác nhân PPO đã cho thấy hiệu suất vượt trội:
+        \begin{itemize}
+            \item Tốc độ dữ liệu trung bình (Γ) cao hơn một cách nhất quán ở mọi tốc độ di chuyển được thử nghiệm (3, 30, và 50 km/h).
+            \item Loại bỏ hoàn toàn các lỗi HOF (Handover Failure) trong tập dữ liệu đánh giá, trong khi giao thức 3GPP gặp phải HOF ngày càng nhiều khi tốc độ tăng.
+        \end{itemize}
+        \item Điểm nổi bật nhất là khả năng thích ứng cao: tác nhân chỉ được huấn luyện với dữ liệu ở tốc độ 50 km/h nhưng vẫn hoạt động hiệu quả ở các tốc độ thấp hơn mà không cần bất kỳ quá trình huấn luyện bổ sung nào.
+    \end{itemize}
+    \end{itemize}
+\end{itemize}
+\subsection{Phương pháp Handover chủ động dựa trên kiến trúc O-RAN} \cite{rastogi2023intelligent}
+Phương pháp này tập trung vào mạng cho phương tiện (Vehicular Networks), đề xuất một mô hình handover chủ động (proactive) bằng cách tận dụng kiến trúc Mạng Truy cập Vô tuyến Mở (O-RAN)
+\begin{itemize}
+    \item \textbf{Mục tiêu:}
+    \begin{itemize}
+        \item Sử dụng Học máy (ML) để dự đoán "thời gian tương thích" (compatibility time), tức là khoảng thời gian một phương tiện có thể duy trì kết nối trong phạm vi liên lạc với một phương tiện khác.
+        \item Dựa vào thời gian dự đoán được để thực hiện handover một cách chủ động, giúp giảm gián đoạn dịch vụ và độ trễ, đặc biệt quan trọng cho các ứng dụng V2X.
+    \end{itemize}
+    \item \textbf{Kiến trúc:}
+    \begin{itemize}
+        \item Tận dụng kiến trúc O-RAN với hai bộ điều khiển thông minh (RIC):
+        \begin{enumerate}
+            \item Non-Real-Time RIC (Non-RT RIC): Được sử dụng để huấn luyện mô hình ML ngoại tuyến (offline) bằng cách phân tích dữ liệu và học các mẫu di chuyển của phương tiện.
+            \item Near-Real-Time RIC (Near-RT RIC): Nơi mô hình ML đã được huấn luyện được triển khai để thực hiện các quyết định handover trong thời gian gần thực (10ms - 1s).
+        \end{enumerate}
+    \end{itemize}
+    \item \textbf{Thuật toán:}
+    \begin{itemize}
+        \item Bài báo so sánh hiệu suất của ba thuật toán học máy có giám sát (Supervised ML) phổ biến:
+        \begin{itemize}
+            \item Gaussian Naive Bayes (GNB): Một bộ phân loại xác suất đơn giản, hoạt động tốt với dữ liệu liên tục tuân theo phân phối chuẩn.
+            \item K-Nearest Neighbors (KNN): Một thuật toán phi tham số, phân loại một điểm dữ liệu dựa trên các điểm lân cận gần nhất của nó.
+            \item Neural Network (NN): Một mô hình học sâu gồm nhiều lớp để trích xuất các đặc trưng phức tạp từ dữ liệu.
+        \end{itemize}
+    \end{itemize}
+    \item \textbf{Dữ liệu đầu vào và đầu ra:}
+    \begin{itemize}
+        \item Đầu vào: Mô hình sử dụng 5 đặc trưng được tính toán từ thông tin của các phương tiện như vị trí, vận tốc và hướng di chuyển: khoảng cách Euclidean, vận tốc tương đối, chênh lệch hướng , nhãn chênh lệch hướng, và nhãn xu hướng di chuyển.
+        \item Đầu ra: Mô hình dự đoán một trong năm lớp (C0 đến C4) tương ứng với các khoảng thời gian tương thích khác nhau (ví dụ: C1 là 2-5 giây, C2 là 5-10 giây, v.v.).
+    \end{itemize}
+    \item \textbf{\textbf{Kết quả chính:}}
+    \begin{itemize}
+        \item Bộ dữ liệu gồm 20.000 mẫu được chia thành 60\% cho huấn luyện, 20\% cho kiểm thử và 20\% cho xác thực.
+        \item Trong ba thuật toán được đánh giá, KNN cho kết quả tốt nhất với độ chính xác huấn luyện là 99.04\% và độ chính xác kiểm thử lên tới 99.53\%.
+        \item Kết quả này cho thấy việc dự đoán thời gian tương thích là khả thi và có thể là một bước quan trọng để xây dựng các thuật toán handover chủ động hiệu quả trong mạng O-RAN.
+    \end{itemize}
+\end{itemize}
+\subsection{Phương pháp học tăng cường (RL) kết hợp cân bằng tải} \cite{yang2021reinforcement}
+Phương pháp này giải quyết bài toán handover trong mạng mmWave dày đặc, tập trung vào việc vừa đảm bảo kết nối liền mạch vừa xem xét đến yếu tố cân bằng tải (load balancing).
+\begin{itemize}
+    \item \textbf{Mục tiêu:}
+    \begin{itemize}
+        \item Phát triển một thuật toán handover dựa trên RL để cung cấp kết nối liền mạch và đồng thời xem xét tải của các BS trong quá trình ra quyết định.
+        \item Giảm số lần handover không cần thiết, vốn là một vấn đề lớn trong mạng mmWave do vùng phủ sóng nhỏ.
+    \end{itemize}
+    \item \textbf{Thuật toán:}
+    \begin{itemize}
+        \item Sử dụng thuật toán Q-learning, một phương pháp RL không cần mô hình (model-free), để học một chính sách lựa chọn BS dự phòng (backup BS) tối ưu tại mỗi vị trí trên một quỹ đạo đã biết.
+        \item Thuật toán hoạt động với không gian trạng thái và hành động rời rạc và hữu hạn.
+    \end{itemize}
+    \item \textbf{Thiết kế Môi trường Học tăng cường:}
+    \begin{itemize}
+        \item \textbf{Trạng thái (State):} Bao gồm vị trí của UE trên quỹ đạo, mức SINR đã được lượng tử hóa, và số lượng tài nguyên khả dụng của BS.
+        \item \textbf{Hành động (Action):} Tại mỗi trạng thái, tác nhân chọn một BS để làm BS dự phòng.
+    \end{itemize}
+    \item \textbf{Hàm thưởng (Reward):} Được thiết kế để tối đa hóa cả tốc độ dữ liệu và hiệu quả sử dụng tài nguyên. Hàm thưởng được tính bằng sự kết hợp có trọng số giữa tốc độ dữ liệu của BS đang phục vụ và BS dự phòng, được điều chỉnh bởi hệ số η đại diện cho tài nguyên còn trống của BS.
+    \item \textbf{Quy trình Handover:}
+    \begin{itemize}
+        \item Tại mỗi khoảng thời gian (CI), UE ước tính kênh với BS đang phục vụ và BS dự phòng được đề xuất bởi chính sách Q-learning.
+        \item Handover sẽ được kích hoạt nếu SINR của BS đang phục vụ giảm xuống dưới một ngưỡng nhất định.
+        \item Việc lựa chọn BS mới tuân theo ba tiêu chí ưu tiên:
+        \begin{enumerate}
+            \item Chọn BS có chất lượng tín hiệu tốt và còn tài nguyên.
+            \item Nếu có nhiều ứng viên, chọn BS có thông tin kênh được cập nhật gần nhất (timer nhỏ nhất).
+            \item Nếu vẫn có nhiều ứng viên, chọn BS có nhiều tài nguyên khả dụng nhất để cân bằng tải.
+        \end{enumerate}
+    \end{itemize}
+    \item \textbf{Kết quả chính:}
+    \begin{itemize}
+        \item Mô phỏng được thực hiện trong môi trường mạng mmWave với các mật độ UE khác nhau (1000, 1500, 2000 UE/km²).
+        \item Phương pháp được so sánh với hai phương pháp cơ sở: rate-max (luôn chọn BS có SINR tốt nhất) và random-backup (chọn BS dự phòng ngẫu nhiên).
+        \item Kết quả cho thấy phương pháp đề xuất:
+        \begin{itemize}
+            \item Duy trì tốc độ dữ liệu ổn định và chỉ suy giảm nhẹ (8.6\%) khi mật độ UE tăng gấp đôi, tốt hơn đáng kể so với random-backup (suy giảm 20\%).
+            \item Có số lần handover ít nhất so với hai phương pháp còn lại, cho thấy khả năng duy trì kết nối ổn định và giảm các handover không cần thiết.
+            \item Có xu hướng chọn các BS ít bị tắc nghẽn hơn, thể hiện hiệu quả của cơ chế cân bằng tải.
+        \end{itemize}
+    \end{itemize}
+\end{itemize}
+\newpage
+\section*{CHƯƠNG 3. PHÂN TÍCH SO SÁNH CÁC PHƯƠNG PHÁP}
+\addcontentsline{toc}{section}{\numberline{}CHƯƠNG 3. PHÂN TÍCH SO SÁNH CÁC PHƯƠNG PHÁP}
+\setcounter{section}{3}
+\setcounter{subsection}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\subsection{Phân tích sâu về Ưu và Nhược điểm}
+\subsubsection{Phương pháp Học tăng cường sâu (PPO)}
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item \textbf{Tính thích ứng vượt trội:} Đây là điểm mạnh lớn nhất của phương pháp này. Khả năng của tác nhân được huấn luyện ở tốc độ 50 km/h nhưng vẫn hoạt động hiệu quả ở các tốc độ thấp hơn (3 km/h và 30 km/h) mà không cần huấn luyện lại cho thấy tính tổng quát hóa và linh hoạt cao . Điều này giúp giảm chi phí vận hành và triển khai trong thực tế.
+    \item \textbf{Tính ổn định trong huấn luyện:} Thuật toán PPO được biết đến với sự ổn định cao hơn so với các thuật toán DRL dựa trên policy khác, nhờ vào cơ chế "clipping" trong hàm mất mát (LCLIP), giúp tránh các cập nhật quá lớn và đột ngột cho chính sách.
+    \item \textbf{Tương thích cao với tiêu chuẩn 3GPP:} Việc thiết kế trạng thái đầu vào chủ yếu dựa trên giá trị "pseudo RSRQ" (tính từ RSRP) giúp mô hình dễ dàng so sánh và có tiềm năng tích hợp vào các hệ thống tuân thủ 3GPP hiện có .
+\end{itemize}
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item \textbf{Độ phức tạp tính toán cao:} Việc huấn luyện một mô hình DRL với kiến trúc Actor-Critic đòi hỏi một lượng lớn dữ liệu và tài nguyên tính toán. Quá trình này thường phải thực hiện ngoại tuyến và tốn nhiều thời gian.
+    \item \textbf{Không xem xét yếu tố cân bằng tải:} Hàm thưởng của mô hình chỉ tập trung vào việc tối ưu hóa chất lượng tín hiệu (RSRQ), giảm thiểu PP và RLF. Nó không có thành phần nào để khuyến khích việc lựa chọn các BS ít bị tắc nghẽn hơn.
+\end{itemize}
+\subsubsection{Phương pháp Handover Chủ động dựa trên O-RAN (KNN)}
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item \textbf{Độ chính xác dự đoán rất cao:} Với độ chính xác kiểm thử lên tới \textbf{99.53\%}, thuật toán KNN đã chứng tỏ hiệu quả vượt trội trong việc dự đoán thời gian kết nối giữa các phương tiện . Độ chính xác này là nền tảng cho việc thực hiện handover chủ động một cách đáng tin cậy.
+    \item \textbf{Bản chất chủ động (Proactive):} Bằng cách dự đoán trước "thời gian tương thích", hệ thống có thể kích hoạt handover trước khi chất lượng tín hiệu suy giảm, giúp giảm thiểu tối đa gián đoạn dịch vụ và độ trễ . Đây là một sự thay đổi cơ bản so với các phương pháp phản ứng (reactive) truyền thống.
+    \item \textbf{Tận dụng hiệu quả kiến trúc O-RAN:} Mô hình này là một ví dụ điển hình về cách khai thác kiến trúc O-RAN, với Non-RT RIC cho việc huấn luyện ngoại tuyến và Near-RT RIC cho việc thực thi trong thời gian thực .
+\end{itemize}
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item \textbf{Phụ thuộc vào chất lượng đặc trưng đầu vào:} Hiệu quả của mô hình phụ thuộc hoàn toàn vào sự sẵn có và độ chính xác của 5 đặc trưng đầu vào (khoảng cách, vận tốc, hướng, v.v.). Trong các kịch bản mà thông tin này không đầy đủ hoặc bị nhiễu, hiệu suất sẽ giảm sút.
+    \item \textbf{Phạm vi ứng dụng hẹp:} Phương pháp này được thiết kế riêng cho kịch bản giao thông kết nối (V2X). Việc áp dụng cho các kịch bản di động khác như người đi bộ trong đô thị sẽ không phù hợp.
+\end{itemize}
+\subsubsection{Phương pháp Học tăng cường (Q-learning) kết hợp Cân bằng tải}
+\textbf{Ưu điểm:}
+\begin{itemize}
+    \item \textbf{Tích hợp yếu tố Cân bằng tải:} Đây là điểm khác biệt và giá trị nhất của phương pháp này. Hàm thưởng được thiết kế để ưu tiên các BS có nhiều tài nguyên khả dụng hơn ($\eta$) , và logic handover cũng ưu tiên chọn BS ít bị tắc nghẽn nhất . Điều này giải quyết một bài toán vận hành quan trọng trong các mạng dày đặc .
+    \item \textbf{Giảm số lần handover không cần thiết:} Kết quả mô phỏng cho thấy phương pháp này có số lần handover ít nhất so với các phương pháp cơ sở, cho thấy khả năng duy trì kết nối ổn định và tránh các quyết định chuyển giao vội vàng.
+    \item \textbf{Đơn giản và dễ triển khai:} Q-learning là một thuật toán RL nền tảng, dễ hiểu. Đối với các bài toán có không gian trạng thái và hành động rời rạc, hữu hạn, nó có thể mang lại hiệu quả cao mà không cần đến sự phức tạp của các mạng nơ-ron sâu.
+\end{itemize}
+\textbf{Nhược điểm:}
+\begin{itemize}
+    \item \textbf{Vấn đề về khả năng mở rộng (Curse of Dimensionality):} Kích thước của Q-table tăng theo cấp số nhân với số lượng trạng thái và hành động. Khi mạng trở nên lớn hơn (nhiều BS, nhiều mức SINR hơn), Q-table sẽ trở nên quá lớn để lưu trữ và huấn luyện hiệu quả.
+    \item \textbf{Mất mát thông tin do rời rạc hóa:} Việc lượng tử hóa các giá trị liên tục như SINR thành các mức rời rạc có thể dẫn đến mất mát thông tin, làm giảm độ chính xác của quyết định so với việc sử dụng không gian trạng thái liên tục.
+\end{itemize}
+\subsection{Nhận xét chung}
+Qua phân tích và so sánh, có thể thấy rằng \textbf{không có một phương pháp duy nhất nào là tối ưu cho mọi tình huống}. Sự lựa chọn phương pháp tiếp cận phụ thuộc chặt chẽ vào mục tiêu cụ thể, kiến trúc mạng và kịch bản ứng dụng .
+\begin{itemize}
+    \item Nếu mục tiêu chính là xây dựng một giao thức handover \textbf{linh hoạt, có khả năng thích ứng cao với nhiều tốc độ di chuyển} trong một mạng 5G NR tiêu chuẩn, phương pháp dựa trên \textbf{DRL (PPO)} là một lựa chọn mạnh mẽ và có tính tổng quát cao.
+    \item Nếu hệ thống được xây dựng trên kiến trúc \textbf{O-RAN} và ưu tiên hàng đầu là cung cấp dịch vụ \textbf{chủ động, độ trễ cực thấp} cho các ứng dụng chuyên biệt như V2X, phương pháp dự đoán dựa trên \textbf{ML (KNN)} là phù hợp và hiệu quả nhất.
+    \item Nếu thách thức lớn nhất của mạng là \textbf{quản lý tải trong môi trường mmWave dày đặc}, phương pháp dựa trên \textbf{Q-learning} cung cấp một giải pháp độc đáo và thực tế bằng cách tích hợp trực tiếp yếu tố cân bằng tải vào quá trình ra quyết định.
+\end{itemize}
+Sự đa dạng của các phương pháp này cho thấy tiềm năng to lớn của AI trong việc giải quyết bài toán handover từ nhiều góc độ khác nhau. Việc phân tích này tạo ra một nền tảng vững chắc để tiến tới chương tiếp theo, nơi chúng tôi sẽ trình bày thử nghiệm và đánh giá một thuật toán trên một bộ dữ liệu mới.
+
+\subsection{Bảng so sánh tổng hợp}
+Để cung cấp một cái nhìn trực quan và dễ so sánh, các đặc điểm chính của ba phương pháp được tổng hợp trong bảng dưới đây.
+\begin{table}[h!]
+\centering
+\caption{Bảng so sánh tổng hợp các phương pháp handover.}
+\label{tab:comparison}
+\begin{tabular}{|>{\raggedright\arraybackslash}p{2.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|>{\raggedright\arraybackslash}p{3.5cm}|}
+\hline
+\textbf{Tiêu chí} & \textbf{Phương pháp PPO (Thích ứng)} & \textbf{Phương pháp O-RAN (Chủ động)} & \textbf{Phương pháp Q-learning (Cân bằng tải)} \\
+\hline
+\textbf{Phạm vi ứng dụng} & Mạng 5G NR Macrocell & Mạng V2X trên kiến trúc O-RAN & Mạng mmWave Small Cell dày đặc \\
+\hline
+\textbf{Mục tiêu chính} & \textbf{Tăng tốc độ dữ liệu}, giảm RLF và PP, thích ứng với nhiều tốc độ di chuyển. & \textbf{Giảm độ trễ và gián đoạn} trong mạng V2X bằng handover chủ động. & Cung cấp kết nối liền mạch và \textbf{cân bằng tải} cho các trạm gốc. \\
+\hline
+\textbf{Thuật toán chính} & Proximal Policy Optimization (PPO) - Học tăng cường sâu. & K-Nearest Neighbors (KNN) - Học máy có giám sát. & Q-learning - Học tăng cường. \\
+\hline
+\textbf{Loại dữ liệu đầu vào} & "Pseudo RSRQ" (dựa trên RSRP), trạng thái kết nối, cờ báo ping-pong. & Đặc trưng di động của phương tiện: khoảng cách, vận tốc tương đối, hướng di chuyển & Vị trí UE, mức SINR lượng tử hóa, tài nguyên khả dụng của BS. \\
+\hline
+\textbf{Kiến trúc mạng} & Mạng 5G NR tiêu chuẩn. & Mạng O-RAN với Non-RT RIC và Near-RT RIC. & Mạng mmWave MIMO. \\
+\hline
+\textbf{Khả năng thích ứng} & \textbf{Cao}. Được huấn luyện ở một tốc độ nhưng hoạt động tốt ở nhiều tốc độ khác nhau mà không cần huấn luyện lại. & \textbf{Cao}. Dự đoán "thời gian tương thích", vốn đã bao hàm yếu tố tốc độ. & \textbf{Trung bình}. Mô hình dựa trên trạng thái rời rạc có thể gặp khó khăn với tốc độ di chuyển cao và thay đổi đột ngột. \\
+\hline
+\textbf{Độ phức tạp tính toán} & \textbf{Cao}. Huấn luyện DRL với hai mạng nơ-ron đòi hỏi nhiều tài nguyên. & \textbf{Thấp (khi thực thi)}. KNN là thuật toán đơn giản, phù hợp cho việc ra quyết định nhanh trên Near-RT RIC. & \textbf{Trung bình}. Q-table có thể trở nên rất lớn khi không gian trạng thái mở rộng ("lời nguyền số chiều"). \\
+\hline
+\end{tabular}
+\end{table}
+\newpage
+\section*{CHƯƠNG 4. MÔ PHỎNG DỮ LIỆU}
+\addcontentsline{toc}{section}{\numberline{}CHƯƠNG 4. MÔ PHỎNG DỮ LIỆU}
+\setcounter{section}{4}
+\setcounter{subsection}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\subsection{Mô tả dữ liệu mô phỏng}
+
+Dữ liệu được sinh ra từ mô phỏng mạng di động với 7 trạm gốc (BS0-BS6) được sắp xếp theo mô hình hexagonal và một thiết bị người dùng (UE1) di chuyển ngẫu nhiên trong vùng chữ nhật.
+
+\subsection{Cấu trúc dữ liệu}
+
+Dữ liệu được lưu dưới dạng CSV với các cột sau:
+
+\begin{table}[h]
+\centering
+\caption{Cấu trúc dữ liệu đầu ra}
+\begin{tabular}{|l|l|l|}
+\hline
+\textbf{Tên cột} & \textbf{Kiểu dữ liệu} & \textbf{Mô tả} \\
+\hline
+Step & Integer & Bước thời gian (0 đến 10000) \\
+\hline
+ue1\_x & Float & Tọa độ x của UE1 (m) \\
+\hline
+ue1\_y & Float & Tọa độ y của UE1 (m) \\
+\hline
+ue1\_direction & Integer & Hướng di chuyển (0: Đông, 1: Bắc, 2: Tây, 3: Nam) \\
+\hline
+uex\_bsx\_prx & Float & Công suất nhận từ BS0 (dBm) \\
+\hline
+BS\_connect & Integer & ID của BS đang phục vụ UE1 \\
+\hline
+Handover & Integer & Có xảy ra chuyển giao (1: có, 0: không) \\
+\hline
+\end{tabular}
+\label{tab:data_structure}
+\end{table}
+\subsection{Thông số mô phỏng}
+
+\begin{align}
+P_{tx} &= 35 \text{ dBm} \\
+G_{tx} = G_{rx} &= 2 \text{ dBi} \\
+f_c &= 4 \text{ GHz} \\
+\text{Sensitivity} &= -110 \text{ dBm} \\
+\text{HOM} &= 3 \text{ dB}
+\end{align}
+
+Công suất nhận được tính theo:
+$$P_{rx} = P_{tx} + G_{tx} + G_{rx} - PL$$
+
+với tổn hao đường truyền:
+$$PL = 13.54 + 39.08 \log_{10}(d_{3D}) + 20 \log_{10}(f_c) - 0.6(h_{ut} - 1.5)$$
+\subsection{So sánh mô hình trong bài báo và code hiện tại}
+\subsection{So sánh dữ liệu mô phỏng và dữ liệu trong bài báo}
+
+Phần dữ liệu được sinh ra từ code mô phỏng hiện tại và dữ liệu mà bài báo đề cập có sự khác biệt rõ rệt theo các khía cạnh sau:
+    \subsubsection{Agent (Tác nhân):}
+    \begin{itemize}
+        \item \textbf{Bài báo:} Nhiều tác nhân (mỗi UE là một agent), hoạt động đồng thời trong hệ thống học tăng cường đa tác nhân.
+        \item \textbf{Code hiện tại:} Chỉ có một tác nhân duy nhất (một UE di chuyển trong khu vực mô phỏng).
+    \end{itemize}
+    \begin{itemize}
+    \item \textbf{Cơ chế đào tạo}
+    \begin{itemize}
+        \item \textbf{Bài báo:} Sử dụng đào tạo tập trung và thực thi phi tập trung. Trạm gốc Macro (MBS) đóng vai trò trung tâm, học một bộ đánh giá (critic) tập trung và chính sách phi tập trung cho từng UE. Các UE định kỳ cập nhật chính sách từ MBS và sau khi đào tạo, chúng đưa ra quyết định dựa trên quan sát cục bộ mà không cần thông tin toàn cục.
+        \item \textbf{Code hiện tại:} Quá trình học tập là tập trung hoàn toàn, nghĩa là PPO học trực tiếp từ môi trường và đưa ra hành động dựa trên trạng thái mà không có sự phân phối hay phối hợp với các tác nhân khác.
+    \end{itemize}
+    \item \textbf{Chính sách:}
+    \begin{itemize}
+        \item \textbf{Bài báo:} Mỗi UE có chính sách riêng, được học từ MBS và dựa trên quan sát cục bộ (local observations) sau đào tạo, đảm bảo tính độc lập trong thực thi
+        \item \textbf{Code hiện tại:} Tác nhân sử dụng một chính sách duy nhất để dự đoán hành động (chọn BS) dựa trên trạng thái môi trường, không có cơ chế phân tách giữa đào tạo và thực thi.
+    \end{itemize}
+    \end{itemize}
+   \subsubsection{Hành động (Action):}
+    \begin{itemize}
+        \item \textbf{Không gian hành động:} 
+        \begin{itemize}
+            \item \textbf{Bài báo:} Hành động của mỗi UE là quyết định nhị phân {0, 1}, trong đó 1 là kích hoạt bàn giao và 0 là không kích hoạt. Nếu bàn giao được kích hoạt, hệ thống chọn 3 BS gần nhất dựa trên tỷ lệ tín hiệu trên nhiễu cộng nhiễu (SINR) cao nhất để thực hiện bàn giao.
+        \item \textbf{Code hiện tại:} Tác nhân chọn một trong 7 trạm gốc (BS) để kết nối, được biểu thị bằng một số nguyên từ 0 đến 6.
+        \end{itemize}
+        \item \textbf{Ý nghĩa hành động:} 
+        \begin{itemize}
+            \item \textbf{Bài báo:} Quyết định bàn giao nhằm tối ưu hóa hiệu suất hệ thống, cân bằng giữa chất lượng kết nối của từng UE và hiệu suất tổng thể. Không gian hành động tổng quát bao gồm hành động đồng thời của tất cả các UE (A = (a\_1, a\_2, ..., a\_I)), phản ánh sự phối hợp giữa các tác nhân.
+        \item \textbf{Code hiện tại:} Hành động là việc chọn trực tiếp một BS cụ thể để UE kết nối, ảnh hưởng đến công suất nhận được (prx) và quyết định bàn giao. Hành động này được thực hiện tại mỗi bước thời gian dựa trên trạng thái môi trường.
+        \end{itemize}        
+    \end{itemize}
+
+   \subsubsection{Môi trường (Environment):}
+\begin{itemize}
+    \item \textbf{Cấu trúc mạng:} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} Môi trường là mạng di động sóng milimet (mmWave) với một Trạm gốc Macro (MBS) và nhiều Trạm gốc Ô nhỏ (SCBS), mỗi SCBS có nhiều chùm tia (beams).
+        \item \textbf{Code hiện tại:} Môi trường mô phỏng một mạng di động với 7 BS cố định, gồm 1 BS trung tâm và 6 BS xung quanh, được đặt trong một khu vực $2500 \times 2500$ mét.
+    \end{itemize}
+
+    \item \textbf{Di chuyển của UE:} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} Nhiều UE di chuyển theo mô hình ngẫu nhiên (random walk).
+        \item \textbf{Code hiện tại:} Một UE di chuyển với vận tốc cố định 60 km/h, thay đổi hướng ngẫu nhiên (Đông, Bắc, Tây, Nam) theo xác suất (random walk). Vị trí UE bị giới hạn trong ranh giới cụ thể (400 <= x <= 2100, 250 <= y <= 2250).
+    \end{itemize}
+
+    \item \textbf{Điều kiện kênh:} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} Bao gồm suy hao đường truyền, tỷ lệ SINR, trạng thái kênh LOS hoặc NLOS với xác suất thay đổi.
+        \item \textbf{Code hiện tại:} Môi trường tính toán path loss dựa trên khoảng cách 3D và công suất thu dựa trên công suất phát, độ lợi anten, path loss. Ngưỡng nhạy (sensitivity) = -110 dBm.
+    \end{itemize}
+
+    \item \textbf{Quan sát (Observations):} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} Bao gồm độ trễ bàn giao, phân bổ băng thông, thông lượng, số lượng UE/BS, thông tin BS/chùm tia ứng cử viên.
+        \item \textbf{Code hiện tại:} Trạng thái gồm tọa độ UE $(x, y)$, hướng di chuyển (0–3), và công suất nhận từ 7 BS (prx\_bs0 đến prx\_bs6).
+    \end{itemize}
+        \item \textbf{Phần thưởng (Rewards):} 
+        \begin{itemize}
+            \item \textbf{Bài báo:} 
+            \begin{itemize}
+                \item Phần thưởng hiệu suất hệ thống:
+                \begin{itemize}
+                    \item 10$\delta$ nếu thông lượng hệ thống cao hơn ngưỡng trên và độ trễ thấp hơn ngưỡng dưới. 
+                    \item +$\delta$ nếu thông lượng và độ trễ đạt ngưỡng cơ bản.
+                    \item -$\delta$ trong các trường hợp khác. 
+                \end{itemize}
+                \item Hình phạt bàn giao: Áp dụng khi BS mục tiêu khác BS hiện tại để giảm tỷ lệ bàn giao không cần thiết (HOR).
+                \item Phần thưởng toàn cục là tổng phần thưởng cục bộ của các UE, cân bằng giữa SINR và tỷ lệ bàn giao.
+            \end{itemize}
+            \item \textbf{Code hiện tại:}
+            \begin{itemize}
+                \item Nếu công suất nhận được (prx) > -110 dBm, phần thưởng là prx + 110.
+                \item Nếu prx < -110 dBm, phạt -50.
+                \item Nếu chuyển đổi BS (handover), phạt -10 để hạn chế bàn giao không cần thiết.
+            \end{itemize}
+        \end{itemize}
+        \item \textbf{Loại bàn giao:} 
+        \begin{itemize}
+            \item \textbf{Bài báo:} Bao gồm bàn giao liên ô (giữa các BS) và bàn giao trong ô (giữa các chùm tia trong cùng một SCBS).
+            \item \textbf{Code hiện tại:}Chỉ có bàn giao giữa các BS (tương tự bàn giao liên ô)
+        \end{itemize}
+    \end{itemize}
+
+    \subsubsection{Hàm mục tiêu (Objective Function):}
+    \begin{itemize}
+    
+    \item \textbf{Mục tiêu:} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} Tối ưu hóa hiệu suất hệ thống (tăng thông lượng, giảm độ trễ) và đảm bảo Chất lượng Dịch vụ (QoS) cho từng UE, đồng thời giảm tỷ lệ bàn giao không cần thiết (HOR).
+        \item \textbf{Code hiện tại:} Tối đa hóa tổng phần thưởng tích lũy thông qua thuật toán PPO, tập trung vào việc duy trì công suất nhận được (prx) cao và giảm số lần bàn giao không cần thiết.
+    \end{itemize}
+    \item \textbf{Cơ chế tối ưu:} 
+    \begin{itemize}
+        \item \textbf{Bài báo:} MAPPO tối đa hóa kỳ vọng tổng phần thưởng tích lũy. Ngoài ra, có một bài toán tối ưu hóa phụ trợ để:
+\begin{itemize}
+    \item Chọn BS và chùm tia mục tiêu
+    \item Phân bổ băng thông
+    \item Tối thiểu hóa tổng độ trễ của các UE, với các ràng buộc:
+    \begin{itemize}
+        \item Tổng băng thông không vượt quá giới hạn của mỗi SCBS
+        \item Thông lượng hệ thống đạt mức tối thiểu
+        \item Mỗi UE chỉ kết nối với một chùm tia trong một BS tại một thời điểm
+        \item Đảm bảo QoS (thông lượng tối thiểu, độ trễ tối đa) cho từng UE
+    \end{itemize}
+\end{itemize}
+        \item \textbf{Code hiện tại:} PPO sử dụng hàm mục tiêu dạng clipped surrogate objective để tối ưu hóa chính sách, dựa trên phần thưởng từ môi trường. Không có bài toán tối ưu hóa phụ trợ nào được áp dụng.
+    \end{itemize}
+\end{itemize}
+Tóm lại, dữ liệu trong bài báo phản ánh một môi trường phức tạp hơn, đa UE, nhiều yếu tố kênh và QoS. Trong khi đó, dữ liệu sinh ra từ code hiện tại mới ở mức mô phỏng cơ bản, tập trung vào vị trí, công suất thu và sự kiện handover.
+
+\newpage
+\phantomsection\addcontentsline{toc}{section}{\numberline {}TÀI LIỆU THAM KHẢO}
+\bibliographystyle{IEEEtran}
+\bibliography{TaiLieuThamKhao}
+\newpage
+\end{document}
