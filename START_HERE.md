@@ -60,7 +60,19 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 
 ---
 
-## 3. Trạng thái hiện tại (cập nhật lần cuối: 2026-09-09)
+## 3. Trạng thái hiện tại (cập nhật lần cuối: 2026-09-16)
+
+**Đang chạy nền (từ 2026-09-16 00:24):** đóng 2 mục [A] còn mở trong `CHUA_LAM_DUOC.md` —
+A5 (train ILCHO native trên Phase 1-a và hybrid, thay vì chỉ zero-shot) + A7 (thử `batch=4`,
+điểm còn lại trên trục batch chưa test vì batch=16/32 OOM VRAM). Script:
+`gpu100_repro/run_gpu100_a5_a7.sh`, dự kiến ~9-10 giờ. Báo cáo riêng cho đợt này:
+`gpu100_repro/BAO_CAO_2026-09-16.md` (đang điền dần khi từng giai đoạn xong). Venv GPU ở
+`/tmp/gpu_bench/.venv` đã bị dọn mất giữa các phiên trước đó — **đã dựng lại từ đầu** (torch
+cu126 + numpy/pyyaml/matplotlib/tqdm + editable install `ilcho-repro`), lưu ý phiên sau nếu
+venv lại mất thì làm lại đúng các bước này (xem `gpu100_repro/REPORT.md` §10 hoặc log phiên
+này để copy lệnh).
+
+
 
 **Đã xong:**
 - Lượt 3 tái hiện (100 agent/600s/GPU) hoàn chỉnh — training, eval 4 chòm vệ tinh (Phase 2-a,
@@ -90,6 +102,9 @@ còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương t�
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
+- **2026-09-16** — Venv GPU bị dọn mất giữa các phiên, dựng lại từ đầu. Khởi động
+  `run_gpu100_a5_a7.sh` (đóng mục A5 + A7 trong `CHUA_LAM_DUOC.md`) chạy nền, ~9-10h. Tạo
+  `gpu100_repro/BAO_CAO_2026-09-16.md` để ghi kết quả riêng cho đợt này.
 - **2026-09-14** — Tách thành **2 báo cáo riêng** (LaTeX + PDF, tiếng Việt, không ghi ngày/giờ
   — chỉ để trao đổi cô-trò, không phải báo cáo hành chính có mốc thời gian):
   `bao_cao/bao_cao_survey.tex` (survey sâu về bài báo ILCHO: bối cảnh, 4 đóng góp, công trình
