@@ -65,12 +65,24 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 **Đang chạy nền (từ 2026-09-16 00:24):** đóng 2 mục [A] còn mở trong `CHUA_LAM_DUOC.md` —
 A5 (train ILCHO native trên Phase 1-a và hybrid, thay vì chỉ zero-shot) + A7 (thử `batch=4`,
 điểm còn lại trên trục batch chưa test vì batch=16/32 OOM VRAM). Script:
-`gpu100_repro/run_gpu100_a5_a7.sh`, dự kiến ~9-10 giờ. Báo cáo riêng cho đợt này:
+`gpu100_repro/run_gpu100_a5_a7.sh`. Báo cáo riêng cho đợt này:
 `gpu100_repro/BAO_CAO_2026-09-16.md` (đang điền dần khi từng giai đoạn xong). Venv GPU ở
 `/tmp/gpu_bench/.venv` đã bị dọn mất giữa các phiên trước đó — **đã dựng lại từ đầu** (torch
 cu126 + numpy/pyyaml/matplotlib/tqdm + editable install `ilcho-repro`), lưu ý phiên sau nếu
 venv lại mất thì làm lại đúng các bước này (xem `gpu100_repro/REPORT.md` §10 hoặc log phiên
 này để copy lệnh).
+
+**Lưu ý quan trọng — đã điều tra kỹ (2026-09-16 sáng):** giai đoạn train Phase 1-a chạy chậm
+hơn ~3× so với lượt 3 (10,7s/episode thay vì 3,2s/episode). **Đây KHÔNG phải do máy/RAM/CPU
+chậm** — đã kiểm chứng bằng benchmark process mới hoàn toàn: Phase 2-a fresh benchmark vẫn ra
+đúng 3,26s/ep (khớp lượt 3), chỉ riêng Phase 1-a fresh benchmark cũng ra ~10,7s/ep. Nguyên
+nhân: Phase 1-a ở 100 UE là kịch bản bão hòa nặng (đã biết từ trước), HOF ~145/agent/episode
+(so với Phase 2-a hội tụ ~17,6) — mỗi lần HOF/mất kết nối, `environment.py` phải chạy thêm
+logic tìm-vệ-tinh-trống + cập nhật sổ sách (`_nearest_free`, dòng ~285-351) ngoài vòng lặp
+chính, vốn không vector hoá. Nhiều sự kiện phụ dồn lại → chậm ~3×. **Đừng tốn thời gian điều
+tra lại RAM/CPU/priority nếu gặp lại hiện tượng này ở Phase 1-a hoặc kịch bản bão hòa khác** —
+đây là đặc tính môi trường, không phải sự cố. Giai đoạn hybrid/batch4 (ít bão hòa hơn) chạy
+gần tốc độ bình thường.
 
 
 
