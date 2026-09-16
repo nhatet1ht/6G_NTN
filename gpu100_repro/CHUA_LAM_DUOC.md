@@ -60,13 +60,17 @@ tham chiếu gốc trước khi cài lại — ước tính ~0,5 ngày đọc + 
 
 ### A4. ~~Dò `F`~~ ✅ Đã thử — kết quả âm tính, chuyển sang mục [C3] bên dưới
 
-### A5. Chưa train riêng cho từng chòm vệ tinh — mọi kết quả Phase 1-a/hybrid đều là *zero-shot*
+### A5. ~~Chưa train riêng cho từng chòm vệ tinh~~ ✅ Đã làm — 2026-09-16
 
-`g100_ilcho_sigmoid` chỉ train trên Starlink Phase 2-a; kết quả ở Phase 1-a và hybrid
-(`REPORT.md` §7) đều là **chuyển giao chính sách chưa từng thấy chòm vệ tinh đó lúc train**.
-Chưa thử train một policy riêng, native cho Phase 1-a hoặc hybrid (lượt 1 có làm việc này ở
-quy mô nhỏ — thư mục cũ `runs/xeval_phase1a_native/` — nhưng chưa lặp lại ở quy mô 100 agent).
-Việc này tốn thêm ~2,5–4 giờ train mỗi chòm vệ tinh muốn thử riêng.
+Đã train native ILCHO (sigmoid) trên Phase 1-a (8h03p, chậm hơn dự kiến — xem ghi chú tốc độ
+ở `START_HERE.md` mục 3, không phải sự cố) và trên hybrid (3h20p, tốc độ bình thường). Kết quả
+đầy đủ + so sánh với zero-shot: `BAO_CAO_2026-09-16.md`.
+
+**Tóm tắt:** train native **tốt hơn zero-shot rõ rệt ở tải vừa-cao** — HOF thấp hơn 2,6-2,7×
+(Phase 1-a, 20-40 UE) và 2,4-5,1× (hybrid, 20-70 UE), đánh đổi SE thấp hơn 3-13%. Ở 100 UE cả
+hai cách hội tụ về cùng mức (bị chặn bởi giới hạn dung lượng vật lý, không phải do policy).
+Dữ liệu: `runs/g100_ilcho_sigmoid_native_phase1a/`, `runs/g100_ilcho_sigmoid_native_hybrid/`,
+`runs/g100_eval_starlink_phase_1a_native/`, `runs/g100_eval_hybrid_native/`.
 
 ### A6. ~~OneWeb Phase 1~~ ✅ Đã làm (bổ sung sau khi viết tài liệu này)
 
@@ -78,12 +82,14 @@ bài báo nhưng chưa từng được đưa vào so sánh ở lượt 1/2. Đã
 OneWeb (nghiêng gần cực, đỉnh khả kiến thật sự ở vĩ độ 86°) nên hệ thống thiếu dung lượng vật
 lý ở tải cao, không phải lỗi thuật toán. Không còn nằm trong danh sách "chưa làm".
 
-### A7. Chưa thử `learn_every` nhỏ hơn kết hợp batch lớn hơn khi có GPU mạnh hơn
+### A7. ~~Chưa thử điểm khác trên trục batch/tần suất học~~ ✅ Đã thử `batch=4` — 2026-09-16
 
-Lượt 3 chọn `learn-every=1, batch=8` vì đó là điểm khả thi duy nhất đã đo được trên RTX 3060
-Ti 8 GB. Chưa thử các điểm khác trên trục đánh đổi batch/tần suất học (ví dụ `batch=16,
-learn-every=2` — cùng tổng số mẫu học nhưng khác cách chia) để xem có nhạy với cách chia này
-không.
+Đã train `batch=4, learn-every=1` (4.000 ep, Phase 2-a, mọi tham số khác giữ nguyên lượt 3) —
+điểm còn lại khả thi trên VRAM 8GB (batch=16/32 vẫn OOM, xem A1). **Kết quả âm tính sạch:**
+mọi giá trị HOF/SE của `batch=4` đều nằm gọn trong khoảng dao động tự nhiên đã đo được giữa
+3 seed của `batch=8` (`runs/multiseed_aggregate.md`) — không có bằng chứng batch size (trong
+khoảng 4-8 khả thi) ảnh hưởng tới chính sách học được. Chi tiết: `BAO_CAO_2026-09-16.md`.
+Dữ liệu: `runs/g100_ilcho_sigmoid_batch4/`, `runs/g100_eval_starlink_phase_2a_batch4/`.
 
 ---
 
@@ -155,8 +161,8 @@ bản tái hiện.
 | A2 | ~~Train đa-seed~~ (3 xong, 5 nếu muốn chặt hơn) | A | ✅ 3 seed xong — xem `REPORT.md` §4.3; +2 seed nữa ~17h49p nếu muốn |
 | A3 | Cài đúng HSNF [22] / LBSH [26] | A | ~1,5 ngày đọc+code |
 | A4 | ~~Dò `F` cho đúng đỉnh N_max=27~~ | A | ✅ đã xong — kết quả âm tính, xem C4 |
-| A5 | Train native cho Phase 1-a/hybrid | A | ~2,5–4h/chòm vệ tinh |
+| A5 | ~~Train native cho Phase 1-a/hybrid~~ | A | ✅ đã xong — xem `BAO_CAO_2026-09-16.md` |
 | A6 | ~~Thêm OneWeb Phase 1 vào so sánh~~ | A | ✅ đã xong — xem `REPORT.md` §7.3 |
-| A7 | Quét trục batch/learn-every | A | vài giờ |
+| A7 | ~~Quét trục batch/learn-every~~ | A | ✅ đã xong (batch=4) — âm tính sạch, xem `BAO_CAO_2026-09-16.md` |
 | B  | 5 tham số ẩn bài báo không công bố | B | không tự làm được — cần tác giả |
 | C1–C3 | 3 tuyên bố/số liệu không khớp (kể cả `F`) | C | đã kết luận, không cần làm thêm |

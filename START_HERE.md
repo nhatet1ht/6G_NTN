@@ -62,15 +62,17 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 
 ## 3. Trạng thái hiện tại (cập nhật lần cuối: 2026-09-16)
 
-**Đang chạy nền (từ 2026-09-16 00:24):** đóng 2 mục [A] còn mở trong `CHUA_LAM_DUOC.md` —
-A5 (train ILCHO native trên Phase 1-a và hybrid, thay vì chỉ zero-shot) + A7 (thử `batch=4`,
-điểm còn lại trên trục batch chưa test vì batch=16/32 OOM VRAM). Script:
-`gpu100_repro/run_gpu100_a5_a7.sh`. Báo cáo riêng cho đợt này:
-`gpu100_repro/BAO_CAO_2026-09-16.md` (đang điền dần khi từng giai đoạn xong). Venv GPU ở
-`/tmp/gpu_bench/.venv` đã bị dọn mất giữa các phiên trước đó — **đã dựng lại từ đầu** (torch
-cu126 + numpy/pyyaml/matplotlib/tqdm + editable install `ilcho-repro`), lưu ý phiên sau nếu
-venv lại mất thì làm lại đúng các bước này (xem `gpu100_repro/REPORT.md` §10 hoặc log phiên
-này để copy lệnh).
+**2026-09-16, xong lúc 15:30 (15h06p chạy nền, 0 lỗi):** đóng 2 mục [A] còn mở trong
+`CHUA_LAM_DUOC.md` — A5 (train ILCHO native trên Phase 1-a và hybrid, thay vì chỉ zero-shot)
++ A7 (thử `batch=4`, điểm còn lại trên trục batch chưa test vì batch=16/32 OOM VRAM). Kết quả
+đầy đủ: `gpu100_repro/BAO_CAO_2026-09-16.md`. Tóm tắt: **A5 — train native tốt hơn zero-shot
+rõ rệt ở tải vừa-cao** (HOF thấp hơn 2,6-5,1× tuỳ chòm vệ tinh/tải, đánh đổi SE thấp hơn
+3-13%); **A7 — batch=4 kết quả âm tính sạch** (mọi số liệu nằm trong khoảng dao động tự nhiên
+của batch=8 qua 3 seed, không nhạy cảm với batch size ở khoảng khả thi 4-8). Script:
+`gpu100_repro/run_gpu100_a5_a7.sh`. Venv GPU ở `/tmp/gpu_bench/.venv` đã bị dọn mất giữa các
+phiên trước đó — **đã dựng lại từ đầu** (torch cu126 + numpy/pyyaml/matplotlib/tqdm + editable
+install `ilcho-repro`), lưu ý phiên sau nếu venv lại mất thì làm lại đúng các bước này (xem
+`gpu100_repro/REPORT.md` §10 hoặc log phiên này để copy lệnh).
 
 **Lưu ý quan trọng — đã điều tra kỹ (2026-09-16 sáng):** giai đoạn train Phase 1-a chạy chậm
 hơn ~3× so với lượt 3 (10,7s/episode thay vì 3,2s/episode). **Đây KHÔNG phải do máy/RAM/CPU
@@ -83,8 +85,6 @@ chính, vốn không vector hoá. Nhiều sự kiện phụ dồn lại → ch�
 tra lại RAM/CPU/priority nếu gặp lại hiện tượng này ở Phase 1-a hoặc kịch bản bão hòa khác** —
 đây là đặc tính môi trường, không phải sự cố. Giai đoạn hybrid/batch4 (ít bão hòa hơn) chạy
 gần tốc độ bình thường.
-
-
 
 **Đã xong:**
 - Lượt 3 tái hiện (100 agent/600s/GPU) hoàn chỉnh — training, eval 4 chòm vệ tinh (Phase 2-a,
@@ -114,6 +114,12 @@ còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương t�
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
+- **2026-09-16** — `run_gpu100_a5_a7.sh` chạy xong (15h06p, 0 lỗi), đóng A5 + A7 trong
+  `CHUA_LAM_DUOC.md`. A5: train native > zero-shot rõ rệt ở tải vừa-cao (HOF thấp hơn
+  2,6-5,1×, đổi lấy SE thấp hơn 3-13%) cho cả Phase 1-a và hybrid. A7: `batch=4` không khác
+  biệt có ý nghĩa so với `batch=8` (nằm trong dao động tự nhiên của 3-seed). Giai đoạn train
+  Phase 1-a chậm ~3× do đặc tính môi trường bão hòa (đã điều tra kỹ, không phải máy chậm — ghi
+  chi tiết ở mục 3 phía trên). Kết quả đầy đủ: `gpu100_repro/BAO_CAO_2026-09-16.md`.
 - **2026-09-16** — Venv GPU bị dọn mất giữa các phiên, dựng lại từ đầu. Khởi động
   `run_gpu100_a5_a7.sh` (đóng mục A5 + A7 trong `CHUA_LAM_DUOC.md`) chạy nền, ~9-10h. Tạo
   `gpu100_repro/BAO_CAO_2026-09-16.md` để ghi kết quả riêng cho đợt này.
