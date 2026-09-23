@@ -57,6 +57,18 @@ Handover (CHO) + multi-agent RL (QMIX) để chọn vệ tinh đích trong chòm
 8. [`docs/KE_HOACH_TAI_TAO_DAY_DU.md`](docs/KE_HOACH_TAI_TAO_DAY_DU.md) — roadmap viết **trước**
    lượt 3, một phần đã lỗi thời (bước 1–2 nay đã xong) — xem bảng cập nhật trạng thái ở
    `gpu100_repro/CHUA_LAM_DUOC.md` §4 trước khi tin nội dung file này.
+9. [`gpu100_repro/BAO_CAO_2026-09-16.md`](gpu100_repro/BAO_CAO_2026-09-16.md) — 2 thí nghiệm bổ
+   sung sau lượt 3: train native theo từng chòm vệ tinh (tốt hơn hẳn zero-shot ở tải vừa-cao)
+   + kiểm tra độ nhạy batch size (không ảnh hưởng). **Đây là nội dung mới nhất chưa có trong
+   bất kỳ báo cáo nào đã gửi cô** — đọc file này nếu muốn cập nhật/bổ sung báo cáo cũ.
+
+### Báo cáo bản đẹp đã/định gửi cho GVHD (không phải để tự đọc hiểu — để gửi đi)
+
+10. [`bao_cao/bao_cao_survey.tex`](bao_cao/bao_cao_survey.tex) (+ PDF cùng tên) — bản survey
+    bài báo ILCHO, rút gọn từ mục 1 ở trên.
+11. [`bao_cao/bao_cao_thu_nghiem.tex`](bao_cao/bao_cao_thu_nghiem.tex) (+ PDF cùng tên) — bản
+    tóm tắt việc đã tái hiện, rút gọn từ mục 5–7 ở trên. **Đã gửi cô lần đầu 2026-09-14 —
+    CHƯA cập nhật nội dung của mục 9 (đợt 2026-09-16)**, xem mục 3 bên dưới.
 
 ---
 
@@ -97,13 +109,16 @@ gần tốc độ bình thường.
 
 Toàn bộ đã push lên `main`.
 
-**Có thể làm tiếp nếu muốn chặt hơn:** thêm 2 seed nữa (seed=3,4) cho đủ 5 seed — std hiện tại
-còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương tự).
+**Đang treo — báo cáo gửi GVHD (`bao_cao/`) CHƯA cập nhật kết quả 2026-09-16:** `bao_cao_thu_nghiem.pdf`
+đã gửi cô lần đầu 2026-09-14, trước khi có kết quả A5+A7 (mục 9 ở §2). Nếu người dùng muốn gửi
+bản cập nhật, cần thêm nội dung từ `gpu100_repro/BAO_CAO_2026-09-16.md` vào `bao_cao/bao_cao_thu_nghiem.tex`
+rồi biên dịch + gửi lại (đã hỏi người dùng 2026-09-24, đang chờ xác nhận có muốn làm không).
 
 **Đang mở / có thể làm tiếp** (chi tiết + effort ước tính ở `gpu100_repro/CHUA_LAM_DUOC.md`):
-- Nhóm [A] (làm được, cần thêm thời gian): train đa-seed, cài đúng HSNF/LBSH theo bài gốc
-  [22]/[26], `batch=32` đúng Table II (cần GPU ≥16GB), train native cho Phase 1-a/hybrid,
-  quét trục batch/learn-every.
+- Nhóm [A] còn lại: chỉ còn **A1** (`batch=32` đúng Table II, cần GPU ≥16GB hoặc sửa code) và
+  **A3** (cài đúng HSNF/LBSH theo bài gốc [22]/[26], cần đọc 2 bài trước khi code) — không còn
+  việc nào chỉ đơn thuần "chạy thêm". A2 (đa-seed, 3/5 xong — thêm seed=3,4 nếu muốn chặt hơn,
+  ~17h49p), A5, A6, A7 đã đóng.
 - Nhóm [B] (chặn cứng, cần tác giả): 5 tham số bài báo không công bố (tần số sóng mang,
   `O_off`, hằng số reward, hyperparameter HSNF/LBSH gốc — `F` đã loại khỏi nhóm này vì đã
   quét hết, xem C4). Liên hệ: Jong-Moon Chung, `jmc@yonsei.ac.kr`.
@@ -114,6 +129,11 @@ còn khá lớn ở vùng 40-70 UE do mới n=3 (~17h49p chạy nền tương t�
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
+- **2026-09-24** — Sửa §2 (thứ tự đọc): thêm `gpu100_repro/BAO_CAO_2026-09-16.md` (trước đó
+  chỉ nhắc ở §3/§4, thiếu trong danh sách đọc chính) và thư mục `bao_cao/` (2 báo cáo gửi
+  GVHD). Sửa §3 — danh sách "đang mở" bị lỗi thời (A5/A7 ghi nhầm là chưa xong dù đã đóng
+  08/09-16). Ghi chú: `bao_cao_thu_nghiem.pdf` đã gửi cô 09-14, **chưa có** nội dung A5+A7
+  (09-16) — người dùng đang cân nhắc có muốn cập nhật + gửi lại không.
 - **2026-09-16** — `run_gpu100_a5_a7.sh` chạy xong (15h06p, 0 lỗi), đóng A5 + A7 trong
   `CHUA_LAM_DUOC.md`. A5: train native > zero-shot rõ rệt ở tải vừa-cao (HOF thấp hơn
   2,6-5,1×, đổi lấy SE thấp hơn 3-13%) cho cả Phase 1-a và hybrid. A7: `batch=4` không khác
