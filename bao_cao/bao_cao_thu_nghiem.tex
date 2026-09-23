@@ -114,6 +114,35 @@ Số episode huấn luyện   & 800--1.800 & 2.000--2.800 & 3.000--4.000 \\
         nhưng chưa từng được đưa vào so sánh ở 2 lượt đầu).
 \end{itemize}
 
+\subsection{Hai thử nghiệm bổ sung tiếp theo}
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Huấn luyện riêng (native) cho từng chòm vệ tinh}, thay vì chỉ chuyển giao
+        chính sách đã huấn luyện trên chòm chính sang chòm khác (zero-shot) như trước. Kết
+        quả (Bảng~\ref{tab:native}): huấn luyện riêng cho số chuyển giao thất bại thấp hơn
+        hẳn ở mức tải trung bình--cao, đánh đổi bằng thông lượng thấp hơn một chút.
+  \item \textbf{Kiểm tra độ nhạy với kích thước lô dữ liệu huấn luyện (batch size)} — thử
+        `batch=4' thay cho `batch=8' của lượt 3 (giá trị `batch=8' vốn đã thấp hơn 32 mà bài
+        báo công bố, do giới hạn bộ nhớ GPU). Kết quả: \textbf{không có khác biệt đáng kể} —
+        mọi số liệu của `batch=4' nằm gọn trong khoảng dao động tự nhiên đã đo được giữa
+        3 lần huấn luyện độc lập với `batch=8'. Kích thước lô, ít nhất trong khoảng đã thử,
+        không phải yếu tố ảnh hưởng tới kết quả.
+\end{itemize}
+
+\begin{table}[h]
+\centering\small
+\caption{Huấn luyện riêng (native) so với chuyển giao chính sách (zero-shot)}
+\label{tab:native}
+\begin{tabular}{lcc}
+\toprule
+ & \textbf{Phase 1-a} & \textbf{Hybrid} \\
+\midrule
+Số chuyển giao thất bại thấp hơn & 2,6--2,7 lần (tải 20--40 UE) & 2,4--5,1 lần (tải 20--70 UE) \\
+Đánh đổi thông lượng & thấp hơn 8--13\% & thấp hơn 3--12\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
 \section{Kết quả chính}
 
 Kết quả nổi bật nhất: khi tăng dần quy mô huấn luyện qua 3 lượt (đúng số agent, đúng độ dài
@@ -170,8 +199,9 @@ nên đây là phát hiện thật, không phải do thiếu sót:
   \item Hai phương pháp so sánh (HSNF, LBSH) đang dùng bản triển khai rút gọn của mình, chưa
         cài đúng theo 2 bài báo tham chiếu gốc — đây là việc còn có thể làm thêm nếu có thời
         gian.
-  \item Do giới hạn bộ nhớ GPU hiện có, một số siêu tham số huấn luyện (kích thước lô dữ liệu)
-        chưa đúng hoàn toàn như bài báo công bố.
+  \item Do giới hạn bộ nhớ GPU hiện có, kích thước lô dữ liệu huấn luyện (`batch=8', thử thêm
+        `batch=4') vẫn thấp hơn `batch=32' mà bài báo công bố — dù đã kiểm chứng không có
+        khác biệt đáng kể giữa 4 và 8, chưa thể loại trừ hoàn toàn khả năng 32 khác biệt.
   \item Mới kiểm chứng ổn định qua 3 lần huấn luyện độc lập (khuyến nghị thống kê tối thiểu);
         có thể tăng lên 5 lần nếu muốn kết quả chặt hơn.
 \end{itemize}
@@ -183,9 +213,8 @@ nên đây là phát hiện thật, không phải do thiếu sót:
         chiếu gốc — đây là việc có khả năng làm rõ nhất liệu 2 kết luận chưa tái hiện được ở
         Mục 4 là do bản triển khai rút gọn hay là khác biệt thật.
   \item Cân nhắc liên hệ nhóm tác giả bài báo để xin các tham số chưa công bố.
-  \item Nếu còn thời gian: huấn luyện riêng cho từng chòm vệ tinh (hiện đang dùng chuyển giao
-        chính sách từ chòm vệ tinh chính sang các chòm khác), và tăng số lần huấn luyện độc
-        lập lên 5.
+  \item Nếu còn thời gian: tăng số lần huấn luyện độc lập từ 3 lên 5 để khoảng tin cậy chặt
+        hơn.
 \end{enumerate}
 
 \section{Kết luận}
