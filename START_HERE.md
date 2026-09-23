@@ -109,10 +109,10 @@ gần tốc độ bình thường.
 
 Toàn bộ đã push lên `main`.
 
-**Đã xong (2026-09-24):** `bao_cao/bao_cao_thu_nghiem.tex`/PDF đã được cập nhật thêm mục 3.4
-(2 thí nghiệm A5+A7 ngày 16/9) + sửa mục Hạn chế/Kế hoạch tiếp theo cho khớp, biên dịch lại
-sạch, gửi cho người dùng qua SendUserFile. Bản `bao_cao_survey.tex` (survey bài báo) không cần
-cập nhật vì không liên quan tới kết quả thực nghiệm.
+**Đang treo — báo cáo gửi GVHD (`bao_cao/`) CHƯA cập nhật kết quả 2026-09-16:** `bao_cao_thu_nghiem.pdf`
+đã gửi cô lần đầu 2026-09-14, trước khi có kết quả A5+A7 (mục 9 ở §2). Nếu người dùng muốn gửi
+bản cập nhật, cần thêm nội dung từ `gpu100_repro/BAO_CAO_2026-09-16.md` vào `bao_cao/bao_cao_thu_nghiem.tex`
+rồi biên dịch + gửi lại (đã hỏi người dùng 2026-09-24, đang chờ xác nhận có muốn làm không).
 
 **Đang mở / có thể làm tiếp** (chi tiết + effort ước tính ở `gpu100_repro/CHUA_LAM_DUOC.md`):
 - Nhóm [A] còn lại: chỉ còn **A1** (`batch=32` đúng Table II, cần GPU ≥16GB hoặc sửa code) và
@@ -129,8 +129,6 @@ cập nhật vì không liên quan tới kết quả thực nghiệm.
 
 *(mới nhất ở trên cùng — mỗi dòng: ngày, việc đã làm, file liên quan)*
 
-- **2026-09-24** — Cập nhật `bao_cao/bao_cao_thu_nghiem.tex`/PDF: thêm mục 3.4 (kết quả
-  A5+A7, 16/9) + sửa mục Hạn chế/Kế hoạch tiếp theo. Gửi lại PDF mới cho người dùng.
 - **2026-09-24** — Sửa §2 (thứ tự đọc): thêm `gpu100_repro/BAO_CAO_2026-09-16.md` (trước đó
   chỉ nhắc ở §3/§4, thiếu trong danh sách đọc chính) và thư mục `bao_cao/` (2 báo cáo gửi
   GVHD). Sửa §3 — danh sách "đang mở" bị lỗi thời (A5/A7 ghi nhầm là chưa xong dù đã đóng
